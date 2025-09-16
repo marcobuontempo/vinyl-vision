@@ -12,4 +12,6 @@ export const layout = style({
 export const main = style({
   flex: 1,
   display: "flex",
+  flexDirection: "column",
+  width: "100%",
 });

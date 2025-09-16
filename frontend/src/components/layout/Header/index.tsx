@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import * as styles from "./styles.css";
 
 type Props = {};
@@ -7,23 +7,62 @@ const Header = ({}: Props) => {
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
-        <ul className={styles.navItem}>
+        <ul className={styles.list}>
           <li>
-            <Link to="/">Home</Link>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? styles.active : styles.inactive
+              }
+            >
+              Home
+            </NavLink>
           </li>
           <li>
-            <Link to="/music">Music</Link>
+            <NavLink
+              to="/music"
+              className={({ isActive }) =>
+                isActive ? styles.active : styles.inactive
+              }
+            >
+              Music
+            </NavLink>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                isActive ? styles.active : styles.inactive
+              }
+            >
+              About
+            </NavLink>
           </li>
         </ul>
 
-        <h1>Vinyl Vision</h1>
+        <span className={styles.logo}>Vinyl Vision</span>
 
-        <ul className={styles.navItem}>
-          <li>Account</li>
-          <li>Cart</li>
+        <ul className={styles.list}>
+          <li>
+            <NavLink
+              to="/login"
+              className={({ isActive }) =>
+                isActive ? styles.active : styles.inactive
+              }
+            >
+              Login
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/cart"
+              className={({ isActive }) =>
+                isActive ? styles.active : styles.inactive
+              }
+            >
+              Cart
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </header>

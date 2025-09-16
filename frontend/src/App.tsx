@@ -8,6 +8,8 @@ import Home from "./pages/Home";
 import Music from "./pages/Music";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 
 const App = () => {
   return (
@@ -15,6 +17,10 @@ const App = () => {
       <Route path="/" element={<Layout />}>
         {/* BASE */}
         <Route index element={<Home />} />
+
+        {/* AUTH */}
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
 
         {/* MUSIC */}
         <Route path="/music" element={<Music />} />

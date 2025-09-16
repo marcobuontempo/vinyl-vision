@@ -1,4 +1,4 @@
-import ErrorDisplay from "../../components/common/ErrorDisplay";
+import ErrorDisplay from "../../components/features/ErrorDisplay";
 
 type Props = {};
 

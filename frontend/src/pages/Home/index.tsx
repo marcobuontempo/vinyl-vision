@@ -1,9 +1,15 @@
-import * as styles from "./styles.css";
+import Hero from "../../components/features/Hero";
+import Spotlight from "../../components/features/Spotlight";
 
 type Props = {};
 
 const Home = ({}: Props) => {
-  return <div className={styles.home}>Home</div>;
+  return (
+    <>
+      <Hero />
+      <Spotlight />
+    </>
+  );
 };
 
 export default Home;

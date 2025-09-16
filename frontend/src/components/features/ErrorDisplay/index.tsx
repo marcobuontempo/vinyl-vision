@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import * as styles from "./styles.css";
+import LinkButton from "../../common/LinkButton";
 
 type Props = {
   number: number;
@@ -13,7 +13,7 @@ const ErrorDisplay = ({ number, message, information }: Props) => {
       <h1>Error {number}</h1>
       <h2>{message}</h2>
       <p>{information}</p>
-      <Link to="/">Go to Home</Link>
+      <LinkButton to="/">Go to Home</LinkButton>
     </section>
   );
 };

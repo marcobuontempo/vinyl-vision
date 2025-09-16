@@ -5,7 +5,7 @@ type Props = {};
 const Footer = ({}: Props) => {
   return (
     <footer className={styles.footer}>
-      <span>&copy; Vinyl Vision</span>
+      <span className={styles.copyright}>&copy; Vinyl Vision</span>
     </footer>
   );
 };
