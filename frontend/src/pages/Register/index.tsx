@@ -1,8 +1,9 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import Form from "../../components/common/Form";
-import Heading1 from "../../components/common/Heading1";
 import Input from "../../components/common/Input";
 import * as styles from "./styles.css";
+import Button from "../../components/common/Button";
+import { Link } from "react-router-dom";
 
 type Props = {};
 
@@ -27,46 +28,50 @@ const Register = ({}: Props) => {
   };
 
   return (
-    <>
-      <Heading1 className={styles.title}>Register</Heading1>
-      <div className={styles.register}>
-        <Form onSubmit={handleSubmit}>
-          <Input
-            label="Full Name"
-            name="fullname"
-            type="text"
-            autoComplete="name"
-            value={values.fullname}
-            onChange={handleChange}
-          />
-          <Input
-            label="Email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            value={values.email}
-            onChange={handleChange}
-          />
-          <Input
-            label="Password"
-            name="password"
-            type="password"
-            autoComplete="new-password"
-            value={values.password}
-            onChange={handleChange}
-          />
-          <Input
-            label="Confirm Password"
-            name="confirmpassword"
-            type="password"
-            value={values.confirmpassword}
-            onChange={handleChange}
-          />
+    <div className={styles.register}>
+      <Form onSubmit={handleSubmit}>
+        <Input
+          label="Full Name"
+          name="fullname"
+          type="text"
+          autoComplete="name"
+          value={values.fullname}
+          onChange={handleChange}
+        />
+        <Input
+          label="Email"
+          name="email"
+          type="email"
+          autoComplete="email"
+          value={values.email}
+          onChange={handleChange}
+        />
+        <Input
+          label="Password"
+          name="password"
+          type="password"
+          autoComplete="new-password"
+          value={values.password}
+          onChange={handleChange}
+        />
+        <Input
+          label="Confirm Password"
+          name="confirmpassword"
+          type="password"
+          value={values.confirmpassword}
+          onChange={handleChange}
+        />
 
-          <button>Submit</button>
-        </Form>
-      </div>
-    </>
+        <Button>Register</Button>
+      </Form>
+
+      <p className={styles.info}>
+        Already have an account?{" "}
+        <Link to="/login" className={styles.link}>
+          Login here
+        </Link>
+      </p>
+    </div>
   );
 };
 

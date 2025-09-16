@@ -5,4 +5,5 @@ export const form = style({
   maxWidth: "40rem",
   display: "flex",
   flexDirection: "column",
+  gap: "0.5rem",
 });

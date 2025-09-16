@@ -17,7 +17,7 @@ const Hero = ({}: Props) => {
         <LinkButton to="/music" className={styles.link}>
           Explore Music
         </LinkButton>
-        <LinkButton to="/signup" className={styles.link}>
+        <LinkButton to="/register" className={styles.link}>
           Sign Up
         </LinkButton>
       </div>

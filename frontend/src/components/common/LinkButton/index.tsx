@@ -5,8 +5,8 @@ type Props = LinkProps & {};
 
 const LinkButton = ({ ...props }: Props) => {
   const combinedClassName = props.className
-    ? `${props.className} ${styles.base}`
-    : styles.base;
+    ? `${props.className} ${styles.button}`
+    : styles.button;
 
   return <Link {...props} className={combinedClassName} />;
 };

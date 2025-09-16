@@ -55,6 +55,16 @@ const Header = ({}: Props) => {
           </li>
           <li>
             <NavLink
+              to="/register"
+              className={({ isActive }) =>
+                isActive ? styles.active : styles.inactive
+              }
+            >
+              Register
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
               to="/cart"
               className={({ isActive }) =>
                 isActive ? styles.active : styles.inactive

@@ -7,9 +7,9 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
   type: HTMLInputElement["type"];
 };
 
-const Input = ({ label, id, name, type, ...props }: Props) => {
+const Input = ({ label, name, type, ...props }: Props) => {
   const generatedId = useId();
-  const inputId = id ?? `${name}-${generatedId}`;
+  const inputId = props.id ?? `${name}-${generatedId}`;
 
   const combinedClassName = props.className
     ? `${props.className} ${styles.group}`

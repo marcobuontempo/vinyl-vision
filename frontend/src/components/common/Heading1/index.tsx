@@ -3,14 +3,14 @@ import * as styles from "./styles.css";
 
 type Props = ComponentPropsWithoutRef<"h1"> & {};
 
-const Heading1 = ({ children, ...props }: Props) => {
+const Heading1 = ({ ...props }: Props) => {
   const combinedClassName = props.className
     ? `${props.className} ${styles.h1}`
     : styles.h1;
 
   return (
     <h1 {...props} className={combinedClassName}>
-      {children}
+      {props.children}
     </h1>
   );
 };

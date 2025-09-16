@@ -1,8 +1,9 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import Form from "../../components/common/Form";
-import Heading1 from "../../components/common/Heading1";
 import Input from "../../components/common/Input";
 import * as styles from "./styles.css";
+import Button from "../../components/common/Button";
+import { Link } from "react-router-dom";
 
 type Props = {};
 
@@ -25,31 +26,35 @@ const Login = ({}: Props) => {
   };
 
   return (
-    <>
-      <Heading1 className={styles.title}>Login</Heading1>
-      <div className={styles.login}>
-        <Form onSubmit={handleSubmit}>
-          <Input
-            label="Email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            value={values.email}
-            onChange={handleChange}
-          />
-          <Input
-            label="Password"
-            name="password"
-            type="password"
-            autoComplete="new-password"
-            value={values.password}
-            onChange={handleChange}
-          />
+    <div className={styles.login}>
+      <Form onSubmit={handleSubmit}>
+        <Input
+          label="Email"
+          name="email"
+          type="email"
+          autoComplete="email"
+          value={values.email}
+          onChange={handleChange}
+        />
+        <Input
+          label="Password"
+          name="password"
+          type="password"
+          autoComplete="new-password"
+          value={values.password}
+          onChange={handleChange}
+        />
 
-          <button>Submit</button>
-        </Form>
-      </div>
-    </>
+        <Button>Login</Button>
+      </Form>
+
+      <p className={styles.info}>
+        Don't have an account yet?{" "}
+        <Link to="/register" className={styles.link}>
+          Register here
+        </Link>
+      </p>
+    </div>
   );
 };
 

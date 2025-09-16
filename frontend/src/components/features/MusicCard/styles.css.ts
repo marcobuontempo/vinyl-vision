@@ -9,7 +9,7 @@ export const card = style({
   borderBottom: "1px solid black",
 
   selectors: {
-    "&:hover::after": {
+    "&:hover::before": {
       content: "",
       width: "100%",
       height: "100%",
@@ -17,6 +17,7 @@ export const card = style({
       top: 0,
       left: 0,
       border: "2px solid black",
+      pointerEvents: "none",
       zIndex: "2",
     },
   },
@@ -30,7 +31,6 @@ export const artwork = style({
   height: "100%",
   objectFit: "cover",
   objectPosition: "center",
-  pointerEvents: "none",
   zIndex: "0",
 
   selectors: {
@@ -47,7 +47,7 @@ export const header = style({
   zIndex: "1",
 });
 
-export const title = style({
+export const text = style({
   overflow: "hidden",
   whiteSpace: "nowrap",
   textOverflow: "ellipsis",
@@ -55,8 +55,11 @@ export const title = style({
 
 export const details = style({
   flex: "1",
-  padding: "1rem",
   visibility: "hidden",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+  padding: "1rem",
   zIndex: "1",
 
   selectors: {
@@ -66,14 +69,22 @@ export const details = style({
   },
 });
 
+export const detail = style([
+  text,
+  {
+    flex: "1",
+  },
+]);
+
+export const expand = style({
+  fontWeight: "bold",
+  textAlign: "end",
+});
+
 export const footer = style({
   width: "100%",
   display: "flex",
   justifyContent: "space-between",
   padding: "0.5rem",
   zIndex: "1",
-});
-
-export const buy = style({
-  cursor: "pointer",
 });
