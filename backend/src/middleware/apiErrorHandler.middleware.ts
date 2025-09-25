@@ -1,14 +1,14 @@
 import { NextFunction, Request, Response } from "express";
-import ApiError from "../utlities/ApiError";
+import ApiError from "../utlities/ApiError.js";
 
-const apiErrorHandler = (
+export const apiErrorHandler = (
   error: unknown,
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   if (error instanceof ApiError) {
-    // Caught errors
+    // API errors
     res.status(error.code).json({ message: error.message });
     return;
   } else if (error instanceof Error) {
