@@ -3,4 +3,5 @@ export type UserType = {
   fullname: string;
   email: string;
   password: string;
+  isAdmin: boolean;
 };

@@ -1,9 +1,9 @@
 export class ApiError {
   code: number;
   message: string;
-  error?: Error;
+  error?: Error | unknown;
 
-  constructor(code: number, message: string, error?: Error) {
+  constructor(code: number, message: string, error?: Error | unknown) {
     this.code = code;
     this.message = message;
     this.error = error;
@@ -17,7 +17,7 @@ export class ApiError {
     return new ApiError(404, "Resource Not Found");
   }
 
-  static internal(message: string, error: Error) {
+  static internal(message: string, error: Error | unknown) {
     console.error(error);
     return new ApiError(500, `Internal Server Error: ${message}`, error);
   }
