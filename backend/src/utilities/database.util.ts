@@ -36,6 +36,7 @@ export const mapDocument = <T>(
 ): T => {
   return {
     ...document.data(),
+    id: document.id,
   } as T;
 };
 

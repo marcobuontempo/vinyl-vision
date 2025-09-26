@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { createUser, findOneUser } from "../services/user.service.js";
-import ApiError from "../utlities/ApiError.js";
+import ApiError from "../utilities/ApiError.js";
 import debug from "debug";
-import { mapDocument } from "../utlities/database.util.js";
-import authUtil from "../utlities/auth.util.js";
+import { mapDocument } from "../utilities/database.util.js";
+import authUtil from "../utilities/auth.util.js";
 
 const debugAuth = debug("app:auth");
 
@@ -57,7 +57,10 @@ export const AuthController = {
       }
 
       // Check password matches
-      const passwordMatch = await authUtil.comparePassword(password, userMatch.password);
+      const passwordMatch = await authUtil.comparePassword(
+        password,
+        userMatch.password
+      );
       if (!passwordMatch) {
         return next(ApiError.badRequest("Invalid credentials"));
       }
@@ -65,7 +68,7 @@ export const AuthController = {
       // Omit password field
       const userDetails = authUtil.omitPasswordField(userMatch);
 
-      // Return User data + JWT
+      // Return JWT with User Details as payload
       debugAuth(`Success - User: ${userMatch.id} logged in`);
       res.send({
         token: authUtil.jwtSignUser(userDetails),

@@ -6,9 +6,9 @@ import morgan from "morgan";
 import debug from "debug";
 
 import routes from "./routes/index.js";
-import ApiError from "./utlities/ApiError.js";
+import ApiError from "./utilities/ApiError.js";
 import apiErrorHandler from "./middleware/apiErrorHandler.middleware.js";
-import { connectDatabase } from "./utlities/database.util.js";
+import { connectDatabase } from "./utilities/database.util.js";
 
 const debugStartup = debug("app:startup");
 

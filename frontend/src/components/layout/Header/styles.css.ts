@@ -43,6 +43,8 @@ export const logo = style([
 ]);
 
 export const inactive = style({
+  cursor: "pointer",
+
   selectors: {
     "&:hover": {
       textDecoration: "underline",

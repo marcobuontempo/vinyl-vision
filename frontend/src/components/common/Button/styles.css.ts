@@ -13,5 +13,9 @@ export const button = style({
     "&:hover": {
       filter: "invert(1)",
     },
+    "&:disabled": {
+      filter: "invert(0.3)",
+      cursor: "default",
+    },
   },
 });

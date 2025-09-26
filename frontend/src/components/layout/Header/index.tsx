@@ -1,9 +1,12 @@
 import { NavLink } from "react-router-dom";
 import * as styles from "./styles.css";
+import { useAuth } from "../../../contexts/AuthContext";
 
 type Props = {};
 
 const Header = ({}: Props) => {
+  const { user, logout } = useAuth();
+
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
@@ -43,26 +46,30 @@ const Header = ({}: Props) => {
         <span className={styles.logo}>Vinyl Vision</span>
 
         <ul className={styles.list}>
-          <li>
-            <NavLink
-              to="/login"
-              className={({ isActive }) =>
-                isActive ? styles.active : styles.inactive
-              }
-            >
-              Login
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/register"
-              className={({ isActive }) =>
-                isActive ? styles.active : styles.inactive
-              }
-            >
-              Register
-            </NavLink>
-          </li>
+          {!user && (
+            <>
+              <li>
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    isActive ? styles.active : styles.inactive
+                  }
+                >
+                  Login
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/register"
+                  className={({ isActive }) =>
+                    isActive ? styles.active : styles.inactive
+                  }
+                >
+                  Register
+                </NavLink>
+              </li>
+            </>
+          )}
           <li>
             <NavLink
               to="/cart"
@@ -73,6 +80,13 @@ const Header = ({}: Props) => {
               Cart
             </NavLink>
           </li>
+          {user && (
+            <li>
+              <span onClick={logout} className={styles.inactive}>
+                Logout
+              </span>
+            </li>
+          )}
         </ul>
       </nav>
     </header>

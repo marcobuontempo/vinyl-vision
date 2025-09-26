@@ -1,6 +1,6 @@
 import express from "express";
 import packagejson from "../../package.json" with { type: "json" };
-import ApiError from "../utlities/ApiError.js";
+import ApiError from "../utilities/ApiError.js";
 
 import authRoutes from "./auth.routes.js";
 

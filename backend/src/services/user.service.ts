@@ -1,8 +1,8 @@
 import { UserType } from "../../../shared/types/user.js";
-import { db, mapDocument } from "../utlities/database.util.js";
-import authUtil from "../utlities/auth.util.js";
+import { db, mapDocument } from "../utilities/database.util.js";
+import authUtil from "../utilities/auth.util.js";
 
-export const findAllUsers = async (): Promise<UserType[] | null> => {
+export const findAllUsers = async (): Promise<UserType[]> => {
   const usersRef = db.collection("users");
 
   const snapshot = await usersRef.get();
@@ -14,12 +14,12 @@ export const findAllUsers = async (): Promise<UserType[] | null> => {
   return users;
 };
 
-export const findOneUser = async (
-  email: string
-): Promise<UserType | null | any> => {
+export const findOneUser = async (email: string): Promise<UserType | null> => {
   const usersRef = db.collection("users").where("email", "==", email);
 
   const snapshot = await usersRef.get();
+
+  if (snapshot.empty) return null;
 
   const users: UserType[] = [];
 

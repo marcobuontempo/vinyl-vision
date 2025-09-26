@@ -3,12 +3,32 @@ import Form from "../../components/common/Form";
 import Input from "../../components/common/Input";
 import * as styles from "./styles.css";
 import Button from "../../components/common/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { postLogin } from "../../api/auth";
+import { useAuth } from "../../contexts/AuthContext";
+
+type FormValues = {
+  email: string;
+  password: string;
+};
 
 type Props = {};
 
 const Login = ({}: Props) => {
-  const [values, setValues] = useState({
+  const { loginSaveUser } = useAuth();
+  const navigate = useNavigate();
+
+  const mutation = useMutation({
+    mutationFn: postLogin,
+    onSuccess: (data) => {
+      // Save token + user in AuthContext
+      loginSaveUser(data);
+      navigate("/");
+    },
+  });
+
+  const [values, setValues] = useState<FormValues>({
     email: "",
     password: "",
   });
@@ -22,7 +42,7 @@ const Login = ({}: Props) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(values);
+    mutation.mutate(values);
   };
 
   return (
@@ -45,7 +65,13 @@ const Login = ({}: Props) => {
           onChange={handleChange}
         />
 
-        <Button>Login</Button>
+        <Button disabled={Object.values(values).some((v) => v === "")}>
+          {(mutation.isIdle || mutation.isError) && "Login"}
+          {mutation.isSuccess && "Success!"}
+          {mutation.isPending && "Logging in..."}
+        </Button>
+
+        {mutation.isError && <p>{(mutation.error as Error).message}</p>}
       </Form>
 
       <p className={styles.info}>

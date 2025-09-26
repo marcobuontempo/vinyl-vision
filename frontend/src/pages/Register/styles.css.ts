@@ -14,4 +14,10 @@ export const info = style({
 
 export const link = style({
   fontWeight: "bold",
+
+  selectors: {
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  },
 });
