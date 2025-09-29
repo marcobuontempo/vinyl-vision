@@ -32,7 +32,6 @@ const MusicCard = ({ data, className }: Props) => {
         <p className={styles.detail}>{data.genre}</p>
         <p className={styles.detail}>{data.release_date}</p>
         <p className={styles.detail}>{data.length}</p>
-        <p className={styles.detail}>{data.format}</p>
         <Link to={`/music/${data.id}`} className={styles.expand}>
           + expand details
         </Link>
@@ -40,7 +39,7 @@ const MusicCard = ({ data, className }: Props) => {
 
       <footer className={styles.footer}>
         <p>
-          {(data.price / 100).toLocaleString("en-AU", {
+          {(data.price_aud / 100).toLocaleString("en-AU", {
             style: "currency",
             currency: "AUD",
           })}

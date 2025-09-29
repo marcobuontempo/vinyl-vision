@@ -16,6 +16,7 @@ export const text = style({
 export const subtext = style({
   fontSize: "1rem",
   fontWeight: "light",
+  paddingTop: "1rem",
 });
 
 export const cta = style({

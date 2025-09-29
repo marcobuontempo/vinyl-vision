@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "description": "",
   "scripts": {
-    "dev": "DEBUG=app* tsx --watch src/index.ts",
+    "dev": "DEBUG=app* tsx src/index.ts",
+    "dev:watch": "DEBUG=app* tsx --watch src/index.ts",
     "build": "tsc",
     "start": "DEBUG=app* node dist/index.js",
     "type-check": "tsc --noEmit"

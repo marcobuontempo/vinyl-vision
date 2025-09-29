@@ -1,17 +1,26 @@
 import * as styles from "./styles.css";
 
 import MusicCard from "../MusicCard";
-import type { MusicItemType } from "../../../../../shared/types";
+import { getAllMusic } from "../../../api/music";
+import { useQuery } from "@tanstack/react-query";
 
-type Props = {
-  music: MusicItemType[];
-};
+type Props = {};
 
-const MusicList = ({ music }: Props) => {
+const MusicList = ({}: Props) => {
+  const { isPending, isError, data, error } = useQuery({
+    queryKey: ["music"],
+    queryFn: getAllMusic,
+  });
+
+  if (isPending) return null;
+  if (isError) return null;
+  if (error) return null;
+  if (!data) return null;
+
   return (
     <section className={styles.musicList}>
-      {music.map((data) => (
-        <MusicCard key={data.id} data={data} />
+      {data.map((music) => (
+        <MusicCard key={music.id} data={music} />
       ))}
     </section>
   );

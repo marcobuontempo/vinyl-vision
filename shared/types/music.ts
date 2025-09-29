@@ -7,6 +7,5 @@ export type MusicItemType = {
   genre: string;
   release_date: string;
   length: number;
-  format: string;
-  price: number;
+  price_aud: number;
 };

@@ -10,10 +10,12 @@ type Props = {
 const ErrorDisplay = ({ number, message, information }: Props) => {
   return (
     <section className={styles.errorDisplay} role="alert">
-      <h1>Error {number}</h1>
-      <h2>{message}</h2>
+      <div role="group">
+        <h1 className={styles.number}>Error {number}</h1>
+        <h2>{message}</h2>
+      </div>
       <p>{information}</p>
-      <LinkButton to="/">Go to Home</LinkButton>
+      <LinkButton className={styles.button} to="/">Go to Home</LinkButton>
     </section>
   );
 };

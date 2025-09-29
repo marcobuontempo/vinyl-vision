@@ -1,13 +1,13 @@
 import axios, { AxiosError } from "axios";
 
 // Create a custom axios instance
-const api = axios.create({
+export const api = axios.create({
   baseURL: "/api",
   headers: { "Content-Type": "application/json" },
 });
 
 // General error handler
-const handleApiError = (error: unknown) => {
+export const handleApiError = (error: unknown) => {
   if (axios.isAxiosError(error)) {
     const axiosError = error as AxiosError<{ message?: string }>;
 
@@ -23,5 +23,3 @@ const handleApiError = (error: unknown) => {
   // Something else happened
   throw new Error((error as Error).message || "Unknown error");
 };
-
-export { api, handleApiError };

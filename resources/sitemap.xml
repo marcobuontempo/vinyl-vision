@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gloomaps scheme="1.0">
+  <link>https://www.gloomaps.com/ylimJTlNkm</link>
+  <pubdate>09/29/2025</pubdate>
+  <section>
+    <box>
+      <text>Vinyl Vision</text>
+      <member>
+        <box>
+          <text>Home</text>
+          <member/>
+        </box>
+        <box>
+          <text>About</text>
+          <member/>
+        </box>
+        <box>
+          <text>Register</text>
+          <member/>
+        </box>
+        <box>
+          <text>Login</text>
+          <member/>
+        </box>
+        <box>
+          <text>Music</text>
+          <member>
+            <box>
+              <text>Music Details</text>
+              <member/>
+            </box>
+          </member>
+        </box>
+        <box>
+          <text>Cart</text>
+          <member/>
+        </box>
+        <box>
+          <text>Error</text>
+          <member/>
+        </box>
+      </member>
+    </box>
+  </section>
+</gloomaps>

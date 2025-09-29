@@ -2,12 +2,11 @@ import { Request, Response, NextFunction } from "express";
 import { createUser, findOneUser } from "../services/user.service.js";
 import ApiError from "../utilities/ApiError.js";
 import debug from "debug";
-import { mapDocument } from "../utilities/database.util.js";
 import authUtil from "../utilities/auth.util.js";
 
 const debugAuth = debug("app:auth");
 
-export const AuthController = {
+const AuthController = {
   async register(req: Request, res: Response, next: NextFunction) {
     try {
       // Destructure body

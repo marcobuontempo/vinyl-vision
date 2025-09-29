@@ -1,8 +1,8 @@
 import express from "express";
 import packagejson from "../../package.json" with { type: "json" };
-import ApiError from "../utilities/ApiError.js";
 
 import authRoutes from "./auth.routes.js";
+import musicRoutes from "./music.routes.js";
 
 const router = express.Router();
 
@@ -18,5 +18,8 @@ router.get("/", (req, res, next) =>
 
 // Auth Routes
 router.use("/auth", authRoutes);
+
+// Music Routes
+router.use("/music", musicRoutes);
 
 export default router;
