@@ -10,16 +10,20 @@ export const card = style({
   maxWidth: "20rem",
 
   selectors: {
-    "&:hover::before": {
+    "&::before": {
       content: "",
       width: "100%",
       height: "100%",
       position: "absolute",
       top: 0,
       left: 0,
-      border: "2px solid black",
+      border: "2px solid transparent",
       pointerEvents: "none",
+      transition: "border 200ms ease",
       zIndex: "2",
+    },
+    "&:hover::before": {
+      border: "2px solid black",
     },
   },
 });
@@ -33,6 +37,7 @@ export const artwork = style({
   objectFit: "cover",
   objectPosition: "center",
   zIndex: "0",
+  transition: "filter 200ms ease",
 
   selectors: {
     [`${card}:hover &`]: {
@@ -61,11 +66,14 @@ export const details = style({
   flexDirection: "column",
   justifyContent: "space-between",
   padding: "1rem",
+  opacity: 0,
+  transition: "all 200ms ease",
   zIndex: "1",
 
   selectors: {
     [`${card}:hover &`]: {
       visibility: "visible",
+      opacity: 1,
     },
   },
 });
@@ -80,6 +88,12 @@ export const detail = style([
 export const expand = style({
   fontWeight: "bold",
   textAlign: "end",
+
+  selectors: {
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  },
 });
 
 export const footer = style({

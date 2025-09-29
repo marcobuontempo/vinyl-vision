@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { createUser, findOneUser } from "../services/user.service.js";
+import { createUser, findOneUser } from "../services/users.service.js";
 import ApiError from "../utilities/ApiError.js";
 import debug from "debug";
 import authUtil from "../utilities/auth.util.js";

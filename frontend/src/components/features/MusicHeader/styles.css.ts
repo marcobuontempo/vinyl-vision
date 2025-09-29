@@ -7,13 +7,17 @@ export const header = style({
   borderBottom: "1px solid black",
 });
 
-export const title = style({
-
-});
+export const title = style({});
 
 export const filter = style({
   appearance: "none",
   border: "none",
   background: "none",
   cursor: "pointer",
+
+  selectors: {
+    "&:hover": {
+      textShadow: "1px 0 0 black",
+    },
+  },
 });

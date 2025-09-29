@@ -10,6 +10,8 @@ import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import Cart from "./pages/Cart";
+import MusicDetail from "./pages/MusicDetail";
 
 const App = () => {
   return (
@@ -24,6 +26,10 @@ const App = () => {
 
         {/* MUSIC */}
         <Route path="/music" element={<Music />} />
+        <Route path="/music/:id" element={<MusicDetail />} />
+
+        {/* CART */}
+        <Route path="/cart" element={<Cart />} />
 
         {/* MISC */}
         <Route path="/about" element={<About />} />

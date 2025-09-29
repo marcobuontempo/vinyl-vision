@@ -12,3 +12,10 @@ export const findAllMusic = async (): Promise<MusicItemType[]> => {
 
   return music;
 };
+
+export const findOneMusicById = async (
+  id: string
+): Promise<MusicItemType | null> => {
+  const music = await db.collection("music").doc(id).get();
+  return mapDocument<MusicItemType>(music);
+};

@@ -13,8 +13,7 @@ export const getAllMusic = async () => {
 export const getMusicById = async (id: string) => {
   try {
     const res = await api.get(`/music/${id}`);
-    console.log(res);
-    return res;
+    return res.data as MusicItemType;
   } catch (error) {
     handleApiError(error);
   }

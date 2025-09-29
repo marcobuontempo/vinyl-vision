@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 type Props = {};
 
 const MusicList = ({}: Props) => {
-  const { isPending, isError, data, error } = useQuery({
+  const { data, isPending, isError, error } = useQuery({
     queryKey: ["music"],
     queryFn: getAllMusic,
   });
