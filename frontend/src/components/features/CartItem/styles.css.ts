@@ -21,6 +21,13 @@ export const item = style({
       pointerEvents: "none",
     },
   },
+
+  "@media": {
+    "screen and (max-width: 768px)": {
+      flexDirection: "column",
+      justifyContent: "center",
+    },
+  },
 });
 
 export const artwork = style({
@@ -28,6 +35,12 @@ export const artwork = style({
   width: "25%",
   objectFit: "cover",
   objectPosition: "center",
+
+  "@media": {
+    "screen and (max-width: 768px)": {
+      width: "100%",
+    },
+  },
 });
 
 export const info = style({
@@ -35,4 +48,22 @@ export const info = style({
   overflow: "hidden",
   textOverflow: "ellipsis",
   width: "25%",
+
+  "@media": {
+    "screen and (max-width: 768px)": {
+      width: "100%",
+    },
+  },
+});
+
+export const title = style({
+  fontWeight: "bold",
+});
+
+export const remove = style({
+  "@media": {
+    "screen and (max-width: 768px)": {
+      width: "100%",
+    },
+  },
 });

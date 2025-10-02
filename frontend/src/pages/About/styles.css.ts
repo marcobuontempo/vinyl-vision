@@ -10,6 +10,8 @@ export const content = style({
   flexDirection: "column",
   alignItems: "center",
   gap: "2rem",
+  padding: "2rem",
+  paddingTop: "0",
 });
 
 export const paragraph = style({

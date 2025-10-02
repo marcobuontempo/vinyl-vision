@@ -2,109 +2,143 @@ import { NavLink } from "react-router-dom";
 import * as styles from "./styles.css";
 import { useAuth } from "../../../contexts/AuthContext";
 import { useCart } from "../../../contexts/CartContext";
-import { FaCartShopping } from "react-icons/fa6";
+import { FaBars, FaCartShopping } from "react-icons/fa6";
+import { useState } from "react";
+import { FaTimes } from "react-icons/fa";
 
 type Props = {};
 
 const Header = ({}: Props) => {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const { cart } = useCart();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
-        <ul className={styles.list}>
-          <li>
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive ? styles.active : styles.inactive
-              }
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/music"
-              className={({ isActive }) =>
-                isActive ? styles.active : styles.inactive
-              }
-            >
-              Music
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                isActive ? styles.active : styles.inactive
-              }
-            >
-              About
-            </NavLink>
-          </li>
-        </ul>
+        {/* LOGO MOBILE */}
+        <div className={styles.logoMobile}>
+          <NavLink to="/">Vinyl Vision</NavLink>
+        </div>
 
-        <span className={styles.logo}>Vinyl Vision</span>
+        {/* Burger Icon */}
+        <button
+          className={styles.burger}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle Menu"
+        >
+          {menuOpen ? <FaTimes /> : <FaBars />}
+        </button>
 
-        <ul className={styles.list}>
-          {user?.isAdmin && (
+        {/* MENU ITEMS */}
+        <div
+          className={`${styles.navGroup} ${
+            menuOpen ? styles.navGroupOpen : ""
+          }`}
+        >
+          {/* NAV ITEMS (1) */}
+          <ul className={styles.list}>
             <li>
               <NavLink
-                to="/admin"
+                to="/"
                 className={({ isActive }) =>
-                  isActive ? styles.activeAdmin : styles.inactiveAdmin
+                  isActive ? styles.active : styles.inactive
                 }
               >
-                Admin
+                Home
               </NavLink>
             </li>
-          )}
-          {user ? (
             <li>
-              <span onClick={logout} className={styles.inactive}>
-                Logout
-              </span>
+              <NavLink
+                to="/music"
+                className={({ isActive }) =>
+                  isActive ? styles.active : styles.inactive
+                }
+              >
+                Music
+              </NavLink>
             </li>
-          ) : (
-            <>
+            <li>
+              <NavLink
+                to="/about"
+                className={({ isActive }) =>
+                  isActive ? styles.active : styles.inactive
+                }
+              >
+                About
+              </NavLink>
+            </li>
+          </ul>
+
+          {/* LOGO DESKTOP */}
+          <div className={styles.logo}>
+            <NavLink to="/">Vinyl Vision</NavLink>
+          </div>
+
+          {/* NAV ITEMS (2) */}
+          <ul className={styles.list}>
+            {user?.isAdmin && (
               <li>
                 <NavLink
-                  to="/login"
+                  to="/admin"
+                  className={({ isActive }) =>
+                    isActive ? styles.activeAdmin : styles.inactiveAdmin
+                  }
+                >
+                  Admin
+                </NavLink>
+              </li>
+            )}
+            {user ? (
+              <li>
+                <NavLink
+                  to="/dashboard"
                   className={({ isActive }) =>
                     isActive ? styles.active : styles.inactive
                   }
                 >
-                  Login
+                  Dashboard
                 </NavLink>
               </li>
-              <li>
-                <NavLink
-                  to="/register"
-                  className={({ isActive }) =>
-                    isActive ? styles.active : styles.inactive
-                  }
-                >
-                  Register
-                </NavLink>
-              </li>
-            </>
-          )}
-          <li>
-            <NavLink
-              to="/cart"
-              className={({ isActive }) =>
-                isActive ? styles.activeCart : styles.inactiveCart
-              }
-            >
-              <FaCartShopping />
-              <span className={styles.cartCount}>
-                {Object.keys(cart).length}
-              </span>
-            </NavLink>
-          </li>
-        </ul>
+            ) : (
+              <>
+                <li>
+                  <NavLink
+                    to="/login"
+                    className={({ isActive }) =>
+                      isActive ? styles.active : styles.inactive
+                    }
+                  >
+                    Login
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/register"
+                    className={({ isActive }) =>
+                      isActive ? styles.active : styles.inactive
+                    }
+                  >
+                    Register
+                  </NavLink>
+                </li>
+              </>
+            )}
+            <li>
+              <NavLink
+                to="/cart"
+                className={({ isActive }) =>
+                  isActive ? styles.activeCart : styles.inactiveCart
+                }
+              >
+                <FaCartShopping />
+                <span className={styles.cartCount}>
+                  {Object.keys(cart).length}
+                </span>
+              </NavLink>
+            </li>
+          </ul>
+        </div>
       </nav>
     </header>
   );

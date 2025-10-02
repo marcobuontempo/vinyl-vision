@@ -5,9 +5,62 @@ export const header = style({});
 export const nav = style({
   height: "5rem",
   display: "flex",
-  justifyContent: "space-between",
+  justifyContent: "center",
   alignItems: "center",
   borderBottom: "1px solid black",
+
+  "@media": {
+    "screen and (max-width: 768px)": {
+      padding: "0 2rem",
+    },
+  },
+});
+
+export const burger = style({
+  display: "none",
+  background: "transparent",
+  border: "none",
+  cursor: "pointer",
+  fontSize: "1.5rem",
+  "@media": {
+    "screen and (max-width: 768px)": {
+      display: "block",
+    },
+  },
+});
+
+export const navGroup = style({
+  width: "100%",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+
+  "@media": {
+    "screen and (max-width: 768px)": {
+      display: "none",
+      position: "fixed",
+      top: "0",
+      left: "0",
+      gap: "1rem",
+      paddingTop: "1rem",
+      fontSize: "1.5rem",
+      flexDirection: "column",
+      justifyContent: "center",
+      height: "calc(100dvh - 5rem)",
+      width: "100dvw",
+      background: "white",
+      zIndex: "9999",
+    },
+  },
+});
+
+export const navGroupOpen = style({
+  "@media": {
+    "screen and (max-width: 768px)": {
+      display: "flex !important",
+      marginTop: "5rem",
+    },
+  },
 });
 
 export const box = style({
@@ -24,6 +77,19 @@ export const box = style({
       justifyContent: "flex-end",
     },
   },
+
+  "@media": {
+    "screen and (max-width: 768px)": {
+      selectors: {
+        "&:first-child": {
+          justifyContent: "flex-end",
+        },
+        "&:last-child": {
+          justifyContent: "flex-start",
+        },
+      },
+    },
+  },
 });
 
 export const list = style([
@@ -32,6 +98,12 @@ export const list = style([
     gap: "1rem",
     listStyle: "none",
     padding: "0 1rem",
+
+    "@media": {
+      "screen and (max-width: 768px)": {
+        flexDirection: "column",
+      },
+    },
   },
 ]);
 
@@ -39,6 +111,23 @@ export const logo = style([
   box,
   {
     textAlign: "center",
+    "@media": {
+      "screen and (max-width: 768px)": {
+        display: "none",
+      },
+    },
+  },
+]);
+
+export const logoMobile = style([
+  box,
+  {
+    display: "none",
+    "@media": {
+      "screen and (max-width: 768px)": {
+        display: "block",
+      },
+    },
   },
 ]);
 
@@ -72,15 +161,20 @@ export const inactiveAdmin = style([
   },
 ]);
 
-export const activeCart = style({
+const cart = style({
   position: "relative",
   fontSize: "2rem",
+  "@media": {
+    "screen and (max-width: 768px)": {
+      display: "block",
+      fontSize: "3rem",
+    },
+  },
 });
 
-export const inactiveCart = style({
-  position: "relative",
-  fontSize: "2rem",
-});
+export const activeCart = style([cart]);
+
+export const inactiveCart = style([cart]);
 
 export const cartCount = style({
   position: "absolute",
@@ -99,6 +193,13 @@ export const cartCount = style({
     },
     [`${inactiveCart}:hover &`]: {
       borderBottom: "2px solid black",
+    },
+  },
+
+  "@media": {
+    "screen and (max-width: 768px)": {
+      paddingTop: "0.4rem",
+      fontSize: "0.75rem",
     },
   },
 });

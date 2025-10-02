@@ -27,7 +27,8 @@ const Register = ({}: Props) => {
       if (values.password !== values.confirmpassword) {
         throw new Error("Passwords do not match");
       }
-      return postRegister(values);
+      const { confirmpassword, ...userDetails } = values;
+      return postRegister(userDetails);
     },
     onSuccess: (data) => {
       // Save token + user in AuthContext

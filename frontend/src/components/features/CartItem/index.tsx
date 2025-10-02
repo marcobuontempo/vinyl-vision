@@ -14,10 +14,12 @@ const CartItem = ({ data }: Props) => {
   return (
     <div className={styles.item}>
       <img className={styles.artwork} src={data.artwork} alt={data.title} />
-      <p className={styles.info}>{data.title}</p>
+      <p className={`${styles.info} ${styles.title}`}>{data.title}</p>
       <p className={styles.info}>{data.artist}</p>
       <p>{convertPriceToCurrency(data.price_aud)}</p>
-      <Button onClick={() => removeFromCart(data.id)}>Remove</Button>
+      <Button className={styles.remove} onClick={() => removeFromCart(data.id)}>
+        Remove
+      </Button>
     </div>
   );
 };
