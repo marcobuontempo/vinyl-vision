@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // CSS Reset & Typography
 import "./styles/reset.css";
 import { AuthProvider } from "./contexts/AuthContext.tsx";
+import { CartProvider } from "./contexts/CartContext.tsx";
 
 export const queryClient = new QueryClient();
 
@@ -17,7 +18,9 @@ createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <AuthProvider>
-          <App />
+          <CartProvider>
+            <App />
+          </CartProvider>
         </AuthProvider>
       </BrowserRouter>
     </QueryClientProvider>

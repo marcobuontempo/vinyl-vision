@@ -46,3 +46,15 @@ export const content = style({
 export const information = style({
   padding: "2rem",
 });
+
+export const price = style({
+  textAlign: "end",
+  fontWeight: "bold",
+});
+
+export const stateContainer = style({
+  flex: "1",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+});

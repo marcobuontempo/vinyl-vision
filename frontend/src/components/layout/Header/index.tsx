@@ -1,11 +1,14 @@
 import { NavLink } from "react-router-dom";
 import * as styles from "./styles.css";
 import { useAuth } from "../../../contexts/AuthContext";
+import { useCart } from "../../../contexts/CartContext";
+import { FaCartShopping } from "react-icons/fa6";
 
 type Props = {};
 
 const Header = ({}: Props) => {
   const { user, logout } = useAuth();
+  const { cart } = useCart();
 
   return (
     <header className={styles.header}>
@@ -46,7 +49,25 @@ const Header = ({}: Props) => {
         <span className={styles.logo}>Vinyl Vision</span>
 
         <ul className={styles.list}>
-          {!user && (
+          {user?.isAdmin && (
+            <li>
+              <NavLink
+                to="/admin"
+                className={({ isActive }) =>
+                  isActive ? styles.activeAdmin : styles.inactiveAdmin
+                }
+              >
+                Admin
+              </NavLink>
+            </li>
+          )}
+          {user ? (
+            <li>
+              <span onClick={logout} className={styles.inactive}>
+                Logout
+              </span>
+            </li>
+          ) : (
             <>
               <li>
                 <NavLink
@@ -74,19 +95,15 @@ const Header = ({}: Props) => {
             <NavLink
               to="/cart"
               className={({ isActive }) =>
-                isActive ? styles.active : styles.inactive
+                isActive ? styles.activeCart : styles.inactiveCart
               }
             >
-              Cart
+              <FaCartShopping />
+              <span className={styles.cartCount}>
+                {Object.keys(cart).length}
+              </span>
             </NavLink>
           </li>
-          {user && (
-            <li>
-              <span onClick={logout} className={styles.inactive}>
-                Logout
-              </span>
-            </li>
-          )}
         </ul>
       </nav>
     </header>

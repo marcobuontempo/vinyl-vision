@@ -6,13 +6,17 @@ import type { MusicItemType } from "../../../../shared/types";
 import Heading1 from "../../components/common/Heading1";
 import * as styles from "./styles.css";
 import Button from "../../components/common/Button";
+import { useCart } from "../../contexts/CartContext";
+import { convertPriceToCurrency } from "../../utils/helpers";
+import { ScaleLoader } from "react-spinners";
 
 type Props = {};
 
 const MusicDetail = ({}: Props) => {
   const { id } = useParams();
+  const { cart, addToCart } = useCart();
 
-  const { data, isPending, isError, error } = useQuery({
+  const { data, isPending, isError, refetch } = useQuery({
     queryKey: ["music", id],
     queryFn: () => getMusicById(id!),
     enabled: !!id, // only fetch if an id is passed (which should always be the case)
@@ -22,10 +26,21 @@ const MusicDetail = ({}: Props) => {
         ?.find((m) => m.id === id), // use the music data directly from the "music" query for instant load (if available)
   });
 
-  if (isPending) return null;
-  if (isError) return null;
-  if (error) return null;
-  if (!data) return null;
+  if (isPending)
+    return (
+      <div className={styles.stateContainer}>
+        <ScaleLoader color="#000" height={"1rem"} />
+      </div>
+    );
+
+  if (isError)
+    return (
+      <div className={styles.stateContainer}>
+        <Button onClick={() => refetch()}>Fetch Failed. Retry?</Button>
+      </div>
+    );
+
+  if (!data) return <div className={styles.stateContainer}>No Data</div>;
 
   return (
     <div className={styles.detail}>
@@ -44,8 +59,13 @@ const MusicDetail = ({}: Props) => {
             <p>Genre: {data.genre}</p>
             <p>Release Date: {data.release_date}</p>
             <p>Track Length: {data.length}</p>
+            <p className={styles.price}>
+              {convertPriceToCurrency(data.price_aud)}
+            </p>
           </div>
-          <Button>Add To Cart</Button>
+          <Button onClick={() => addToCart(data)} disabled={!!cart[data.id]}>
+            {cart[data.id] ? "IN CART" : "ADD TO CART"}
+          </Button>
         </div>
       </section>
     </div>

@@ -3,6 +3,8 @@ import * as styles from "./styles.css";
 import type { MusicItemType } from "../../../../../shared/types";
 import Button from "../../common/Button";
 import { Link } from "react-router-dom";
+import { useCart } from "../../../contexts/CartContext";
+import { convertPriceToCurrency } from "../../../utils/helpers";
 
 type Props = {
   data: MusicItemType;
@@ -10,6 +12,8 @@ type Props = {
 };
 
 const MusicCard = ({ data, className }: Props) => {
+  const { cart, addToCart } = useCart();
+
   const combinedClassName = className
     ? `${className} ${styles.card}`
     : styles.card;
@@ -38,13 +42,10 @@ const MusicCard = ({ data, className }: Props) => {
       </aside>
 
       <footer className={styles.footer}>
-        <p>
-          {(data.price_aud / 100).toLocaleString("en-AU", {
-            style: "currency",
-            currency: "AUD",
-          })}
-        </p>
-        <Button>ADD</Button>
+        <p>{convertPriceToCurrency(data.price_aud)}</p>
+        <Button onClick={() => addToCart(data)} disabled={!!cart[data.id]}>
+          {cart[data.id] ? "IN CART" : "ADD"}
+        </Button>
       </footer>
     </article>
   );

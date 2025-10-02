@@ -5,3 +5,10 @@ export const musicList = style({
   gridTemplateColumns: "repeat(auto-fit, minmax(18rem, 1fr))",
   borderLeft: "1px solid black",
 });
+
+export const stateContainer = style({
+  flex: "1",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+});

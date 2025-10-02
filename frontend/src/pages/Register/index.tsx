@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { useMutation } from "@tanstack/react-query";
 import { postRegister } from "../../api/auth";
+import { ScaleLoader } from "react-spinners";
 
 type FormValues = {
   fullname: string;
@@ -92,10 +93,10 @@ const Register = ({}: Props) => {
         <Button disabled={Object.values(values).some((v) => v === "")}>
           {(mutation.isIdle || mutation.isError) && "Register"}
           {mutation.isSuccess && "Success!"}
-          {mutation.isPending && "Registering..."}
+          {mutation.isPending && <ScaleLoader color="#FFF" height={"0.8rem"} />}
         </Button>
 
-        {mutation.isError && <p>{(mutation.error as Error).message}</p>}
+        {mutation.isError && <p className={styles.error}>{(mutation.error as Error).message}</p>}
       </Form>
 
       <p className={styles.info}>

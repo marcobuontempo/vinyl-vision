@@ -21,3 +21,7 @@ export const link = style({
     },
   },
 });
+
+export const error = style({
+  textAlign: "center",
+});
