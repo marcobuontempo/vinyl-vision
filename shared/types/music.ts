@@ -9,3 +9,8 @@ export type MusicItemType = {
   length: number;
   price_aud: number;
 };
+
+export type SortOptions = {
+  sortBy: keyof MusicItemType;
+  order: "asc" | "desc";
+};

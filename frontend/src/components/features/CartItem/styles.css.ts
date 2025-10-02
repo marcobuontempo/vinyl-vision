@@ -17,7 +17,6 @@ export const item = style({
       left: "0",
       width: "100%",
       height: "100%",
-      borderTop: "1px solid black",
       borderBottom: "1px solid black",
       pointerEvents: "none",
     },

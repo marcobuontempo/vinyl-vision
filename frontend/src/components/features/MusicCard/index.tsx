@@ -4,7 +4,10 @@ import type { MusicItemType } from "../../../../../shared/types";
 import Button from "../../common/Button";
 import { Link } from "react-router-dom";
 import { useCart } from "../../../contexts/CartContext";
-import { convertPriceToCurrency } from "../../../utils/helpers";
+import {
+  convertPriceToCurrency,
+  convertSecondsToHHMMSS,
+} from "../../../utils/helpers";
 
 type Props = {
   data: MusicItemType;
@@ -35,7 +38,7 @@ const MusicCard = ({ data, className }: Props) => {
         <p className={styles.detail}>{data.description}</p>
         <p className={styles.detail}>{data.genre}</p>
         <p className={styles.detail}>{data.release_date}</p>
-        <p className={styles.detail}>{data.length}</p>
+        <p className={styles.detail}>{convertSecondsToHHMMSS(data.length)}</p>
         <Link to={`/music/${data.id}`} className={styles.expand}>
           + expand details
         </Link>

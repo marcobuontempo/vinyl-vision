@@ -31,13 +31,11 @@ const connectDatabase = async () => {
   }
 };
 
-export const mapDocument = <T>(
-  document: admin.firestore.DocumentSnapshot
-): T => {
+const mapDocument = <T>(document: admin.firestore.DocumentSnapshot): T => {
   return {
     ...document.data(),
     id: document.id,
   } as T;
 };
 
-export { connectDatabase, db, bucket };
+export { connectDatabase, db, bucket, mapDocument };

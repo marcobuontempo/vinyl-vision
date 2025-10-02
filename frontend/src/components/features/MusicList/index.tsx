@@ -5,13 +5,23 @@ import { getAllMusic } from "../../../api/music";
 import { useQuery } from "@tanstack/react-query";
 import { ScaleLoader } from "react-spinners";
 import Button from "../../common/Button";
+import { useSearchParams } from "react-router-dom";
+import type { SortOptions } from "../../../../../shared/types";
 
 type Props = {};
 
 const MusicList = ({}: Props) => {
+  const [searchParams] = useSearchParams();
+  const sortBy =
+    (searchParams.get("sortBy") as SortOptions["sortBy"]) || undefined;
+  const order =
+    (searchParams.get("order") as SortOptions["order"]) || undefined;
+
   const { data, isPending, isError, refetch } = useQuery({
-    queryKey: ["music"],
-    queryFn: getAllMusic,
+    queryKey: ["music", sortBy, order],
+    queryFn: () => {
+      return getAllMusic(sortBy, order);
+    },
     retry: 2,
   });
 

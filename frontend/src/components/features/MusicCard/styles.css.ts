@@ -7,7 +7,7 @@ export const card = style({
   flexDirection: "column",
   borderRight: "1px solid black",
   borderBottom: "1px solid black",
-  maxWidth: "20rem",
+  cursor: "default",
 
   selectors: {
     "&::before": {

@@ -25,6 +25,7 @@ export const container = style({
 
 export const artwork = style({
   width: "50%",
+  aspectRatio: "1/1",
   objectFit: "cover",
   objectPosition: "center",
 });

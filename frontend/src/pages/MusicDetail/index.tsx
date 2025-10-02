@@ -7,7 +7,10 @@ import Heading1 from "../../components/common/Heading1";
 import * as styles from "./styles.css";
 import Button from "../../components/common/Button";
 import { useCart } from "../../contexts/CartContext";
-import { convertPriceToCurrency } from "../../utils/helpers";
+import {
+  convertPriceToCurrency,
+  convertSecondsToHHMMSS,
+} from "../../utils/helpers";
 import { ScaleLoader } from "react-spinners";
 
 type Props = {};
@@ -58,7 +61,7 @@ const MusicDetail = ({}: Props) => {
             <p>Artist: {data.artist}</p>
             <p>Genre: {data.genre}</p>
             <p>Release Date: {data.release_date}</p>
-            <p>Track Length: {data.length}</p>
+            <p>Track Length: {convertSecondsToHHMMSS(data.length)}</p>
             <p className={styles.price}>
               {convertPriceToCurrency(data.price_aud)}
             </p>

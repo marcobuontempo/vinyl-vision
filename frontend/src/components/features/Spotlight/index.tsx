@@ -14,7 +14,7 @@ const mockData = [
     release_date: "release_date3",
     length: 200,
     format: "format3",
-    price: 2000,
+    price_aud: 100,
   },
   {
     id: "id2",
@@ -26,7 +26,7 @@ const mockData = [
     release_date: "release_date2",
     length: 75,
     format: "format2",
-    price: 2000,
+    price_aud: 350,
   },
   {
     id: "id",
@@ -38,7 +38,7 @@ const mockData = [
     release_date: "release_date",
     length: 65,
     format: "format",
-    price: 2000,
+    price_aud: 499,
   },
   {
     id: "id6",
@@ -50,7 +50,7 @@ const mockData = [
     release_date: "release_date6",
     length: 150,
     format: "format6",
-    price: 2000,
+    price_aud: 2000,
   },
   {
     id: "id8",
@@ -62,7 +62,7 @@ const mockData = [
     release_date: "release_date8",
     length: 250,
     format: "format8",
-    price: 2000,
+    price_aud: 2000,
   },
   {
     id: "id7",
@@ -74,7 +74,7 @@ const mockData = [
     release_date: "release_date7",
     length: 55,
     format: "format7",
-    price: 2000,
+    price_aud: 2000,
   },
 ];
 

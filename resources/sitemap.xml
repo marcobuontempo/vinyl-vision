@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gloomaps scheme="1.0">
-  <link>https://www.gloomaps.com/ylimJTlNkm</link>
-  <pubdate>09/29/2025</pubdate>
+  <link>https://www.gloomaps.com/yQisljkxE2</link>
+  <pubdate>10/02/2025</pubdate>
   <section>
     <box>
       <text>Vinyl Vision</text>
@@ -36,7 +36,17 @@
           <member/>
         </box>
         <box>
+          <text>Dashboard</text>
+          <member/>
+        </box>
+        <box>
           <text>Error</text>
+          <member/>
+        </box>
+        <box>
+          <text>Admin</text>
+          <propa>#ff0000</propa>
+          <propb>#ffffff</propb>
           <member/>
         </box>
       </member>

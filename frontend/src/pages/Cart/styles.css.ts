@@ -10,6 +10,7 @@ export const cart = style({
 
 export const heading = style({
   padding: "2rem",
+  borderBottom: "1px solid black",
 });
 
 export const clear = style({
@@ -19,7 +20,7 @@ export const clear = style({
 
 export const empty = style({
   flex: "1",
-  padding: "0 2rem",
+  padding: "2rem",
 });
 
 export const list = style({

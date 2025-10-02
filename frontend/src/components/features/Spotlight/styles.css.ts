@@ -1,8 +1,6 @@
 import { style } from "@vanilla-extract/css";
 
-export const spotlight = style({
-  
-});
+export const spotlight = style({});
 
 export const title = style({
   width: "100%",
@@ -20,10 +18,7 @@ export const list = style({
 });
 
 export const item = style({
-  width: "380px",
-  minWidth: "380px",
-  height: "380px",
-  minHeight: "380px",
+  minWidth: "20rem",
   border: "1px solid black",
   background: "grey",
 });

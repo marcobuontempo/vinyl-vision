@@ -3,7 +3,7 @@ import MusicList from "../../components/features/MusicList";
 
 type Props = {};
 
-const Music = ({}: Props) => {
+const Music = ({}: Props) => {  
   return (
     <>
       <MusicHeader />
