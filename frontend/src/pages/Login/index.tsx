@@ -55,6 +55,7 @@ const Login = ({}: Props) => {
           type="email"
           autoComplete="email"
           value={values.email}
+          
           onChange={handleChange}
         />
         <Input

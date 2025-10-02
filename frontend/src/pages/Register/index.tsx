@@ -27,7 +27,7 @@ const Register = ({}: Props) => {
       if (values.password !== values.confirmpassword) {
         throw new Error("Passwords do not match");
       }
-      return postRegister(values); // your actual API call
+      return postRegister(values);
     },
     onSuccess: (data) => {
       // Save token + user in AuthContext
@@ -63,6 +63,8 @@ const Register = ({}: Props) => {
           name="fullname"
           type="text"
           autoComplete="name"
+          minLength={3}
+          maxLength={50}
           value={values.fullname}
           onChange={handleChange}
         />
@@ -79,6 +81,8 @@ const Register = ({}: Props) => {
           name="password"
           type="password"
           autoComplete="new-password"
+          minLength={8}
+          maxLength={32}
           value={values.password}
           onChange={handleChange}
         />
@@ -86,6 +90,8 @@ const Register = ({}: Props) => {
           label="Confirm Password"
           name="confirmpassword"
           type="password"
+          minLength={8}
+          maxLength={32}
           value={values.confirmpassword}
           onChange={handleChange}
         />
@@ -96,7 +102,9 @@ const Register = ({}: Props) => {
           {mutation.isPending && <ScaleLoader color="#FFF" height={"0.8rem"} />}
         </Button>
 
-        {mutation.isError && <p className={styles.error}>{(mutation.error as Error).message}</p>}
+        {mutation.isError && (
+          <p className={styles.error}>{(mutation.error as Error).message}</p>
+        )}
       </Form>
 
       <p className={styles.info}>
