@@ -27,6 +27,7 @@ const MusicDetail = ({}: Props) => {
       queryClient
         .getQueryData<MusicItemType[]>(["music"])
         ?.find((m) => m.id === id), // use the music data directly from the "music" query for instant load (if available)
+    retry: 2,
   });
 
   if (isPending)

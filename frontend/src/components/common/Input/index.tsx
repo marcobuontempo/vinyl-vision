@@ -2,7 +2,7 @@ import { useId, type InputHTMLAttributes } from "react";
 import * as styles from "./styles.css";
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
-  label: string;
+  label?: string;
   name: string;
   type: HTMLInputElement["type"];
 };
@@ -17,9 +17,11 @@ const Input = ({ label, name, type, ...props }: Props) => {
 
   return (
     <div className={combinedClassName}>
-      <label htmlFor={inputId} className={styles.label}>
-        {label}
-      </label>
+      {label && (
+        <label htmlFor={inputId} className={styles.label}>
+          {label}
+        </label>
+      )}
       <input
         {...props}
         id={inputId}

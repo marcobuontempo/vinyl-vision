@@ -1,12 +1,24 @@
-import type { MusicItemType, SortOptions } from "../../../shared/types";
+import type {
+  FilterOptions,
+  MusicItemType,
+  SortOptions,
+} from "../../../shared/types";
 import { api, handleApiError } from "./index";
 
 export const getAllMusic = async (
   sortBy: SortOptions["sortBy"] | undefined | null = "release_date",
-  order: SortOptions["order"] | undefined | null = "asc"
+  order: SortOptions["order"] | undefined | null = "desc",
+  filters: FilterOptions
 ) => {
   try {
-    const res = await api.get(`/music?sortBy=${sortBy}&order=${order}`);
+    const params = new URLSearchParams();
+    if (sortBy) params.append("sortBy", sortBy);
+    if (order) params.append("order", order);
+    if (filters.title) params.append("title", filters.title);
+    if (filters.artist) params.append("artist", filters.artist);
+    if (filters.genre) params.append("genre", filters.genre);
+
+    const res = await api.get(`/music?${params.toString()}`);
     return res.data as MusicItemType[];
   } catch (error) {
     handleApiError(error);

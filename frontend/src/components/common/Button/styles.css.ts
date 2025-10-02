@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css";
 
 export const button = style({
-  border: "1px solid white",
+  border: "1px solid black",
   padding: "1rem",
   background: "black",
   color: "white",
@@ -10,7 +10,8 @@ export const button = style({
   cursor: "pointer",
 
   selectors: {
-    "&:hover": {
+    "&:hover:not(:disabled)": {
+      border: "1px solid white",
       filter: "invert(1)",
     },
     "&:disabled": {

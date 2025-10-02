@@ -14,3 +14,9 @@ export type SortOptions = {
   sortBy: keyof MusicItemType;
   order: "asc" | "desc";
 };
+
+export type FilterOptions = {
+  title?: string;
+  artist?: string;
+  genre?: string;
+};

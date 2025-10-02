@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ScaleLoader } from "react-spinners";
 import Button from "../../common/Button";
 import { useSearchParams } from "react-router-dom";
-import type { SortOptions } from "../../../../../shared/types";
+import type { FilterOptions, SortOptions } from "../../../../../shared/types";
 
 type Props = {};
 
@@ -16,11 +16,17 @@ const MusicList = ({}: Props) => {
     (searchParams.get("sortBy") as SortOptions["sortBy"]) || undefined;
   const order =
     (searchParams.get("order") as SortOptions["order"]) || undefined;
+  const title =
+    (searchParams.get("title") as FilterOptions["title"]) || undefined;
+  const artist =
+    (searchParams.get("artist") as FilterOptions["artist"]) || undefined;
+  const genre =
+    (searchParams.get("genre") as FilterOptions["genre"]) || undefined;
 
   const { data, isPending, isError, refetch } = useQuery({
-    queryKey: ["music", sortBy, order],
+    queryKey: ["music", sortBy, order, title, artist, genre],
     queryFn: () => {
-      return getAllMusic(sortBy, order);
+      return getAllMusic(sortBy, order, { title, artist, genre });
     },
     retry: 2,
   });
