@@ -40,3 +40,13 @@ export const findOneMusicById = async (
   const music = await db.collection("music").doc(id).get();
   return mapDocument<MusicItemType>(music);
 };
+
+export const findMusicFeatured = async (): Promise<MusicItemType[] | null> => {
+  const musicRef = db.collection("music").where("featured", "==", true);
+  const snapshot = await musicRef.get();
+
+  const music: MusicItemType[] = [];
+  snapshot.forEach((doc) => music.push(mapDocument<MusicItemType>(doc)));
+
+  return music;
+};

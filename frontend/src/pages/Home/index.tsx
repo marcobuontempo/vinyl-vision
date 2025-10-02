@@ -1,5 +1,5 @@
 import Hero from "../../components/features/Hero";
-import Spotlight from "../../components/features/Spotlight";
+import Featured from "../../components/features/Featured";
 
 type Props = {};
 
@@ -7,7 +7,7 @@ const Home = ({}: Props) => {
   return (
     <>
       <Hero />
-      <Spotlight />
+      <Featured />
     </>
   );
 };

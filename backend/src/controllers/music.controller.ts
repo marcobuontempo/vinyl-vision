@@ -1,7 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import ApiError from "../utilities/ApiError.js";
 import debug from "debug";
-import { findAllMusic, findOneMusicById } from "../services/music.service.js";
+import {
+  findAllMusic,
+  findMusicFeatured,
+  findOneMusicById,
+} from "../services/music.service.js";
 import type {
   FilterOptions,
   SortOptions,
@@ -45,6 +49,20 @@ const MusicController = {
       return next(
         ApiError.internal(
           `Something went wrong while fetching 'music' with 'id':${id}`,
+          error
+        )
+      );
+    }
+  },
+
+  async getFeatured(req: Request, res: Response, next: NextFunction) {
+    try {
+      const music = await findMusicFeatured();
+      res.send(music);
+    } catch (error) {
+      return next(
+        ApiError.internal(
+          "Something went wrong while fetching 'featured music'",
           error
         )
       );

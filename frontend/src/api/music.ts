@@ -33,3 +33,12 @@ export const getMusicById = async (id: string) => {
     handleApiError(error);
   }
 };
+
+export const getFeaturedMusic = async () => {
+  try {
+    const res = await api.get("/music/featured");
+    return res.data as MusicItemType[];
+  } catch (error) {
+    handleApiError(error);
+  }
+};

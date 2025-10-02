@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 
-export const spotlight = style({});
+export const featured = style({});
 
 export const title = style({
   width: "100%",
@@ -19,6 +19,14 @@ export const list = style({
 
 export const item = style({
   minWidth: "20rem",
+  maxWidth: "20rem",
   border: "1px solid black",
   background: "grey",
+});
+
+export const stateContainer = style({
+  flex: "1",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
 });

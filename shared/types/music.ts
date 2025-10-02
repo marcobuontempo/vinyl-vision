@@ -8,6 +8,7 @@ export type MusicItemType = {
   release_date: string;
   length: number;
   price_aud: number;
+  featured: boolean;
 };
 
 export type SortOptions = {
