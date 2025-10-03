@@ -13,6 +13,14 @@ export class ApiError {
     return new ApiError(400, `Bad Request: ${message}`);
   }
 
+  static unauthorised() {
+    return new ApiError(401, "Unauthorised Access");
+  }
+
+  static forbidden() {
+    return new ApiError(403, "Forbidden Access");
+  }
+
   static notFound() {
     return new ApiError(404, "Resource Not Found");
   }

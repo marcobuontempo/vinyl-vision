@@ -21,7 +21,7 @@ export const label = style({
     "screen and (min-width: 768px)": {
       borderRight: "1px solid black",
       borderBottom: "none",
-      width: "12rem",
+      width: "14rem",
     },
   },
 });

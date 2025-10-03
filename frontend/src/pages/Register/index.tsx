@@ -68,6 +68,7 @@ const Register = ({}: Props) => {
           maxLength={50}
           value={values.fullname}
           onChange={handleChange}
+          required
         />
         <Input
           label="Email"
@@ -76,6 +77,7 @@ const Register = ({}: Props) => {
           autoComplete="email"
           value={values.email}
           onChange={handleChange}
+          required
         />
         <Input
           label="Password"
@@ -86,15 +88,15 @@ const Register = ({}: Props) => {
           maxLength={32}
           value={values.password}
           onChange={handleChange}
+          required
         />
         <Input
           label="Confirm Password"
           name="confirmpassword"
           type="password"
-          minLength={8}
-          maxLength={32}
           value={values.confirmpassword}
           onChange={handleChange}
+          required
         />
 
         <Button disabled={Object.values(values).some((v) => v === "")}>

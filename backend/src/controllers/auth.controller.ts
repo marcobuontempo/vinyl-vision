@@ -31,7 +31,7 @@ const AuthController = {
 
       // Return User data + JWT
       debugAuth(`Success - User: ${createdUser.id} registered`);
-      res.send({
+      res.status(201).send({
         token: authUtil.jwtSignUser(userDetails),
       });
     } catch (error) {
@@ -69,7 +69,7 @@ const AuthController = {
 
       // Return JWT with User Details as payload
       debugAuth(`Success - User: ${userMatch.id} logged in`);
-      res.send({
+      res.status(200).send({
         token: authUtil.jwtSignUser(userDetails),
       });
     } catch (error) {

@@ -38,7 +38,19 @@ export const AuthPolicy = {
         .min(8)
         .max(32)
         .required(),
-    });
+
+      // NEW PASSWORD (not required - passed when updating)
+      // between 8-32 characters
+      // at least 1 lowercase letter
+      // at least 1 digit
+      // at least 1 special character: @$!%*?&
+      newpassword: Joi.string()
+        .pattern(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
+        )
+        .min(8)
+        .max(32),
+    }).required();
 
     const { error } = schema.validate(req.body);
 

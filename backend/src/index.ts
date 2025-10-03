@@ -7,7 +7,7 @@ import debug from "debug";
 
 import routes from "./routes/index.js";
 import ApiError from "./utilities/ApiError.js";
-import apiErrorHandler from "./middleware/apiErrorHandler.middleware.js";
+import apiErrorHandler from "./middlewares/apiErrorHandler.middleware.js";
 import { connectDatabase } from "./utilities/database.util.js";
 
 const debugStartup = debug("app:startup");

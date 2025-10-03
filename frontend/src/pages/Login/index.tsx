@@ -55,8 +55,8 @@ const Login = ({}: Props) => {
           type="email"
           autoComplete="email"
           value={values.email}
-          
           onChange={handleChange}
+          required
         />
         <Input
           label="Password"
@@ -65,6 +65,7 @@ const Login = ({}: Props) => {
           autoComplete="new-password"
           value={values.password}
           onChange={handleChange}
+          required
         />
 
         <Button disabled={Object.values(values).some((v) => v === "")}>

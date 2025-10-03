@@ -29,7 +29,7 @@ const MusicController = {
         order as SortOptions["order"],
         filters
       );
-      res.send(music);
+      res.status(200).send(music);
     } catch (error) {
       return next(
         ApiError.internal("Something went wrong while fetching 'music'", error)
@@ -44,7 +44,7 @@ const MusicController = {
       if (!music) {
         next(ApiError.notFound());
       }
-      res.send(music);
+      res.status(200).send(music);
     } catch (error) {
       return next(
         ApiError.internal(
@@ -58,7 +58,7 @@ const MusicController = {
   async getFeatured(req: Request, res: Response, next: NextFunction) {
     try {
       const music = await findMusicFeatured();
-      res.send(music);
+      res.status(200).send(music);
     } catch (error) {
       return next(
         ApiError.internal(
