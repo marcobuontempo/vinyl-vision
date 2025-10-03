@@ -1,3 +1,4 @@
+import { PiVinylRecordDuotone } from "react-icons/pi";
 import Heading1 from "../../components/common/Heading1";
 import * as styles from "./styles.css";
 
@@ -25,6 +26,8 @@ const About = ({}: Props) => {
           something you own, something you return to, and something worth
           collecting.
         </p>
+
+        <PiVinylRecordDuotone className={styles.vinyl} />
       </div>
     </>
   );

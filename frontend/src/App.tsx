@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import Cart from "./pages/Cart";
 import MusicDetail from "./pages/MusicDetail";
 import Dashboard from "./pages/Dashboard";
+import Admin from "./pages/Admin";
 
 const App = () => {
   return (
@@ -27,6 +28,9 @@ const App = () => {
 
         {/* USER */}
         <Route path="/dashboard" element={<Dashboard />} />
+
+        {/* ADMIN */}
+        <Route path="/admin" element={<Admin />} />
 
         {/* MUSIC */}
         <Route path="/music" element={<Music />} />

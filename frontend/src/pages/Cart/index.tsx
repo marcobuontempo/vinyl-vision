@@ -10,6 +10,11 @@ type Props = {};
 const Cart = ({}: Props) => {
   const { cart, clearCart } = useCart();
 
+  const mockPurchase = () => {
+    alert("✨ Order confirmed! ✨\n(not really) :)");
+    clearCart();
+  };
+
   return (
     <div className={styles.cart}>
       <Heading1 className={styles.heading}>Cart</Heading1>
@@ -37,7 +42,9 @@ const Cart = ({}: Props) => {
               Object.values(cart).reduce((pv, cv) => cv.price_aud + pv, 0)
             )}
           </p>
-          <Button className={styles.checkout}>Checkout</Button>
+          <Button className={styles.checkout} onClick={mockPurchase}>
+            Checkout
+          </Button>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { useId, type InputHTMLAttributes } from "react";
 import * as styles from "./styles.css";
 
-type Props = InputHTMLAttributes<HTMLInputElement> & {
+type Props = InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> & {
   label?: string;
   name: string;
   type: HTMLInputElement["type"];
@@ -22,13 +22,22 @@ const Input = ({ label, name, type, ...props }: Props) => {
           {label}
         </label>
       )}
-      <input
-        {...props}
-        id={inputId}
-        name={name}
-        type={type}
-        className={styles.input}
-      />
+      {type === "textarea" ? (
+        <textarea
+          {...props}
+          id={inputId}
+          name={name}
+          className={styles.input}
+        />
+      ) : (
+        <input
+          {...props}
+          id={inputId}
+          name={name}
+          type={type}
+          className={styles.input}
+        />
+      )}
     </div>
   );
 };

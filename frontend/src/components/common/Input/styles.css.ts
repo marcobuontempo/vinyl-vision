@@ -36,5 +36,22 @@ export const input = style({
       outline: "2px solid black",
       zIndex: "1",
     },
+    "textarea&": {
+      height: "5rem",
+    },
+    "&[type='checkbox']": {
+      appearance: "none",
+      cursor: "pointer",
+    },
+    "&[type='checkbox']::after": {
+      content: "✗",
+      textAlign: "center",
+      width: "100%",
+      display: "block",
+    },
+    "&[type='checkbox']:checked::after": {
+      content: "✓",
+      background: "lightgrey",
+    },
   },
 });

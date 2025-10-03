@@ -50,3 +50,21 @@ export const findMusicFeatured = async (): Promise<MusicItemType[] | null> => {
 
   return music;
 };
+
+export const createOne = async (
+  item: MusicItemType
+): Promise<MusicItemType | null> => {
+  const musicRef = db.collection("music");
+
+  // save to database
+  const docRef = await musicRef.add(item);
+
+  // fetch the created document and map it
+  const snapshot = await docRef.get();
+  const createdItem = mapDocument<MusicItemType>(snapshot);
+
+  if (!createdItem) throw new Error("Failed to create music item");
+
+  // return the newly created item
+  return createdItem;
+};

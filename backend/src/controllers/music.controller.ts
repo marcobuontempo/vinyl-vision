@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import ApiError from "../utilities/ApiError.js";
 import debug from "debug";
 import {
+  createOne,
   findAllMusic,
   findMusicFeatured,
   findOneMusicById,
@@ -63,6 +64,20 @@ const MusicController = {
       return next(
         ApiError.internal(
           "Something went wrong while fetching 'featured music'",
+          error
+        )
+      );
+    }
+  },
+
+  async createMusicItem(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await createOne(req.body);
+      res.status(201).send(result);
+    } catch (error) {
+      return next(
+        ApiError.internal(
+          "Something went wrong while creating music item",
           error
         )
       );

@@ -42,3 +42,12 @@ export const getFeaturedMusic = async () => {
     handleApiError(error);
   }
 };
+
+export const postNewMusicItem = async (item: Omit<MusicItemType, "id">) => {
+  try {
+    const res = await api.post("/music", item);
+    return res.data as MusicItemType;
+  } catch (error) {
+    handleApiError(error);
+  }
+};

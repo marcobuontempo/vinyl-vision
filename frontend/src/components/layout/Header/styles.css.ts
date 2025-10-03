@@ -111,6 +111,7 @@ export const logo = style([
   box,
   {
     textAlign: "center",
+    fontWeight: "bold",
     "@media": {
       "screen and (max-width: 768px)": {
         display: "none",
@@ -123,6 +124,7 @@ export const logoMobile = style([
   box,
   {
     display: "none",
+    fontWeight: "bold",
     "@media": {
       "screen and (max-width: 768px)": {
         display: "block",
@@ -185,7 +187,7 @@ export const cartCount = style({
   fontSize: "0.5rem",
   color: "white",
   textAlign: "center",
-  paddingTop: "0.25rem",
+  paddingTop: "0.3rem",
 
   selectors: {
     [`${activeCart} &`]: {
