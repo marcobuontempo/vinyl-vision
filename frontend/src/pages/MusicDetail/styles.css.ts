@@ -21,6 +21,12 @@ export const container = style({
   width: "100%",
   maxWidth: "60rem",
   border: "1px solid black",
+
+  "@media": {
+    "screen and (max-width: 768px)": {
+      flexDirection: "column",
+    },
+  },
 });
 
 export const artwork = style({
@@ -28,6 +34,13 @@ export const artwork = style({
   aspectRatio: "1/1",
   objectFit: "cover",
   objectPosition: "center",
+
+  "@media": {
+    "screen and (max-width: 768px)": {
+      width: "100%",
+      height: "12rem",
+    },
+  },
 });
 
 export const description = style({
@@ -42,6 +55,12 @@ export const content = style({
   flexDirection: "column",
   justifyContent: "space-between",
   borderLeft: "1px solid black",
+
+  "@media": {
+    "screen and (max-width: 768px)": {
+      width: "100%",
+    },
+  },
 });
 
 export const information = style({
