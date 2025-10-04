@@ -35,10 +35,10 @@ export const MusicPolicy = {
         .required(),
 
       // TRACK LENGTH
-      length: Joi.number().min(1).max(86400).required(),
+      length: Joi.number().integer().min(1).max(86400).required(),
 
       // PRICE $AUD
-      price_aud: Joi.number().min(0).required(),
+      price_aud: Joi.number().integer().min(0).required(),
 
       // FEATURED ITEM
       featured: Joi.bool().required(),
@@ -84,7 +84,7 @@ export const MusicPolicy = {
         case "length":
           next(
             ApiError.badRequest(
-              "You must provide a valid track length (seconds, as number)"
+              "You must provide a valid track length (seconds, as integer)"
             )
           );
           break;
@@ -92,7 +92,7 @@ export const MusicPolicy = {
         case "price_aud":
           next(
             ApiError.badRequest(
-              "You must provide a valid price in AUD cents (i.e. 100 = $1, as number)"
+              "You must provide a valid price in AUD cents (i.e. 100 = $1, as integer)"
             )
           );
           break;

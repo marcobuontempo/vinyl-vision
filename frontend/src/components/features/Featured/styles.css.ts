@@ -1,13 +1,14 @@
 import { style } from "@vanilla-extract/css";
+import { vars } from "../../../styles/themes.css";
 
 export const featured = style({});
 
 export const title = style({
   width: "100%",
   textAlign: "center",
-  borderTop: "1px solid black",
-  borderBottom: "1px solid black",
-  padding: "0.5rem",
+  borderTop: `1px solid ${vars.colors.complementary}`,
+  borderBottom: `1px solid ${vars.colors.complementary}`,
+  padding: vars.space.sm,
 });
 
 export const list = style({
@@ -18,10 +19,8 @@ export const list = style({
 });
 
 export const item = style({
-  minWidth: "20rem",
-  maxWidth: "20rem",
-  border: "1px solid black",
-  background: "grey",
+  width: `calc(0.5 * ${vars.sizes.maxContent})`,
+  height: `calc(0.5 * ${vars.sizes.maxContent})`,
 });
 
 export const stateContainer = style({

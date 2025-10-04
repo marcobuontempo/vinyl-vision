@@ -12,6 +12,7 @@ import {
   convertSecondsToHHMMSS,
 } from "../../utils/helpers";
 import { ScaleLoader } from "react-spinners";
+import { vars } from "../../styles/themes.css";
 
 type Props = {};
 
@@ -33,14 +34,16 @@ const MusicDetail = ({}: Props) => {
   if (isPending)
     return (
       <div className={styles.stateContainer}>
-        <ScaleLoader color="#000" height={"1rem"} />
+        <ScaleLoader color={vars.colors.accent} height={"1rem"} />
       </div>
     );
 
   if (isError)
     return (
       <div className={styles.stateContainer}>
-        <Button onClick={() => refetch()}>Fetch Failed. Retry?</Button>
+        <Button theme="accent" onClick={() => refetch()}>
+          Fetch Failed. Retry?
+        </Button>
       </div>
     );
 

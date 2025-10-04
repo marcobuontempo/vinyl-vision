@@ -7,6 +7,7 @@ import { ScaleLoader } from "react-spinners";
 import Button from "../../common/Button";
 import { useSearchParams } from "react-router-dom";
 import type { FilterOptions, SortOptions } from "../../../../../shared/types";
+import { vars } from "../../../styles/themes.css";
 
 type Props = {};
 
@@ -34,14 +35,16 @@ const MusicList = ({}: Props) => {
   if (isPending)
     return (
       <div className={styles.stateContainer}>
-        <ScaleLoader color="#000" height={"1rem"} />
+        <ScaleLoader color={vars.colors.accent} height={"1rem"} />
       </div>
     );
 
   if (isError)
     return (
       <div className={styles.stateContainer}>
-        <Button onClick={() => refetch()}>Fetch Failed. Retry?</Button>
+        <Button theme="accent" onClick={() => refetch()}>
+          Fetch Failed. Retry?
+        </Button>
       </div>
     );
 

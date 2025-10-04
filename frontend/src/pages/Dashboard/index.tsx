@@ -8,6 +8,8 @@ import { ScaleLoader } from "react-spinners";
 import { useMutation } from "@tanstack/react-query";
 import Form from "../../components/common/Form";
 import { putUpdateDetails } from "../../api/user";
+import ErrorText from "../../components/common/ErrorText";
+import { vars } from "../../styles/themes.css";
 
 type FormValues = {
   fullname: string;
@@ -75,7 +77,7 @@ const Dashboard = ({}: Props) => {
   if (!user) {
     return (
       <div className={styles.stateContainer}>
-        <ScaleLoader color="#000" height={"1rem"} />
+        <ScaleLoader color={vars.colors.accent} height={"1rem"} />
       </div>
     );
   }
@@ -117,7 +119,7 @@ const Dashboard = ({}: Props) => {
         />
         <Input
           label="Confirm New Password"
-          name="confirnewpassword"
+          name="confirmnewpassword"
           type="password"
           value={details.confirmnewpassword}
           onChange={handleChange}
@@ -130,18 +132,21 @@ const Dashboard = ({}: Props) => {
           onChange={handleChange}
           required
         />
-        <Button className={styles.update} disabled={details.password === ""}>
+        <Button
+          isPending={mutation.isPending}
+          className={styles.update}
+          disabled={details.password === ""}
+        >
           {(mutation.isIdle || mutation.isError) && "Update Details"}
           {mutation.isSuccess && "Success!"}
-          {mutation.isPending && <ScaleLoader color="#FFF" height={"0.8rem"} />}
         </Button>
 
         {mutation.isError && (
-          <p className={styles.error}>{(mutation.error as Error).message}</p>
+          <ErrorText>{(mutation.error as Error).message}</ErrorText>
         )}
       </Form>
 
-      <Button className={styles.logout} onClick={logout}>
+      <Button theme="danger" className={styles.logout} onClick={logout}>
         Logout
       </Button>
     </div>

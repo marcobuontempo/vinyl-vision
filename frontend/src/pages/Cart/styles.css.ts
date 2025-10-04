@@ -1,4 +1,5 @@
 import { style } from "@vanilla-extract/css";
+import { vars } from "../../styles/themes.css";
 
 export const cart = style({
   flex: "1",
@@ -9,18 +10,17 @@ export const cart = style({
 });
 
 export const heading = style({
-  padding: "2rem",
-  borderBottom: "1px solid black",
+  padding: vars.space.lg,
+  borderBottom: `1px solid ${vars.colors.complementary}`,
 });
 
 export const clear = style({
-  background: "darkred",
-  fontSize: "0.8rem",
+  fontSize: vars.fontSizes.sm,
 });
 
 export const empty = style({
   flex: "1",
-  padding: "2rem",
+  padding: vars.space.lg,
 });
 
 export const list = style({
@@ -34,11 +34,11 @@ export const footer = style({
   display: "flex",
   flexDirection: "row",
   flexWrap: "nowrap",
-  gap: "1rem",
+  gap: vars.space.md,
   justifyContent: "space-between",
   alignItems: "end",
-  padding: "1rem",
-  fontSize: "1.5rem",
+  padding: vars.space.md,
+  fontSize: vars.fontSizes.lg,
 });
 
 export const checkout = style({

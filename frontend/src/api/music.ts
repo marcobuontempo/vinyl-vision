@@ -45,7 +45,12 @@ export const getFeaturedMusic = async () => {
 
 export const postNewMusicItem = async (item: Omit<MusicItemType, "id">) => {
   try {
-    const res = await api.post("/music", item);
+    // Modify the $AUD to cents for database storage
+    const payload = {
+      ...item,
+      price_aud: Math.round(item.price_aud * 100),
+    };
+    const res = await api.post("/music", payload);
     return res.data as MusicItemType;
   } catch (error) {
     handleApiError(error);

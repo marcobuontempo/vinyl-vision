@@ -7,8 +7,7 @@ import type { MusicItemType } from "../../../../shared/types";
 import Button from "../../components/common/Button";
 import { useMutation } from "@tanstack/react-query";
 import { postNewMusicItem } from "../../api/music";
-import { ScaleLoader } from "react-spinners";
-
+import ErrorText from "../../components/common/ErrorText";
 type Props = {};
 
 const Admin = ({}: Props) => {
@@ -137,13 +136,15 @@ const Admin = ({}: Props) => {
           checked={values.featured}
           onChange={handleChange}
         />
-        <Button disabled={isFormInvalid}>
+        <Button
+          disabled={isFormInvalid || mutation.isSuccess}
+          isPending={mutation.isPending}
+        >
           {(mutation.isIdle || mutation.isError) && "Create Item"}
           {mutation.isSuccess && "Success!"}
-          {mutation.isPending && <ScaleLoader color="#FFF" height={"0.8rem"} />}
         </Button>
         {mutation.isError && (
-          <p className={styles.error}>{(mutation.error as Error).message}</p>
+          <ErrorText>{(mutation.error as Error).message}</ErrorText>
         )}
       </Form>
     </div>

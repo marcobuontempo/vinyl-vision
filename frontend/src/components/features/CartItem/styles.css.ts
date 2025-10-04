@@ -1,4 +1,5 @@
 import { style } from "@vanilla-extract/css";
+import { vars } from "../../../styles/themes.css";
 
 export const item = style({
   position: "relative",
@@ -7,7 +8,7 @@ export const item = style({
   flexDirection: "row",
   justifyContent: "space-between",
   alignItems: "center",
-  padding: "1rem",
+  padding: vars.space.md,
 
   selectors: {
     "&::after": {
@@ -17,7 +18,7 @@ export const item = style({
       left: "0",
       width: "100%",
       height: "100%",
-      borderBottom: "1px solid black",
+      borderBottom: `1px solid ${vars.colors.complementary}`,
       pointerEvents: "none",
     },
   },

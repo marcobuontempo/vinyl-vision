@@ -1,4 +1,5 @@
 import { style } from "@vanilla-extract/css";
+import { vars } from "../../styles/themes.css";
 
 export const admin = style({
   flex: "1",
@@ -7,11 +8,6 @@ export const admin = style({
 });
 
 export const heading = style({
-  padding: "2rem",
+  padding: vars.space.lg,
   textAlign: "center",
-});
-
-export const error = style({
-  textAlign: "center",
-  color: "red",
 });

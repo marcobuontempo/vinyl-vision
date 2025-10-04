@@ -39,13 +39,19 @@ const MusicCard = ({ data, className }: Props) => {
         <p className={styles.detail}>{data.genre}</p>
         <p className={styles.detail}>{data.release_date}</p>
         <p className={styles.detail}>{convertSecondsToHHMMSS(data.length)}</p>
-        <Link to={`/music/${data.id}`} className={styles.expand}>
-          + expand details
-        </Link>
+        <div className={styles.expandContainer}>
+          <Link to={`/music/${data.id}`} className={styles.expand}>
+            + expand details
+          </Link>
+        </div>
       </aside>
 
       <footer className={styles.footer}>
-        <p>{convertPriceToCurrency(data.price_aud)}</p>
+        <div>
+          <p className={styles.price}>
+            {convertPriceToCurrency(data.price_aud)}
+          </p>
+        </div>
         <Button onClick={() => addToCart(data)} disabled={!!cart[data.id]}>
           {cart[data.id] ? "IN CART" : "ADD"}
         </Button>

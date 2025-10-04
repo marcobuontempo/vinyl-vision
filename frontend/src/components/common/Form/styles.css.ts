@@ -1,9 +1,10 @@
 import { style } from "@vanilla-extract/css";
+import { vars } from "../../../styles/themes.css";
 
 export const form = style({
   width: "100%",
-  maxWidth: "40rem",
+  maxWidth: vars.sizes.maxContent,
   display: "flex",
   flexDirection: "column",
-  gap: "0.5rem",
+  gap: vars.space.sm,
 });

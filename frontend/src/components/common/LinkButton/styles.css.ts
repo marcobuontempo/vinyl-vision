@@ -1,1 +1,7 @@
-export { button } from "../Button/styles.css";
+export {
+  button,
+  primary,
+  secondary,
+  accent,
+  danger,
+} from "../Button/styles.css";

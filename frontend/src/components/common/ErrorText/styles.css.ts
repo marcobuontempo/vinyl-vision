@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css";
 import { vars } from "../../../styles/themes.css";
 
-export const h1 = style({
-  fontSize: vars.fontSizes.xl,
-  fontWeight: "normal",
+export const error = style({
+  textAlign: "center",
+  color: vars.colors.error,
 });

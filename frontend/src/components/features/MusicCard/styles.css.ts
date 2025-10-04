@@ -1,12 +1,13 @@
 import { style } from "@vanilla-extract/css";
+import { vars } from "../../../styles/themes.css";
 
 export const card = style({
   position: "relative",
   aspectRatio: "1 / 1",
   display: "flex",
   flexDirection: "column",
-  borderRight: "1px solid black",
-  borderBottom: "1px solid black",
+  borderRight: `1px solid ${vars.colors.complementary}`,
+  borderBottom: `1px solid ${vars.colors.complementary}`,
   cursor: "default",
 
   selectors: {
@@ -15,41 +16,42 @@ export const card = style({
       width: "100%",
       height: "100%",
       position: "absolute",
-      top: 0,
-      left: 0,
+      top: vars.space.none,
+      left: vars.space.none,
       border: "2px solid transparent",
       pointerEvents: "none",
       transition: "border 200ms ease",
       zIndex: "2",
     },
     "&:hover::before": {
-      border: "2px solid black",
+      border: `2px solid ${vars.colors.accent}`,
     },
   },
 });
 
 export const artwork = style({
   position: "absolute",
-  top: "0px",
-  left: "0px",
+  top: vars.space.none,
+  left: vars.space.none,
   width: "100%",
   height: "100%",
   objectFit: "cover",
   objectPosition: "center",
   zIndex: "0",
   transition: "filter 200ms ease",
+  filter: "",
 
   selectors: {
     [`${card}:hover &`]: {
-      filter: "blur(1px)",
+      filter: "blur(2px) grayscale(0.5)",
     },
   },
 });
 
 export const header = style({
   width: "100%",
-  padding: "0 1rem",
-  background: "rgba(255,255,255,0.5)",
+  padding: `${vars.space.none} ${vars.space.md}`,
+  background: vars.colors.primary,
   zIndex: "1",
 });
 
@@ -65,15 +67,16 @@ export const details = style({
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
-  padding: "1rem",
-  opacity: 0,
-  transition: "all 200ms ease",
+  padding: vars.space.md,
+  opacity: "0",
+  transition: "opacity 200ms ease",
   zIndex: "1",
 
   selectors: {
     [`${card}:hover &`]: {
       visibility: "visible",
-      opacity: 1,
+      opacity: "1",
+      background: vars.colors.primaryTransparent,
     },
   },
 });
@@ -85,9 +88,16 @@ export const detail = style([
   },
 ]);
 
+export const expandContainer = style({
+  width: "100%",
+  display: "flex",
+  justifyContent: "flex-end",
+});
+
 export const expand = style({
   fontWeight: "bold",
   textAlign: "end",
+  color: vars.colors.accent,
 
   selectors: {
     "&:hover": {
@@ -98,8 +108,34 @@ export const expand = style({
 
 export const footer = style({
   width: "100%",
+  position: "relative",
   display: "flex",
   justifyContent: "space-between",
-  padding: "0.5rem",
+  alignItems: "flex-end",
+  padding: vars.space.sm,
   zIndex: "1",
+
+  selectors: {
+    "&::before": {
+      content: "",
+      position: "absolute",
+      width: "100%",
+      height: "100%",
+      top: vars.space.none,
+      left: vars.space.none,
+      opacity: "0",
+      transition: "opacity 200ms ease",
+      zIndex: "-1",
+    },
+    [`${card}:hover &::before`]: {
+      opacity: "1",
+      background: vars.colors.primaryTransparent,
+    },
+  },
+});
+
+export const price = style({
+  background: vars.colors.primaryTransparent,
+  width: "6rem",
+  textAlign: "center",
 });

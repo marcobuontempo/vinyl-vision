@@ -1,4 +1,5 @@
 import { style } from "@vanilla-extract/css";
+import { vars } from "../../styles/themes.css";
 
 export const detail = style({
   height: "100%",
@@ -11,7 +12,7 @@ export const detail = style({
 
 export const heading = style({
   textAlign: "center",
-  padding: "2rem 0",
+  padding: `${vars.space.lg} ${vars.space.none}`,
 });
 
 export const container = style({
@@ -19,8 +20,8 @@ export const container = style({
   flexDirection: "row",
   flexWrap: "nowrap",
   width: "100%",
-  maxWidth: "60rem",
-  border: "1px solid black",
+  maxWidth: `calc(1.5 * ${vars.sizes.maxContent})`,
+  border: `1px solid ${vars.colors.complementary}`,
 
   "@media": {
     "screen and (max-width: 768px)": {
@@ -38,14 +39,14 @@ export const artwork = style({
   "@media": {
     "screen and (max-width: 768px)": {
       width: "100%",
-      height: "12rem",
+      height: `calc(0.75 * ${vars.sizes.maxContent})`,
     },
   },
 });
 
 export const description = style({
-  borderBottom: "1px solid black",
-  padding: "2rem",
+  borderBottom: `1px solid ${vars.colors.complementary}`,
+  padding: vars.space.lg,
   textAlign: "center",
 });
 
@@ -54,7 +55,7 @@ export const content = style({
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
-  borderLeft: "1px solid black",
+  borderLeft: `1px solid ${vars.colors.complementary}`,
 
   "@media": {
     "screen and (max-width: 768px)": {
@@ -64,7 +65,7 @@ export const content = style({
 });
 
 export const information = style({
-  padding: "2rem",
+  padding: vars.space.lg,
 });
 
 export const price = style({

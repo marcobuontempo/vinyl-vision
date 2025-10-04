@@ -1,14 +1,15 @@
 import { style } from "@vanilla-extract/css";
+import { vars } from "../../styles/themes.css";
 
 export const login = style({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  padding: "2rem 0",
+  padding: `${vars.space.lg} ${vars.space.none}`,
 });
 
 export const info = style({
-  padding: "0.5rem",
+  padding: vars.space.sm,
   fontStyle: "italic",
 });
 
@@ -20,9 +21,4 @@ export const link = style({
       textDecoration: "underline",
     },
   },
-});
-
-export const error = style({
-  textAlign: "center",
-  color: "red",
 });

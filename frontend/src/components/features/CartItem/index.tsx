@@ -17,7 +17,11 @@ const CartItem = ({ data }: Props) => {
       <p className={`${styles.info} ${styles.title}`}>{data.title}</p>
       <p className={styles.info}>{data.artist}</p>
       <p>{convertPriceToCurrency(data.price_aud)}</p>
-      <Button className={styles.remove} onClick={() => removeFromCart(data.id)}>
+      <Button
+        theme="danger"
+        className={styles.remove}
+        onClick={() => removeFromCart(data.id)}
+      >
         Remove
       </Button>
     </div>

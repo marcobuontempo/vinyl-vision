@@ -1,12 +1,13 @@
 import { style } from "@vanilla-extract/css";
+import { vars } from "../../../styles/themes.css";
 
 export const hero = style({
-  height: "426px",
+  height: `calc(0.67 * ${vars.sizes.maxContent})`,
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-  gap: "2rem",
+  gap: vars.space.lg,
 });
 
 export const text = style({
@@ -14,9 +15,9 @@ export const text = style({
 });
 
 export const subtext = style({
-  fontSize: "1rem",
+  fontSize: vars.fontSizes.md,
   fontWeight: "light",
-  paddingTop: "1rem",
+  paddingTop: vars.space.md,
 });
 
 export const cta = style({
@@ -25,10 +26,10 @@ export const cta = style({
   flexWrap: "wrap",
   justifyContent: "center",
   alignContent: "center",
-  gap: "3rem",
+  gap: vars.space.xl,
 });
 
 export const link = style({
   width: "100%",
-  maxWidth: "10rem",
+  maxWidth: `calc(0.25 * ${vars.sizes.maxContent})`,
 });

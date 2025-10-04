@@ -1,17 +1,20 @@
 import { style } from "@vanilla-extract/css";
+import { vars } from "../../../styles/themes.css";
 
 export const header = style({});
 
 export const nav = style({
-  height: "5rem",
+  height: vars.sizes.navbar,
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  borderBottom: "1px solid black",
+  borderBottom: `2px solid ${vars.colors.complementary}`,
+  background: vars.colors.primary,
+  color: vars.colors.complementary,
 
   "@media": {
     "screen and (max-width: 768px)": {
-      padding: "0 2rem",
+      padding: `${vars.space.none} ${vars.space.lg}`,
     },
   },
 });
@@ -21,7 +24,7 @@ export const burger = style({
   background: "transparent",
   border: "none",
   cursor: "pointer",
-  fontSize: "1.5rem",
+  fontSize: vars.fontSizes.lg,
   "@media": {
     "screen and (max-width: 768px)": {
       display: "block",
@@ -39,16 +42,16 @@ export const navGroup = style({
     "screen and (max-width: 768px)": {
       display: "none",
       position: "fixed",
-      top: "0",
-      left: "0",
-      gap: "1rem",
-      paddingTop: "1rem",
-      fontSize: "1.5rem",
+      top: vars.space.none,
+      left: vars.space.none,
+      gap: vars.space.md,
+      paddingTop: vars.space.md,
+      fontSize: vars.fontSizes.lg,
       flexDirection: "column",
       justifyContent: "center",
-      height: "calc(100dvh - 5rem)",
+      height: `calc(100dvh - ${vars.sizes.navbar})`,
       width: "100dvw",
-      background: "white",
+      background: vars.colors.primary,
       zIndex: "9999",
     },
   },
@@ -58,7 +61,7 @@ export const navGroupOpen = style({
   "@media": {
     "screen and (max-width: 768px)": {
       display: "flex !important",
-      marginTop: "5rem",
+      marginTop: vars.sizes.navbar,
     },
   },
 });
@@ -95,9 +98,9 @@ export const box = style({
 export const list = style([
   box,
   {
-    gap: "1rem",
+    gap: vars.space.md,
     listStyle: "none",
-    padding: "0 1rem",
+    padding: `${vars.space.none} ${vars.space.md}`,
 
     "@media": {
       "screen and (max-width: 768px)": {
@@ -134,7 +137,7 @@ export const logoMobile = style([
 ]);
 
 export const active = style({
-  textShadow: "1px 0 0 black",
+  textShadow: `1px 0 0 ${vars.colors.complementary}`,
   textDecoration: "underline",
 });
 
@@ -151,25 +154,25 @@ export const inactive = style({
 export const activeAdmin = style([
   active,
   {
-    color: "red",
-    textShadow: "1px 0 0 red",
+    color: vars.colors.accent,
+    textShadow: `1px 0 0 ${vars.colors.accent}`,
   },
 ]);
 
 export const inactiveAdmin = style([
   inactive,
   {
-    color: "red",
+    color: vars.colors.accent,
   },
 ]);
 
 const cart = style({
   position: "relative",
-  fontSize: "2rem",
+  fontSize: vars.fontSizes.xl,
   "@media": {
     "screen and (max-width: 768px)": {
       display: "block",
-      fontSize: "3rem",
+      fontSize: vars.fontSizes.xxl,
     },
   },
 });
@@ -180,28 +183,28 @@ export const inactiveCart = style([cart]);
 
 export const cartCount = style({
   position: "absolute",
-  top: "0",
-  left: "0",
+  top: vars.space.none,
+  left: vars.space.none,
   width: "110%",
   height: "100%",
-  fontSize: "0.5rem",
-  color: "white",
+  fontSize: vars.fontSizes.xs,
+  color: vars.colors.primary,
   textAlign: "center",
-  paddingTop: "0.3rem",
+  paddingTop: `calc(0.6 * ${vars.fontSizes.xs})`,
 
   selectors: {
     [`${activeCart} &`]: {
-      borderBottom: "2px solid black",
+      borderBottom: `2px solid ${vars.colors.complementary}`,
     },
     [`${inactiveCart}:hover &`]: {
-      borderBottom: "2px solid black",
+      borderBottom: `2px solid ${vars.colors.complementary}`,
     },
   },
 
   "@media": {
     "screen and (max-width: 768px)": {
-      paddingTop: "0.4rem",
-      fontSize: "0.75rem",
+      fontSize: vars.fontSizes.sm,
+      paddingTop: `calc(0.6 * ${vars.fontSizes.sm})`,
     },
   },
 });

@@ -32,7 +32,12 @@ const Cart = ({}: Props) => {
       )}
 
       <div className={styles.footer}>
-        <Button className={styles.clear} onClick={clearCart}>
+        <Button
+          theme="accent"
+          className={styles.clear}
+          onClick={clearCart}
+          disabled={Object.keys(cart).length === 0}
+        >
           Clear Cart
         </Button>
         <div>
@@ -42,7 +47,11 @@ const Cart = ({}: Props) => {
               Object.values(cart).reduce((pv, cv) => cv.price_aud + pv, 0)
             )}
           </p>
-          <Button className={styles.checkout} onClick={mockPurchase}>
+          <Button
+            className={styles.checkout}
+            onClick={mockPurchase}
+            disabled={Object.keys(cart).length === 0}
+          >
             Checkout
           </Button>
         </div>

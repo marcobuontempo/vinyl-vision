@@ -1,4 +1,5 @@
 import { keyframes, style } from "@vanilla-extract/css";
+import { vars } from "../../styles/themes.css";
 
 export const heading = style({
   padding: "2rem",
@@ -9,14 +10,14 @@ export const content = style({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  gap: "2rem",
-  padding: "2rem",
-  paddingTop: "0",
+  gap: vars.space.lg,
+  padding: vars.space.lg,
+  paddingTop: vars.space.none,
 });
 
 export const paragraph = style({
   width: "100%",
-  maxWidth: "50rem",
+  maxWidth: vars.sizes.maxContent,
 });
 
 const slowRotate = keyframes({
@@ -25,7 +26,7 @@ const slowRotate = keyframes({
 });
 
 export const vinyl = style({
-  fontSize: "10rem",
+  fontSize: `calc(0.33 * ${vars.sizes.maxContent})`,
   display: "inline-block",
   animation: `${slowRotate} 20s linear infinite`,
 });

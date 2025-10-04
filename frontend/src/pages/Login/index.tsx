@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { postLogin } from "../../api/auth";
 import { useAuth } from "../../contexts/AuthContext";
-import { ScaleLoader } from "react-spinners";
+import ErrorText from "../../components/common/ErrorText";
 
 type FormValues = {
   email: string;
@@ -68,14 +68,16 @@ const Login = ({}: Props) => {
           required
         />
 
-        <Button disabled={Object.values(values).some((v) => v === "")}>
+        <Button
+          isPending={mutation.isPending}
+          disabled={Object.values(values).some((v) => v === "")}
+        >
           {(mutation.isIdle || mutation.isError) && "Login"}
           {mutation.isSuccess && "Success!"}
-          {mutation.isPending && <ScaleLoader color="#FFF" height={"0.8rem"} />}
         </Button>
 
         {mutation.isError && (
-          <p className={styles.error}>{(mutation.error as Error).message}</p>
+          <ErrorText>{(mutation.error as Error).message}</ErrorText>
         )}
       </Form>
 

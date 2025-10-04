@@ -3,6 +3,8 @@ import MusicCard from "../MusicCard";
 import * as styles from "./styles.css";
 import { getFeaturedMusic } from "../../../api/music";
 import { ScaleLoader } from "react-spinners";
+import ErrorText from "../../common/ErrorText";
+import { vars } from "../../../styles/themes.css";
 
 type Props = {};
 
@@ -16,14 +18,14 @@ const Featured = ({}: Props) => {
   if (isPending)
     return (
       <div className={styles.stateContainer}>
-        <ScaleLoader color="#000" height={"1rem"} />
+        <ScaleLoader color={vars.colors.accent} height={"1rem"} />
       </div>
     );
 
   if (isError)
     return (
       <div className={styles.stateContainer}>
-        Error Fetching "Featured Music"
+        <ErrorText>Error Fetching "Featured Music"</ErrorText>
       </div>
     );
 
