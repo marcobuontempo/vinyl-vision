@@ -1,13 +1,41 @@
+/**
+ * Users Controller
+ *
+ * Handles user profile management actions.
+ *
+ */
+
+// TYPES IMPORTS
+import type { UserType } from "../../../shared/types/user.js";
+// NPM IMPORTS
 import { Request, Response, NextFunction } from "express";
 import debug from "debug";
+// LOCAL IMPORTS
 import ApiError from "../utilities/ApiError.js";
-import { findOneUserById, updateUser } from "../services/users.service.js";
-import { UserType } from "../../../shared/types/user.js";
 import authUtil from "../utilities/auth.util.js";
+import { findOneUserById, updateUser } from "../services/users.service.js";
 
+// Debug logger for users-related actions
 const usersDebug = debug("app:users");
 
 const UsersController = {
+  /**
+   * Updates any user details provided, such as fullname, email, or password.
+   * Requires the user to provide their current password for validation.
+   *
+   * @param req - Express request object
+   *   - req.params.id: User ID from route params
+   *   - req.user: Decoded JWT payload containing authenticated user ID
+   *   - req.body: Contains user fields to update
+   *     - fullname?: string - New fullname (optional)
+   *     - email?: string - New email address (optional)
+   *     - password: string - Current password (required for validation)
+   *     - newpassword?: string - New password (optional)
+   * @param res - Express response object
+   * @param next - Express next function for error handling
+   *
+   * @returns A new JWT token containing the updated user details.
+   */
   async updateUserDetails(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
@@ -48,6 +76,7 @@ const UsersController = {
         return next(ApiError.badRequest("No updated details provided"));
 
       const result = await updateUser(id, updates);
+      if (!result) return next();
       const updatedUser = authUtil.omitPasswordField(result);
 
       // generate and send a new JWT with the updated information

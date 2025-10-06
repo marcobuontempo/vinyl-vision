@@ -1,16 +1,36 @@
+/**
+ * Authentication Policy Middleware
+ *
+ * This module defines validation logic for authentication-related requests
+ * (login, registration, and password updates). It uses Joi schemas to enforce
+ * strict validation rules on request body fields, ensuring that only properly
+ * formatted and secure data reaches controllers.
+ *
+ */
+
+// NPM IMPORTS
 import { Request, Response, NextFunction } from "express";
 import Joi from "joi";
 import debug from "debug";
+// LOCAL IMPORTS
 import ApiError from "../utilities/ApiError.js";
 
+// Debug logger for Joi-related actions
 const debugJoi = debug("app:joi");
 
 export const AuthPolicy = {
+  /**
+   * Middleware to validate authentication requests.
+   *
+   * @param req - Express Request object. Expects user input in `req.body`.
+   * @param res - Express Response object (not directly used in this middleware).
+   * @param next - Express NextFunction to continue request pipeline or trigger an error.
+   */
   validateAuth: (req: Request, res: Response, next: NextFunction) => {
     debugJoi(req.body);
 
     const schema = Joi.object({
-      // FULLNAME (not required, as we don't need it for login, and isn't crucial information)
+      // FULLNAME (not required - we don't need it for login, and it isn't crucial information)
       // can contain letters, spaces, apostrophes, hyphens
       // between 3-50 characters
       fullname: Joi.string()

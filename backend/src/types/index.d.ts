@@ -1,6 +1,11 @@
+// TYPES IMPORTS
+import type { UserType } from "../../../shared/types/user.ts";
+// NPM IMPORTS
 import { JwtPayload } from "jsonwebtoken";
-import { UserType } from "../../../shared/types/user.ts";
 
+/**
+ *  Allows appending "user" field to the Express `req` object.
+ */
 declare module "express-serve-static-core" {
   interface Request {
     user?: UserType;

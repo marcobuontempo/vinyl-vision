@@ -1,12 +1,34 @@
-import { Request, Response, NextFunction } from "express";
-import { createUser, findOneUser } from "../services/users.service.js";
-import ApiError from "../utilities/ApiError.js";
-import debug from "debug";
-import authUtil from "../utilities/auth.util.js";
+/**
+ * Auth Controller
+ *
+ * This controller manages user authentication logic, including registration and login.
+ *
+ */
 
+// NPM IMPORTS
+import { Request, Response, NextFunction } from "express";
+import debug from "debug";
+// LOCAL IMPORTS
+import authUtil from "../utilities/auth.util.js";
+import ApiError from "../utilities/ApiError.js";
+import { createUser, findOneUser } from "../services/users.service.js";
+
+// Debug logger for authentication-related actions
 const debugAuth = debug("app:auth");
 
 const AuthController = {
+  /**
+   * Handles new user registration.
+   *
+   * @param req - Express request object.
+   *   - req.body.fullname: The full name of the user.
+   *   - req.body.email: The email address used as the unique identifier.
+   *   - req.body.password: The user's plain text password to be hashed.
+   * @param res - Express response object for sending the result.
+   * @param next - Express next function for error handling.
+   *
+   * @returns Sends a JSON response with a signed JWT token upon success.
+   */
   async register(req: Request, res: Response, next: NextFunction) {
     try {
       // Destructure body
@@ -43,6 +65,18 @@ const AuthController = {
       );
     }
   },
+
+  /**
+   * Handles user login.
+   *
+   * @param req - Express request object.
+   *   - req.body.email: The email used to identify the account.
+   *   - req.body.password: The plain text password to verify against the stored hash.
+   * @param res - Express response object for sending the result.
+   * @param next - Express next function for error handling.
+   *
+   * @returns Sends a JSON response with a signed JWT token upon success.
+   */
 
   async login(req: Request, res: Response, next: NextFunction) {
     try {

@@ -1,20 +1,45 @@
+/**
+ * Music Controller
+ *
+ * Handles all HTTP request/response cycles related to music items.
+ *
+ */
+
+// TYPES IMPORTS
+import type {
+  FilterOptions,
+  SortOptions,
+} from "../../../shared/types/music.js";
+// NPM IMPORTS
 import { Request, Response, NextFunction } from "express";
-import ApiError from "../utilities/ApiError.js";
 import debug from "debug";
+// LOCAL IMPORTS
+import ApiError from "../utilities/ApiError.js";
 import {
   createOne,
   findAllMusic,
   findMusicFeatured,
   findOneMusicById,
 } from "../services/music.service.js";
-import type {
-  FilterOptions,
-  SortOptions,
-} from "../../../shared/types/music.js";
 
+// Debug logger for music-related actions
 const debugMusic = debug("app:music");
 
 const MusicController = {
+  /**
+   * Fetches all music items, optionally filtered and sorted.
+   *
+   * @param req - Express request object.
+   *   - req.query.sortBy: Field to sort by (e.g., title, artist).
+   *   - req.query.order: Sort order ("asc" or "desc").
+   *   - req.query.title: Filter by title.
+   *   - req.query.artist: Filter by artist name.
+   *   - req.query.genre: Filter by genre.
+   * @param res - Express response object.
+   * @param next - Express next function for error handling.
+   *
+   * @returns JSON list of music items.
+   */
   async getAll(req: Request, res: Response, next: NextFunction) {
     try {
       const { sortBy, order, title, artist, genre } = req.query;
@@ -38,6 +63,16 @@ const MusicController = {
     }
   },
 
+  /**
+   * Fetches a single music item by its unique ID.
+   *
+   * @param req - Express request object.
+   *   - req.params.id: The music item's unique identifier.
+   * @param res - Express response object.
+   * @param next - Express next function for error handling.
+   *
+   * @returns JSON object representing a music item, or 404 if not found.
+   */
   async getOneById(req: Request, res: Response, next: NextFunction) {
     const { id } = req.params;
     try {
@@ -56,6 +91,15 @@ const MusicController = {
     }
   },
 
+  /**
+   * Fetches a list of featured music items.
+   *
+   * @param req - Express request object.
+   * @param res - Express response object.
+   * @param next - Express next function for error handling.
+   *
+   * @returns JSON list of featured music items.
+   */
   async getFeatured(req: Request, res: Response, next: NextFunction) {
     try {
       const music = await findMusicFeatured();
@@ -70,6 +114,16 @@ const MusicController = {
     }
   },
 
+  /**
+   * Creates a new music item in the database.
+   *
+   * @param req - Express request object.
+   *   - req.body: The music item data (title, artist, genre, etc).
+   * @param res - Express response object.
+   * @param next - Express next function for error handling.
+   *
+   * @returns JSON object of the newly created music item.
+   */
   async createMusicItem(req: Request, res: Response, next: NextFunction) {
     try {
       const result = await createOne(req.body);

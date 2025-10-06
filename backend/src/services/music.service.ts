@@ -1,10 +1,27 @@
+/**
+ * Music Services
+ * 
+ * Provides database operations for music items management
+ * 
+ */
+
+// TYPES IMPORTS
 import type {
   FilterOptions,
   MusicItemType,
   SortOptions,
 } from "../../../shared/types/music.js";
+// LOCAL IMPORTS
 import { db, mapDocument } from "../utilities/database.util.js";
 
+/**
+ * Fetch all music items from the database with optional sorting and filtering.
+ *
+ * @param {SortOptions["sortBy"]} field - Field to sort by (default: "release_date")
+ * @param {SortOptions["order"]} direction - Sort direction, "asc" or "desc" (default: "asc")
+ * @param {FilterOptions} filters - Optional filters for title, artist, and genre
+ * @returns {Promise<MusicItemType[]>} - Array of filtered music items
+ */
 export const findAllMusic = async (
   field: SortOptions["sortBy"] = "release_date",
   direction: SortOptions["order"] = "asc",
@@ -34,6 +51,12 @@ export const findAllMusic = async (
   return filteredMusic;
 };
 
+/**
+ * Fetch a single music item by its ID.
+ *
+ * @param {string} id - Music item ID
+ * @returns {Promise<MusicItemType | null>} - The music item, or null if not found
+ */
 export const findOneMusicById = async (
   id: string
 ): Promise<MusicItemType | null> => {
@@ -41,6 +64,11 @@ export const findOneMusicById = async (
   return mapDocument<MusicItemType>(music);
 };
 
+/**
+ * Fetch all music items marked as featured.
+ *
+ * @returns {Promise<MusicItemType[]>} - Array of featured music items
+ */
 export const findMusicFeatured = async (): Promise<MusicItemType[] | null> => {
   const musicRef = db.collection("music").where("featured", "==", true);
   const snapshot = await musicRef.get();
@@ -51,6 +79,13 @@ export const findMusicFeatured = async (): Promise<MusicItemType[] | null> => {
   return music;
 };
 
+/**
+ * Create a new music item in the database.
+ *
+ * @param {MusicItemType} item - Music item data to create
+ * @returns {Promise<MusicItemType>} - The newly created music item
+ * @throws {Error} - If creation fails
+ */
 export const createOne = async (
   item: MusicItemType
 ): Promise<MusicItemType | null> => {

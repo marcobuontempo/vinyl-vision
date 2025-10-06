@@ -1,7 +1,20 @@
-import { UserType } from "../../../shared/types/user.js";
+/**
+ * Users Services
+ * 
+ * Provides database operations for user management
+ * 
+ */
+
+// TYPES IMPORTS
+import type { UserType } from "../../../shared/types/user.js";
+// LOCAL IMPORTS
 import { db, mapDocument } from "../utilities/database.util.js";
 import authUtil from "../utilities/auth.util.js";
 
+/**
+ * Fetch all users from the database.
+ * @returns {Promise<UserType[]>} - Array of all users
+ */
 export const findAllUsers = async (): Promise<UserType[]> => {
   const usersRef = db.collection("users");
 
@@ -14,6 +27,11 @@ export const findAllUsers = async (): Promise<UserType[]> => {
   return users;
 };
 
+/**
+ * Fetch a single user by email.
+ * @param {string} email - Email of the user
+ * @returns {Promise<UserType | null>} - The user or null if not found
+ */
 export const findOneUser = async (email: string): Promise<UserType | null> => {
   const usersRef = db.collection("users").where("email", "==", email);
 
@@ -28,12 +46,25 @@ export const findOneUser = async (email: string): Promise<UserType | null> => {
   return users[0];
 };
 
+/**
+ * Fetch a single user by ID.
+ * @param {string} id - User ID
+ * @returns {Promise<UserType | null>} - The user or null if not found
+ */
 export const findOneUserById = async (id: string): Promise<UserType | null> => {
   const user = await db.collection("users").doc(id).get();
   return mapDocument<UserType>(user);
 };
 
-export const createUser = async (user: Omit<UserType, "id">) => {
+
+/**
+ * Create a new user in the database.
+ * Hashes the password before saving.
+ * @param {Omit<UserType, "id">} user - User data excluding ID
+ * @returns {Promise<UserType>} - The newly created user
+ * @throws {Error} - If creation fails
+ */
+export const createUser = async (user: Omit<UserType, "id">): Promise<UserType> => {
   const usersRef = db.collection("users");
 
   // hash password
@@ -52,7 +83,14 @@ export const createUser = async (user: Omit<UserType, "id">) => {
   return createdUser;
 };
 
-export const updateUser = async (id: string, updates: Partial<UserType>) => {
+/**
+ * Update an existing user.
+ * Hashes new password if provided.
+ * @param {string} id - User ID
+ * @param {Partial<UserType>} updates - Partial updates to apply
+ * @returns {Promise<UserType | null>} - The updated user or null if not found
+ */
+export const updateUser = async (id: string, updates: Partial<UserType>): Promise<UserType | null> => {
   const userRef = db.collection("users").doc(id);
 
   // hash new password if provided

@@ -1,11 +1,21 @@
+// NPM IMPORTS
 import { Request, Response, NextFunction } from "express";
 import Joi from "joi";
 import debug from "debug";
+// LOCAL IMPORTS
 import ApiError from "../utilities/ApiError.js";
 
+// Debug logger for Joi-related actions
 const debugJoi = debug("app:joi");
 
 export const MusicPolicy = {
+  /**
+   * Middleware to validate an incoming music item request body.
+   *
+   * @param {Request} req - Express request object
+   * @param {Response} res - Express response object
+   * @param {NextFunction} next - Express next middleware function
+   */
   validateItem: (req: Request, res: Response, next: NextFunction) => {
     debugJoi(req.body);
 

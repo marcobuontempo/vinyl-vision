@@ -1,3 +1,4 @@
+// IMPORTS
 import express from "express";
 import "dotenv/config";
 import { config } from "./config/index.js";
@@ -10,6 +11,7 @@ import ApiError from "./utilities/ApiError.js";
 import apiErrorHandler from "./middlewares/apiErrorHandler.middleware.js";
 import { connectDatabase } from "./utilities/database.util.js";
 
+// Debug logger for app startup-related actions
 const debugStartup = debug("app:startup");
 
 // Initialise Express
