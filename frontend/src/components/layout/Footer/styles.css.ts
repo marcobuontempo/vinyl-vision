@@ -14,3 +14,9 @@ export const footer = style({
 export const copyright = style({
   padding: `${vars.space.none} ${vars.space.md}`,
 });
+
+export const github = style({
+  padding: `${vars.space.none} ${vars.space.md}`,
+  textDecoration: "underline",
+  fontSize: "1.5rem"
+});

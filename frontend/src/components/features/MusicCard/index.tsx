@@ -1,58 +1,100 @@
+/**
+ * MusicCard Component.
+ *
+ * Displays a single music item with artwork, metadata, description,
+ * genre, release date, and length. Includes functionality to view
+ * more details and to add the item directly to the shopping cart.
+ *
+ */
+
+// TYPES IMPORTS
+import type { MusicItemType } from "../../../../../shared/types";
+// NPM IMPORTS
+import { Link } from "react-router-dom";
+// LOCAL IMPORTS
+import { useCart } from "../../../contexts/CartContext";
+import Button from "../../common/Button";
+import {
+  formatCentsToCurrency,
+  formatSecondsToHHMMSS,
+} from "../../../utils/helpers";
+// STYLES IMPORTS
 import * as styles from "./styles.css";
 
-import type { MusicItemType } from "../../../../../shared/types";
-import Button from "../../common/Button";
-import { Link } from "react-router-dom";
-import { useCart } from "../../../contexts/CartContext";
-import {
-  convertPriceToCurrency,
-  convertSecondsToHHMMSS,
-} from "../../../utils/helpers";
-
+// COMPONENT PROPS
 type Props = {
   data: MusicItemType;
   className?: string;
 };
 
+/**
+ * Renders a card for a single music item, including:
+ * - Title, artist, and artwork
+ * - OnHover: Description, genre, release date, and length
+ * - Expandable link to a detailed view
+ * - Price and "Add to Cart" button
+ *
+ * @param props - Accepts a `data` object (`MusicItemType`) and optional `className`.
+ *
+ * @returns A styled `article` element displaying a music item and cart actions.
+ *
+ * @note The "Add" (to cart) button is disabled if the item is already in the cart.
+ */
 const MusicCard = ({ data, className }: Props) => {
+  // Utilise CartContext
   const { cart, addToCart } = useCart();
 
+  // Combine any passed-in classNames
   const combinedClassName = className
     ? `${className} ${styles.card}`
     : styles.card;
 
   return (
-    <article className={combinedClassName}>
+    <article className={combinedClassName} aria-labelledby={`title-${data.id}`}>
       <header className={styles.header}>
-        <h2 className={styles.text}>{data.title}</h2>
+        <h2 id={`title-${data.id}`} className={styles.text}>
+          {data.title}
+        </h2>
         <h3 className={styles.text}>{data.artist}</h3>
       </header>
 
       <img
         src={data.artwork}
-        alt={`Artwork: ${data.title} by ${data.artist}`}
+        alt={`Artwork for ${data.title} by ${data.artist}`}
         className={styles.artwork}
       />
 
-      <aside className={styles.details}>
+      <div className={styles.details} role="complementary">
         <p className={styles.detail}>{data.description}</p>
         <p className={styles.detail}>{data.genre}</p>
         <p className={styles.detail}>{data.release_date}</p>
-        <p className={styles.detail}>{convertSecondsToHHMMSS(data.length)}</p>
+        <p className={styles.detail}>{formatSecondsToHHMMSS(data.length)}</p>
         <div className={styles.expandContainer}>
-          <Link to={`/music/${data.id}`} className={styles.expand}>
+          <Link
+            to={`/music/${data.id}`}
+            className={styles.expand}
+            aria-label={`View full details for ${data.title}`}
+          >
             + expand details
           </Link>
         </div>
-      </aside>
+      </div>
 
       <footer className={styles.footer}>
         <div>
           <p className={styles.price}>
-            {convertPriceToCurrency(data.price_aud)}
+            {formatCentsToCurrency(data.price_aud)}
           </p>
         </div>
-        <Button onClick={() => addToCart(data)} disabled={!!cart[data.id]}>
+        <Button
+          onClick={() => addToCart(data)}
+          disabled={!!cart[data.id]}
+          aria-label={
+            cart[data.id]
+              ? `${data.title} is already in cart`
+              : `Add ${data.title} to cart`
+          }
+        >
           {cart[data.id] ? "IN CART" : "ADD"}
         </Button>
       </footer>

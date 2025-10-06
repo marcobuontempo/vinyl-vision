@@ -64,6 +64,11 @@ export const content = style({
   },
 });
 
+export const title = style({
+  fontSize: vars.fontSizes.md,
+  fontWeight: "normal",
+});
+
 export const information = style({
   padding: vars.space.lg,
 });

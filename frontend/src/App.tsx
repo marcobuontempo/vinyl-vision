@@ -1,9 +1,10 @@
+// NPM IMPORTS
 import { Route, Routes } from "react-router-dom";
 
-// Components
+// COMPONENTS
 import Layout from "./components/layout/Layout";
 
-// Pages
+// PAGES
 import Home from "./pages/Home";
 import Music from "./pages/Music";
 import About from "./pages/About";

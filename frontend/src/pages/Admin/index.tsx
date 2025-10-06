@@ -1,16 +1,37 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
+/**
+ * Admin (Page) Component.
+ *
+ * Provides an admin interface to create new music items.
+ * - Displays a form with fields for title, artist, description, genre, release date, artwork, length, price, and featured status.
+ * - Validates form inputs before submission.
+ * - Submits new music items to the backend via a mutation.
+ * - Displays submission state: idle, pending, success, or error.
+ *
+ */
+
+// TYPES IMPORTS
+import type { ChangeEvent, FormEvent } from "react";
+import type { MusicItemType } from "../../../../shared/types";
+// NPM IMPORTS
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+// LOCAL IMPORTS
 import Form from "../../components/common/Form";
 import Heading1 from "../../components/common/Heading1";
 import Input from "../../components/common/Input";
-import * as styles from "./styles.css";
-import type { MusicItemType } from "../../../../shared/types";
 import Button from "../../components/common/Button";
-import { useMutation } from "@tanstack/react-query";
-import { postNewMusicItem } from "../../api/music";
 import ErrorText from "../../components/common/ErrorText";
-type Props = {};
+import { postNewMusicItem } from "../../api/music";
+// STYLES IMPORTS
+import * as styles from "./styles.css";
 
-const Admin = ({}: Props) => {
+/**
+ * Admin page component, that allows creating a new music item through form submission.
+ *
+ * @returns Element representing the Admin page.
+ */
+const Admin = () => {
+  // Form values
   const [values, setValues] = useState<Omit<MusicItemType, "id">>({
     title: "",
     artist: "",
@@ -23,15 +44,18 @@ const Admin = ({}: Props) => {
     featured: false,
   });
 
+  // Validates form inputs
   const isFormInvalid = Object.entries(values).some(([key, value]) => {
     if (key === "price_aud" || key === "featured") return false;
     return !value;
   });
 
+  // TanStack mutation for API submission
   const mutation = useMutation({
     mutationFn: postNewMusicItem,
   });
 
+  // Input change handlers
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValues({
       ...values,
@@ -44,15 +68,19 @@ const Admin = ({}: Props) => {
     });
   };
 
+  // Form submission handler
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutation.mutate(values);
   };
 
+  // Render Component
   return (
     <div className={styles.admin}>
-      <Form onSubmit={handleSubmit}>
-        <Heading1 className={styles.heading}>Create Music Item</Heading1>
+      <Form onSubmit={handleSubmit} aria-labelledby="form-title">
+        <Heading1 id="form-title" className={styles.heading}>
+          Create Music Item
+        </Heading1>
         <Input
           label="Title"
           name="title"
@@ -137,8 +165,14 @@ const Admin = ({}: Props) => {
           onChange={handleChange}
         />
         <Button
+          type="submit"
           disabled={isFormInvalid || mutation.isSuccess}
           isPending={mutation.isPending}
+          aria-label={
+            mutation.isSuccess
+              ? "Item created successfully"
+              : "Create music item"
+          }
         >
           {(mutation.isIdle || mutation.isError) && "Create Item"}
           {mutation.isSuccess && "Success!"}

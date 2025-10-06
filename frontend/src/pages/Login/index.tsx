@@ -1,25 +1,53 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
-import Form from "../../components/common/Form";
-import Input from "../../components/common/Input";
-import * as styles from "./styles.css";
-import Button from "../../components/common/Button";
+/**
+ * Login (Page) Component.
+ *
+ * Provides a form for users to log in with email and password.
+ * - Handles form state and input validation.
+ * - Submits login request via TanStack mutation.
+ * - Saves returned token/user in AuthContext on success.
+ * - Redirects to home page after successful login.
+ *
+ */
+
+// TYPES IMPORTS
+import type { ChangeEvent, FormEvent } from "react";
+// NPM IMPORTS
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
+// LOCAL IMPORTS
+import Form from "../../components/common/Form";
+import Input from "../../components/common/Input";
+import Button from "../../components/common/Button";
+import ErrorText from "../../components/common/ErrorText";
 import { postLogin } from "../../api/auth";
 import { useAuth } from "../../contexts/AuthContext";
-import ErrorText from "../../components/common/ErrorText";
+// STYLES IMPORTS
+import * as styles from "./styles.css";
 
+// FORM INPUTS TYPES
 type FormValues = {
   email: string;
   password: string;
 };
 
-type Props = {};
-
-const Login = ({}: Props) => {
+/**
+ * Renders the Login page containing:
+ * - Email and password input fields
+ * - Submit button with loading/pending state
+ * - Error handling and display
+ * - Link to registration page
+ *
+ * @returns Element for the login page.
+ */
+const Login = () => {
+  // Utilise Auth Context
   const { loginSaveUser } = useAuth();
+
+  // To navigate after login
   const navigate = useNavigate();
 
+  // TanStack Query mutation to submit login request
   const mutation = useMutation({
     mutationFn: postLogin,
     onSuccess: (data) => {
@@ -29,11 +57,13 @@ const Login = ({}: Props) => {
     },
   });
 
+  // Form values
   const [values, setValues] = useState<FormValues>({
     email: "",
     password: "",
   });
 
+  // Handler for input changes
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValues({
       ...values,
@@ -41,13 +71,14 @@ const Login = ({}: Props) => {
     });
   };
 
+  // Handler for form submission
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutation.mutate(values);
   };
 
   return (
-    <div className={styles.login}>
+    <section className={styles.login}>
       <Form onSubmit={handleSubmit}>
         <Input
           label="Email"
@@ -69,8 +100,12 @@ const Login = ({}: Props) => {
         />
 
         <Button
+          type="submit"
           isPending={mutation.isPending}
           disabled={Object.values(values).some((v) => v === "")}
+          aria-label={
+            mutation.isSuccess ? "Login successful" : "Log in to account"
+          }
         >
           {(mutation.isIdle || mutation.isError) && "Login"}
           {mutation.isSuccess && "Success!"}
@@ -81,13 +116,17 @@ const Login = ({}: Props) => {
         )}
       </Form>
 
-      <p className={styles.info}>
+      <p className={styles.info} role="complementary">
         Don't have an account yet?{" "}
-        <Link to="/register" className={styles.link}>
+        <Link
+          to="/register"
+          className={styles.link}
+          aria-label="Go to registration page"
+        >
           Register here
         </Link>
       </p>
-    </div>
+    </section>
   );
 };
 

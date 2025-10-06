@@ -1,14 +1,29 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
+/**
+ * Register (Page) Component.
+ *
+ * Provides a user registration form with inputs for full name, email, password,
+ * and password confirmation. Handles validation, API submission, and automatically
+ * logs in the user on successful registration.
+ *
+ */
+
+// TYPES IMPORTS
+import type { ChangeEvent, FormEvent } from "react";
+// NPM IMPORTS
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+// LOCAL IMPORTS
 import Form from "../../components/common/Form";
 import Input from "../../components/common/Input";
-import * as styles from "./styles.css";
 import Button from "../../components/common/Button";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
-import { useMutation } from "@tanstack/react-query";
-import { postRegister } from "../../api/auth";
 import ErrorText from "../../components/common/ErrorText";
+import { useAuth } from "../../contexts/AuthContext";
+import { postRegister } from "../../api/auth";
+// STYLES IMPORTS
+import * as styles from "./styles.css";
 
+// FORM INPUT TYPES
 type FormValues = {
   fullname: string;
   email: string;
@@ -16,12 +31,19 @@ type FormValues = {
   confirmpassword: string;
 };
 
-type Props = {};
-
-const Register = ({}: Props) => {
+/**
+ * Renders the registration form with validation and mutation handling.
+ *
+ * @returns Element for user registration.
+ */
+const Register = () => {
+  // Utilise Auth Context
   const { loginSaveUser } = useAuth();
+
+  // Navigate after registration
   const navigate = useNavigate();
 
+  // TanStack Query mutation to submit registration details to API
   const mutation = useMutation({
     mutationFn: async (values: FormValues) => {
       if (values.password !== values.confirmpassword) {
@@ -37,6 +59,7 @@ const Register = ({}: Props) => {
     },
   });
 
+  // Form Values
   const [values, setValues] = useState<FormValues>({
     fullname: "",
     email: "",
@@ -44,6 +67,7 @@ const Register = ({}: Props) => {
     confirmpassword: "",
   });
 
+  // Handler for input changes
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValues({
       ...values,
@@ -51,13 +75,14 @@ const Register = ({}: Props) => {
     });
   };
 
+  // Handler for form submission
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutation.mutate(values);
   };
 
   return (
-    <div className={styles.register}>
+    <section className={styles.register}>
       <Form onSubmit={handleSubmit}>
         <Input
           label="Full Name"
@@ -112,13 +137,13 @@ const Register = ({}: Props) => {
         )}
       </Form>
 
-      <p className={styles.info}>
+      <p className={styles.info} role="complementary">
         Already have an account?{" "}
-        <Link to="/login" className={styles.link}>
+        <Link to="/login" className={styles.link} aria-label="Go to login page">
           Login here
         </Link>
       </p>
-    </div>
+    </section>
   );
 };
 

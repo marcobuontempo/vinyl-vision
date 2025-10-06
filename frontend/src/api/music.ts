@@ -1,10 +1,32 @@
+/**
+ * "MUSIC" - API FUNCTIONS
+ *
+ * Provides functions to retrieve and manage music items from the backend.
+ *
+ * Includes support for fetching all music with sorting/filtering,
+ * fetching by ID, retrieving featured music, and adding new items.
+ *
+ */
+
+// TYPES IMPORTS
 import type {
   FilterOptions,
   MusicItemType,
   SortOptions,
 } from "../../../shared/types";
+// LOCAL IMPORTS
 import { api, handleApiError } from "./index";
 
+/**
+ * Fetches all music items with optional sorting and filtering.
+ *
+ * @param sortBy - Field to sort results by (default: "release_date").
+ * @param order - Sort order, either "asc" or "desc" (default: "desc").
+ * @param filters - Filter criteria such as "title", "artist", or "genre".
+ *
+ * @returns An array of music items matching the given parameters.
+ * @throws Calls `handleApiError` if the API request fails.
+ */
 export const getAllMusic = async (
   sortBy: SortOptions["sortBy"] | undefined | null = "release_date",
   order: SortOptions["order"] | undefined | null = "desc",
@@ -25,6 +47,14 @@ export const getAllMusic = async (
   }
 };
 
+/**
+ * Fetches a single music item by its ID.
+ *
+ * @param id - The unique identifier of the music item.
+ *
+ * @returns A single `MusicItemType` object.
+ * @throws Calls `handleApiError` if the API request fails.
+ */
 export const getMusicById = async (id: string) => {
   try {
     const res = await api.get(`/music/${id}`);
@@ -33,6 +63,13 @@ export const getMusicById = async (id: string) => {
     handleApiError(error);
   }
 };
+
+/**
+ * Fetches the featured music items.
+ *
+ * @returns An array of featured `MusicItemType` objects.
+ * @throws Calls `handleApiError` if the API request fails.
+ */
 
 export const getFeaturedMusic = async () => {
   try {
@@ -43,6 +80,18 @@ export const getFeaturedMusic = async () => {
   }
 };
 
+/**
+ * Creates a new music item in the database.
+ *
+ * @param item - The music item details, excluding the ID (auto-assigned by the backend).
+ *   @property price_aud - The price in AUD (provided as a float in dollars).
+ *
+ * @returns The newly created `MusicItemType` object.
+ * @throws Calls `handleApiError` if the API request fails.
+ *
+ * @note The `price_aud` field is automatically converted from dollars
+ *       to cents before being sent to the backend for storage.
+ */
 export const postNewMusicItem = async (item: Omit<MusicItemType, "id">) => {
   try {
     // Modify the $AUD to cents for database storage

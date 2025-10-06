@@ -1,47 +1,83 @@
+/**
+ * Featured Component.
+ *
+ * Displays a section of "Featured Music" items, fetched from the backend.
+ * Handles and renders different states:
+ * - Loading state with a spinner
+ * - Error state with a user-friendly error message
+ * - Empty state when no data is available
+ * - Success state showing a list of `MusicCard` components
+ *
+ */
+
+// NPM IMPORTS
 import { useQuery } from "@tanstack/react-query";
-import MusicCard from "../MusicCard";
-import * as styles from "./styles.css";
-import { getFeaturedMusic } from "../../../api/music";
 import { ScaleLoader } from "react-spinners";
+// LOCAL IMPORTS
+import MusicCard from "../MusicCard";
 import ErrorText from "../../common/ErrorText";
+import { getFeaturedMusic } from "../../../api/music";
+// STYLES IMPORTS
+import * as styles from "./styles.css";
 import { vars } from "../../../styles/themes.css";
 
-type Props = {};
-
-const Featured = ({}: Props) => {
+/**
+ * Fetches and renders a list of featured music items.
+ *
+ * @returns A section element containing a title and a list of featured music cards.
+ * Displays appropriate UI for loading, error, and empty states.
+ *
+ * @note Uses TanStack Query's `useQuery` for caching and retrying failed requests.
+ */
+const Featured = () => {
+  // Use TanStack Query hook for fetching featured music data
   const { data, isPending, isError } = useQuery({
     queryKey: ["music", "featured"],
     queryFn: getFeaturedMusic,
-    retry: 2,
+    retry: 2, // attempt retry on failed requests twice
   });
 
+  // Show loading spinner while data is being fetched
   if (isPending)
     return (
-      <div className={styles.stateContainer}>
-        <ScaleLoader color={vars.colors.accent} height={"1rem"} />
-      </div>
+      <section className={styles.stateContainer} aria-busy="true">
+        <ScaleLoader
+          color={vars.colors.accent}
+          height={"1rem"}
+          aria-label="Loading featured music"
+        />
+      </section>
     );
 
+  // Show error message if data fetch failed
   if (isError)
     return (
-      <div className={styles.stateContainer}>
+      <section className={styles.stateContainer} role="alert">
         <ErrorText>Error Fetching "Featured Music"</ErrorText>
-      </div>
+      </section>
     );
 
+  // Show empty state message if no data was returned
   if (!data)
     return (
-      <div className={styles.stateContainer}>No "Featured Music" Data</div>
+      <section className={styles.stateContainer} role="status">
+        <p>No "Featured Music" Data</p>
+      </section>
     );
 
+  // Render featured music list when data is available
   return (
-    <section className={styles.featured}>
-      <h2 className={styles.title}>Featured Music</h2>
-      <div className={styles.list}>
+    <section className={styles.featured} aria-labelledby="featured-title">
+      <h2 id="featured-title" className={styles.title}>
+        Featured Music
+      </h2>
+      <ul className={styles.list} role="list">
         {data.map((data) => (
-          <MusicCard key={data.id} data={data} className={styles.item} />
+          <li key={data.id}>
+            <MusicCard data={data} className={styles.item} />
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 };

@@ -1,3 +1,7 @@
+/**
+ * GLOBAL THEMES AND STYLING VARIABLES TO BE USED ACROSS APPLICATION
+ */
+
 import { createGlobalTheme } from "@vanilla-extract/css";
 
 export const root = createGlobalTheme(":root", {

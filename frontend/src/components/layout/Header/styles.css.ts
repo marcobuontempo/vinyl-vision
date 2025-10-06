@@ -110,11 +110,28 @@ export const list = style([
   },
 ]);
 
-export const logo = style([
+const logoBase = style([
   box,
   {
-    textAlign: "center",
     fontWeight: "bold",
+    textDecoration: "underline",
+    textDecorationColor: vars.colors.accent,
+    selectors: {
+      "&:hover": {
+        transform: "scale(1.02)",
+      },
+      "&:active": {
+        transform: "scale(1.05)",
+      },
+    },
+  },
+]);
+
+export const logo = style([
+  logoBase,
+  {
+    textAlign: "center",
+
     "@media": {
       "screen and (max-width: 768px)": {
         display: "none",
@@ -124,10 +141,9 @@ export const logo = style([
 ]);
 
 export const logoMobile = style([
-  box,
+  logoBase,
   {
     display: "none",
-    fontWeight: "bold",
     "@media": {
       "screen and (max-width: 768px)": {
         display: "block",

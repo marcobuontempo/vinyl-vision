@@ -1,16 +1,34 @@
-import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
+/**
+ * Dashboard (Page) Component.
+ *
+ * Allows authenticated users to view and update their profile details.
+ * - Displays the current user's full name and email.
+ * - Supports updating full name, email, and password.
+ * - Handles validation for password confirmation.
+ * - Shows pending, success, and error states for updates.
+ * - Provides a logout button.
+ *
+ */
+
+// TYPES IMPORTS
+import type { ChangeEvent, FormEvent } from "react";
+// NPM IMPORTS
+import { useEffect, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { ScaleLoader } from "react-spinners";
+// LOCAL IMPORTS
 import Button from "../../components/common/Button";
 import Heading1 from "../../components/common/Heading1";
-import { useAuth } from "../../contexts/AuthContext";
-import * as styles from "./styles.css";
 import Input from "../../components/common/Input";
-import { ScaleLoader } from "react-spinners";
-import { useMutation } from "@tanstack/react-query";
 import Form from "../../components/common/Form";
-import { putUpdateDetails } from "../../api/user";
 import ErrorText from "../../components/common/ErrorText";
+import { useAuth } from "../../contexts/AuthContext";
+import { putUpdateDetails } from "../../api/user";
+// STYLES IMPORTS
+import * as styles from "./styles.css";
 import { vars } from "../../styles/themes.css";
 
+// FORM INPUTS TYPES
 type FormValues = {
   fullname: string;
   email: string;
@@ -19,10 +37,16 @@ type FormValues = {
   password: string;
 };
 
-type Props = {};
-
-const Dashboard = ({}: Props) => {
+/**
+ * Dashboard page for updating user profile information.
+ *
+ * @returns Element containing profile update form and logout button.
+ */
+const Dashboard = () => {
+  // Utilise Auth Context
   const { user, loginSaveUser, logout } = useAuth();
+
+  // Form values
   const [details, setDetails] = useState<FormValues>({
     fullname: "",
     email: "",
@@ -31,6 +55,7 @@ const Dashboard = ({}: Props) => {
     password: "",
   });
 
+  // Prefill form with current user details on mount
   useEffect(() => {
     if (user) {
       setDetails({
@@ -41,6 +66,7 @@ const Dashboard = ({}: Props) => {
     }
   }, [user]);
 
+  // TanStack mutation to submit data to API
   const mutation = useMutation({
     mutationFn: async (details: FormValues) => {
       // ensure updated passwords match
@@ -61,6 +87,7 @@ const Dashboard = ({}: Props) => {
     },
   });
 
+  // Form input change handler
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setDetails({
@@ -69,28 +96,39 @@ const Dashboard = ({}: Props) => {
     });
   };
 
+  // Handle form submission
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutation.mutate(details);
   };
 
+  // Render a loader if no user details available
   if (!user) {
     return (
-      <div className={styles.stateContainer}>
-        <ScaleLoader color={vars.colors.accent} height={"1rem"} />
+      <div className={styles.stateContainer} role="status">
+        <ScaleLoader
+          color={vars.colors.accent}
+          height={"1rem"}
+          aria-label="Loading dashboard"
+        />
       </div>
     );
   }
 
+  // Render component
   return (
-    <div className={styles.dashboard}>
-      <Heading1 className={styles.heading}>Dashboard</Heading1>
+    <div className={styles.dashboard} aria-labelledby="dashboard-title">
+      <Heading1 id="dashboard-title" className={styles.heading}>
+        Dashboard
+      </Heading1>
       <Form onSubmit={handleSubmit} autoComplete="off">
-        <p>Update any of your profile details here.</p>
-        <p>
-          Note: leaving a field blank/unchanged will NOT update that specific
-          value in your profile
-        </p>
+        <div>
+          <p>Update any of your profile details here.</p>
+          <p>
+            Note: leaving a field blank/unchanged will NOT update that specific
+            value in your profile
+          </p>
+        </div>
         <Input
           label="Full Name"
           name="fullname"
@@ -136,6 +174,11 @@ const Dashboard = ({}: Props) => {
           isPending={mutation.isPending}
           className={styles.update}
           disabled={details.password === ""}
+          aria-label={
+            mutation.isSuccess
+              ? "Profile updated successfully"
+              : "Update profile"
+          }
         >
           {(mutation.isIdle || mutation.isError) && "Update Details"}
           {mutation.isSuccess && "Success!"}
@@ -146,7 +189,12 @@ const Dashboard = ({}: Props) => {
         )}
       </Form>
 
-      <Button theme="danger" className={styles.logout} onClick={logout}>
+      <Button
+        theme="danger"
+        className={styles.logout}
+        onClick={logout}
+        aria-label="Logout from account"
+      >
         Logout
       </Button>
     </div>

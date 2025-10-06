@@ -1,3 +1,9 @@
+/**
+ * RESETS CSS STYLES TO "BASELINE" VALUES
+ * - Improves consistency and styling quirks between browsers
+ */
+
+// NPM IMPORTS
 import { globalStyle } from "@vanilla-extract/css";
 
 // Box-sizing rules

@@ -28,4 +28,6 @@ export const stateContainer = style({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  borderTop: `1px solid ${vars.colors.complementary}`,
+  borderBottom: `1px solid ${vars.colors.complementary}`,
 });

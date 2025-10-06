@@ -1,12 +1,27 @@
+/**
+ * About (Page) Component.
+ *
+ * A static page component that presents information about Vinyl Vision.
+ * - Displays the page heading and descriptive paragraphs about the platform.
+ * - Includes a vinyl icon for visual branding.
+ *
+ */
+
+// NPM IMPORTS
 import { PiVinylRecordDuotone } from "react-icons/pi";
+// LOCAL IMPORTS
 import Heading1 from "../../components/common/Heading1";
+// STYLES IMPORTS
 import * as styles from "./styles.css";
 
-type Props = {};
-
-const About = ({}: Props) => {
+/**
+ * Renders the About page content.
+ *
+ * @returns element representing the About page content.
+ */
+const About = () => {
   return (
-    <>
+    <article>
       <Heading1 className={styles.heading}>About</Heading1>
       <div className={styles.content}>
         <p className={styles.paragraph}>
@@ -27,9 +42,13 @@ const About = ({}: Props) => {
           collecting.
         </p>
 
-        <PiVinylRecordDuotone className={styles.vinyl} />
+        <PiVinylRecordDuotone
+          className={styles.vinyl}
+          aria-hidden="true"
+          role="presentation"
+        />
       </div>
-    </>
+    </article>
   );
 };
 
