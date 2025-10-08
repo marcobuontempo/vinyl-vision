@@ -11,6 +11,7 @@ import LinkButton from "../../common/LinkButton";
 import Heading1 from "../../common/Heading1";
 // STYLES IMPORTS
 import * as styles from "./styles.css";
+import { useAuth } from "../../../contexts/AuthContext";
 
 /**
  * Renders the main hero section with a title, descriptive tagline,
@@ -19,6 +20,9 @@ import * as styles from "./styles.css";
  * @returns A styled hero section element.
  */
 const Hero = () => {
+  // Utilise the Auth Context
+  const { user } = useAuth();
+
   return (
     <section className={styles.hero} aria-labelledby="hero-title">
       <div role="group" className={styles.text}>
@@ -31,17 +35,27 @@ const Hero = () => {
         <LinkButton
           to="/music"
           className={styles.link}
-          aria-label="Browser our music collection"
+          aria-label="Browse our music collection"
         >
           Explore Music
         </LinkButton>
-        <LinkButton
-          to="/register"
-          className={styles.link}
-          aria-label="Create an account"
-        >
-          Sign Up
-        </LinkButton>
+        {user ? (
+          <LinkButton
+            to="/about"
+            className={styles.link}
+            aria-label="Learn about Vinyl Vision"
+          >
+            About Us
+          </LinkButton>
+        ) : (
+          <LinkButton
+            to="/register"
+            className={styles.link}
+            aria-label="Create an account"
+          >
+            Sign Up
+          </LinkButton>
+        )}
       </nav>
     </section>
   );
