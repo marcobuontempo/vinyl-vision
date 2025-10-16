@@ -22,7 +22,7 @@ import { api, handleApiError } from "./index";
  *
  * @param sortBy - Field to sort results by (default: "release_date").
  * @param order - Sort order, either "asc" or "desc" (default: "desc").
- * @param filters - Filter criteria such as "title", "artist", or "genre".
+ * @param filters - Filter criteria such as "title", "artist", "genre", or "featured".
  *
  * @returns An array of music items matching the given parameters.
  * @throws Calls `handleApiError` if the API request fails.
@@ -39,6 +39,7 @@ export const getAllMusic = async (
     if (filters.title) params.append("title", filters.title);
     if (filters.artist) params.append("artist", filters.artist);
     if (filters.genre) params.append("genre", filters.genre);
+    if (filters.featured) params.append("featured", filters.featured);
 
     const res = await api.get(`/music?${params.toString()}`);
     return res.data as MusicItemType[];

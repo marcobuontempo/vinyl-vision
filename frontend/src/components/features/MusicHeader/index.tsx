@@ -4,7 +4,7 @@
  * Renders the header section of the Music page, including:
  * - Page title
  * - Filter toggle button
- * - Filter form with inputs for title, artist, and genre
+ * - Filter form with inputs for title, artist, genre, and featured
  * - Sorting options for title, release date, length, and price
  *
  * Syncs filter state with URL search parameters for persistent filters.
@@ -37,6 +37,7 @@ const MusicHeader = () => {
     title: "",
     artist: "",
     genre: "",
+    featured: false,
   });
   // Manages search parameters in URL
   const [searchParams, setSearchParams] = useSearchParams();
@@ -57,7 +58,10 @@ const MusicHeader = () => {
   ) => {
     setFilterValues({
       ...filterValues,
-      [e.target.name]: e.target.value,
+      [e.target.name]:
+        e.target.type === "checkbox"
+          ? (e.target as HTMLInputElement).checked
+          : e.target.value,
     });
   };
 
@@ -65,7 +69,7 @@ const MusicHeader = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const [sortBy, order] = filterValues.sort.split(":");
-    const { title, artist, genre } = filterValues;
+    const { title, artist, genre, featured } = filterValues;
 
     let params: Record<string, string> = {};
     if (sortBy) params.sortBy = sortBy;
@@ -73,6 +77,7 @@ const MusicHeader = () => {
     if (title) params.title = title;
     if (artist) params.artist = artist;
     if (genre) params.genre = genre;
+    if (featured) params.featured = featured ? "true" : "false";
 
     setSearchParams(params);
   };
@@ -137,6 +142,15 @@ const MusicHeader = () => {
           <option value="price_aud:asc">Price: Ascending</option>
           <option value="price_aud:desc">Price: Descending</option>
         </select>
+
+        <Input
+          name="featured"
+          type="checkbox"
+          label="Featured Only"
+          checked={filterValues.featured}
+          onChange={handleChange}
+        />
+
         <Button type="submit" aria-label="Apply filters">
           Apply Filters
         </Button>

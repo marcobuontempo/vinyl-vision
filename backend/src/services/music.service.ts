@@ -1,8 +1,8 @@
 /**
  * Music Services
- * 
+ *
  * Provides database operations for music items management
- * 
+ *
  */
 
 // TYPES IMPORTS
@@ -19,7 +19,7 @@ import { db, mapDocument } from "../utilities/database.util.js";
  *
  * @param {SortOptions["sortBy"]} field - Field to sort by (default: "release_date")
  * @param {SortOptions["order"]} direction - Sort direction, "asc" or "desc" (default: "asc")
- * @param {FilterOptions} filters - Optional filters for title, artist, and genre
+ * @param {FilterOptions} filters - Optional filters for title, artist, genre, and featured
  * @returns {Promise<MusicItemType[]>} - Array of filtered music items
  */
 export const findAllMusic = async (
@@ -27,7 +27,14 @@ export const findAllMusic = async (
   direction: SortOptions["order"] = "asc",
   filters: FilterOptions = {}
 ): Promise<MusicItemType[]> => {
-  const musicRef = db.collection("music").orderBy(field, direction);
+  // create database query
+  let musicRef = db.collection("music").orderBy(field, direction);
+  
+  // conditionally add "where" clause, if "featured" flag is passed
+  if (filters.featured === "true") {
+    musicRef = musicRef.where("featured", "==", true);
+  }
+
   const snapshot = await musicRef.get();
 
   const music: MusicItemType[] = [];

@@ -20,4 +20,5 @@ export type FilterOptions = {
   title?: string;
   artist?: string;
   genre?: string;
+  featured?: string;
 };

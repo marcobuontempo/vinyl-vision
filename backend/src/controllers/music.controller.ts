@@ -35,6 +35,7 @@ const MusicController = {
    *   - req.query.title: Filter by title.
    *   - req.query.artist: Filter by artist name.
    *   - req.query.genre: Filter by genre.
+   *   - req.query.featured: Filter whether the item is "featured" or not.
    * @param res - Express response object.
    * @param next - Express next function for error handling.
    *
@@ -42,11 +43,12 @@ const MusicController = {
    */
   async getAll(req: Request, res: Response, next: NextFunction) {
     try {
-      const { sortBy, order, title, artist, genre } = req.query;
+      const { sortBy, order, title, artist, genre, featured } = req.query;
       const filters: FilterOptions = {
         title: title as string,
         artist: artist as string,
         genre: genre as string,
+        featured: featured as string,
       };
       debugMusic(`Music Sort: ${sortBy}:${order}`);
       debugMusic("Music Filters:", filters);

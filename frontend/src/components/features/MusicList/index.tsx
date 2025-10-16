@@ -28,7 +28,7 @@ import { vars } from "../../../styles/themes.css";
  * @returns `MusicList` component representing the music list or appropriate state messages.
  */
 const MusicList = () => {
-  // URL search parameters for filtering and sorting
+  // URL search parameters for filtering and sorting. Enforce undefined to avoid "falsy" values, such as empty strings
   const [searchParams] = useSearchParams();
   const sortBy =
     (searchParams.get("sortBy") as SortOptions["sortBy"]) || undefined;
@@ -40,12 +40,14 @@ const MusicList = () => {
     (searchParams.get("artist") as FilterOptions["artist"]) || undefined;
   const genre =
     (searchParams.get("genre") as FilterOptions["genre"]) || undefined;
+  const featured =
+    (searchParams.get("featured") as FilterOptions["featured"]) || undefined;
 
   // Use TanStack Query hook for fetching music data
   const { data, isPending, isError, refetch } = useQuery({
-    queryKey: ["music", sortBy, order, title, artist, genre],
+    queryKey: ["music", sortBy, order, title, artist, genre, featured],
     queryFn: () => {
-      return getAllMusic(sortBy, order, { title, artist, genre });
+      return getAllMusic(sortBy, order, { title, artist, genre, featured });
     },
     retry: 2, // retry for 2 attempts on fail
   });
