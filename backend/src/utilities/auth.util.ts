@@ -1,8 +1,8 @@
 /**
  * Authentication/Authentication Utilities
- * 
+ *
  * Provides utility functions for handling user authentication and authorisation
- * 
+ *
  */
 
 // TYPE IMPORTS
@@ -61,7 +61,10 @@ export const authUtil = {
     const secret = config.authentication.jwtSecret;
     const tokenExpireTime = 60 * 60 * 24; // 86400 seconds = 1 day
 
-    const token = jwt.sign(payload, secret, { expiresIn: tokenExpireTime });
+    const token = jwt.sign(payload, secret, {
+      algorithm: "HS512",
+      expiresIn: tokenExpireTime,
+    });
     return token;
   },
 };

@@ -48,6 +48,14 @@ export const artwork = style({
   },
 });
 
+export const placeholder = style([
+  artwork,
+  {
+    opacity: 0.1,
+    padding: vars.space.xxl
+  }
+])
+
 export const header = style({
   width: "100%",
   padding: `${vars.space.none} ${vars.space.md}`,
@@ -107,8 +115,8 @@ export const expand = style({
 });
 
 export const footer = style({
-  width: "100%",
   position: "relative",
+  width: "100%",
   display: "flex",
   justifyContent: "space-between",
   alignItems: "flex-end",
@@ -138,4 +146,15 @@ export const price = style({
   background: vars.colors.primaryTransparent,
   width: "6rem",
   textAlign: "center",
+});
+
+export const featured = style({
+  position: "absolute",
+  top: vars.space.xs,
+  right: vars.space.xs,
+  height: "1rem",
+  width: "1rem",
+  color: vars.colors.accentAlt,
+  stroke: vars.colors.light,
+  strokeWidth: "2rem",
 });

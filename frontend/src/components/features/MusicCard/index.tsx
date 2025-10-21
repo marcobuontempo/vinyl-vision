@@ -20,6 +20,8 @@ import {
 } from "../../../utils/helpers";
 // STYLES IMPORTS
 import * as styles from "./styles.css";
+import { FaStar } from "react-icons/fa6";
+import { useState } from "react";
 
 // COMPONENT PROPS
 type Props = {
@@ -43,6 +45,8 @@ type Props = {
 const MusicCard = ({ data, className }: Props) => {
   // Utilise CartContext
   const { cart, addToCart } = useCart();
+  // Flag to determine when to show placeholder image
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   // Combine any passed-in classNames
   const combinedClassName = className
@@ -56,12 +60,24 @@ const MusicCard = ({ data, className }: Props) => {
           {data.title}
         </h2>
         <h3 className={styles.text}>{data.artist}</h3>
+
+        {data.featured && (
+          <FaStar className={styles.featured} title="featured item" />
+        )}
       </header>
 
+      {!isImageLoaded && (
+        <img
+          src="/favicon/android-chrome-512x512.png"
+          alt={"Placeholder artwork image"}
+          className={styles.placeholder}
+        />
+      )}
       <img
         src={data.artwork}
         alt={`Artwork for ${data.title} by ${data.artist}`}
         className={styles.artwork}
+        onLoad={() => setIsImageLoaded(true)}
       />
 
       <div className={styles.details} role="complementary">

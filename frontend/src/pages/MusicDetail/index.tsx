@@ -28,6 +28,8 @@ import {
 // STYLES IMPORTS
 import * as styles from "./styles.css";
 import { vars } from "../../styles/themes.css";
+import { FaStar } from "react-icons/fa6";
+import { useState } from "react";
 
 /**
  * Renders the detailed view of a music item including:
@@ -42,6 +44,8 @@ const MusicDetail = () => {
   const { id } = useParams();
   // Utilise Cart Context
   const { cart, addToCart } = useCart();
+  // Flag to determine when to show placeholder image
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   // TanStack Query to fetch music data
   const { data, isPending, isError, refetch } = useQuery({
@@ -83,12 +87,26 @@ const MusicDetail = () => {
         Music Details
       </Heading1>
       <section className={styles.container} aria-labelledby="music-title">
-        <img
-          src={data.artwork}
-          alt={`Artwork: ${data.title} by ${data.artist}`}
-          className={styles.artwork}
-        />
+        <div className={styles.imagewrapper}>
+          {!isImageLoaded && (
+            <img
+              src="/favicon/android-chrome-512x512.png"
+              alt={"Placeholder artwork image"}
+              className={styles.placeholder}
+            />
+          )}
+          <img
+            src={data.artwork}
+            alt={`Artwork: ${data.title} by ${data.artist}`}
+            className={isImageLoaded ? styles.artwork : undefined}
+            onLoad={() => setIsImageLoaded(true)}
+          />
+        </div>
+
         <div className={styles.content}>
+          {data.featured && (
+            <FaStar className={styles.featured} title="featured item" />
+          )}
           <p className={styles.description}>{data.description}</p>
           <div className={styles.information}>
             <h2 id="music-title" className={styles.title}>
