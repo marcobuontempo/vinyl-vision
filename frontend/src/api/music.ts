@@ -4,7 +4,8 @@
  * Provides functions to retrieve and manage music items from the backend.
  *
  * Includes support for fetching all music with sorting/filtering,
- * fetching by ID, retrieving featured music, and adding new items.
+ * fetching by ID, retrieving featured music, adding new items, and 
+ * deleting items.
  *
  */
 
@@ -20,7 +21,7 @@ import { api, handleApiError } from "./index";
 /**
  * Fetches all music items with optional sorting and filtering.
  *
- * @param sortBy - Field to sort results by (default: "release_date").
+ * @param {string} sortBy - Optional field to sort results by (default: "release_date").
  * @param order - Sort order, either "asc" or "desc" (default: "desc").
  * @param filters - Filter criteria such as "title", "artist", "genre", or "featured".
  *
@@ -30,7 +31,7 @@ import { api, handleApiError } from "./index";
 export const getAllMusic = async (
   sortBy: SortOptions["sortBy"] | undefined | null = "release_date",
   order: SortOptions["order"] | undefined | null = "desc",
-  filters: FilterOptions
+  filters: FilterOptions = {}
 ) => {
   try {
     const params = new URLSearchParams();
@@ -102,6 +103,24 @@ export const postNewMusicItem = async (item: Omit<MusicItemType, "id">) => {
     };
     const res = await api.post("/music", payload);
     return res.data as MusicItemType;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+/**
+ * Deletes a music item from the database.
+ *
+ * @param id - The music item ID to delete.
+ *
+ * @returns {Promise<void>}
+ * @throws Calls `handleApiError` if the API request fails.
+ *
+ */
+export const deleteMusicItem = async (id: string): Promise<void> => {
+  try {
+    await api.delete(`/music/${id}`);
+    return;
   } catch (error) {
     handleApiError(error);
   }

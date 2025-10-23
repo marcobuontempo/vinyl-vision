@@ -45,4 +45,13 @@ router.get("/:id", MusicController.getOneById);
  */
 router.post("/", authMiddleware.verifyJwt, authMiddleware.isAdmin, MusicPolicy.validateItem, MusicController.createMusicItem);
 
+/**
+ * @route   DELETE /music/:id
+ * @desc    Delete a single music item by its ID
+ * @access  Private/Admin
+ * @middleware authMiddleware.verifyJwt - validates JWT token
+ * @middleware authMiddleware.isAdmin - checks if user is admin
+ */
+router.delete("/:id", authMiddleware.verifyJwt, authMiddleware.isAdmin, MusicController.deleteOneById);
+
 export default router;

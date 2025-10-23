@@ -29,7 +29,7 @@ export const findAllMusic = async (
 ): Promise<MusicItemType[]> => {
   // create database query
   let musicRef = db.collection("music").orderBy(field, direction);
-  
+
   // conditionally add "where" clause, if "featured" flag is passed
   if (filters.featured === "true") {
     musicRef = musicRef.where("featured", "==", true);
@@ -109,4 +109,16 @@ export const createOne = async (
 
   // return the newly created item
   return createdItem;
+};
+
+/**
+ * Delete a music item in the database by its ID.
+ *
+ * @param {string} id - Music item ID
+ * @returns {void} - Nothing to return
+ * @throws {Error} - If creation fails
+ */
+export const deleteOneMusicById = async (id: string): Promise<void> => {
+  await db.collection("music").doc(id).delete();
+  return;
 };

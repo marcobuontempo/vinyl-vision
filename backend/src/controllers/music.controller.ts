@@ -17,6 +17,7 @@ import debug from "debug";
 import ApiError from "../utilities/ApiError.js";
 import {
   createOne,
+  deleteOneMusicById,
   findAllMusic,
   findMusicFeatured,
   findOneMusicById,
@@ -86,7 +87,7 @@ const MusicController = {
     } catch (error) {
       return next(
         ApiError.internal(
-          `Something went wrong while fetching 'music' with 'id':${id}`,
+          `Something went wrong while fetching 'music' item with 'id':${id}`,
           error
         )
       );
@@ -134,6 +135,31 @@ const MusicController = {
       return next(
         ApiError.internal(
           "Something went wrong while creating music item",
+          error
+        )
+      );
+    }
+  },
+
+  /**
+   * Deletes a music item from the database using its unique ID.
+   *
+   * @param req - Express request object.
+   *   - req.params.id: The music item's unique identifier.
+   * @param res - Express response object.
+   * @param next - Express next function for error handling.
+   *
+   * @returns void (204 No Content)
+   */
+  async deleteOneById(req: Request, res: Response, next: NextFunction) {
+    const { id } = req.params;
+    try {
+      await deleteOneMusicById(id);
+      res.status(204).send();
+    } catch (error) {
+      return next(
+        ApiError.internal(
+          `Something went wrong while deleting 'music' item with 'id': ${id}`,
           error
         )
       );
