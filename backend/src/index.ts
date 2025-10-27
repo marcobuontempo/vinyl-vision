@@ -3,6 +3,8 @@ import express from "express";
 import "dotenv/config";
 import { config } from "./config/index.js";
 
+import helmet from "helmet";
+import cors from "cors";
 import fileUpload from "express-fileupload";
 import morgan from "morgan";
 import debug from "debug";
@@ -19,6 +21,11 @@ const debugStartup = debug("app:startup");
 // Initialise Express
 debugStartup("Initialising express app...");
 const app = express();
+
+// HTTP Header-setter security & CORS
+app.use(helmet());
+app.use(cors(config.cors));
+debugStartup("Helmet & CORS Pre-Flight requests enabled");
 
 // Parse JSON / URLEncoded
 debugStartup("Parsing middleware enabled on all routes...");

@@ -1,3 +1,5 @@
+import { CorsOptions } from "cors";
+
 /**
  * Application configuration interface.
  *
@@ -15,7 +17,8 @@ interface Config {
     cloud_name: string; // Name of Cloudinary Product Environment
     api_key: string; // API Key Value (e.g. 123456789101112)
     api_secret: string; // API Key Secret (e.g. xxxxxxxxxxxxxxxxxxxxxxxxxxx)
-  }
+  };
+  cors: CorsOptions;
 }
 
 /**
@@ -36,6 +39,20 @@ export const config: Config = {
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME ?? "",
     api_key: process.env.CLOUDINARY_API_KEY ?? "",
     api_secret: process.env.CLOUDINARY_API_SECRET ?? "",
+  },
+  cors: {
+    origin: (origin, callback) => {
+      const whitelist = [
+        process.env.CORS_WHITELIST_1,
+        process.env.CORS_WHITELIST_2,
+      ]; // Allowed domains
+      if (whitelist.indexOf(origin) !== -1 || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    optionsSuccessStatus: 200,
   },
 };
 
