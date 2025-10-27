@@ -13,7 +13,7 @@ import { Request, Response, NextFunction } from "express";
 import Joi from "joi";
 import debug from "debug";
 // LOCAL IMPORTS
-import ApiError from "../utilities/ApiError.js";
+import ApiError from "../utilities/ApiError.util.js";
 
 // Debug logger for Joi-related actions
 const debugJoi = debug("app:joi");

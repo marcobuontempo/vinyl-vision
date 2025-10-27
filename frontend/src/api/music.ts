@@ -4,7 +4,7 @@
  * Provides functions to retrieve and manage music items from the backend.
  *
  * Includes support for fetching all music with sorting/filtering,
- * fetching by ID, retrieving featured music, adding new items, and 
+ * fetching by ID, retrieving featured music, adding new items, and
  * deleting items.
  *
  */
@@ -85,7 +85,8 @@ export const getFeaturedMusic = async () => {
 /**
  * Creates a new music item in the database.
  *
- * @param item - The music item details, excluding the ID (auto-assigned by the backend).
+ * @param item - The music item details, excluding the `id` (auto-assigned by the backend),
+ *               and including the `artwork` as an image file.
  *   @property price_aud - The price in AUD (provided as a float in dollars).
  *
  * @returns The newly created `MusicItemType` object.
@@ -94,14 +95,27 @@ export const getFeaturedMusic = async () => {
  * @note The `price_aud` field is automatically converted from dollars
  *       to cents before being sent to the backend for storage.
  */
-export const postNewMusicItem = async (item: Omit<MusicItemType, "id">) => {
+export const postNewMusicItem = async (
+  item: Omit<MusicItemType, "id" | "artwork"> & { artwork: File }
+) => {
   try {
-    // Modify the $AUD to cents for database storage
-    const payload = {
-      ...item,
-      price_aud: Math.round(item.price_aud * 100),
-    };
-    const res = await api.post("/music", payload);
+    // Use formdata request so it can correctly handle file upload
+    const formData = new FormData();
+
+    formData.append("artist", item.artist);
+    formData.append("artwork", item.artwork);
+    formData.append("description", item.description);
+    formData.append("featured", String(item.featured));
+    formData.append("genre", item.genre);
+    formData.append("length", item.length.toString());
+    formData.append("price_aud", Math.round(item.price_aud * 100).toString()); // Modify the $AUD to cents for database storage
+    formData.append("release_date", item.release_date);
+    formData.append("title", item.title);
+
+    const res = await api.post("/music", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
     return res.data as MusicItemType;
   } catch (error) {
     handleApiError(error);

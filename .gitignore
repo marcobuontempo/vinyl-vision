@@ -30,3 +30,6 @@ dist-ssr
 
 # Firebase
 firebase-service-account-key.json
+
+# Local Image Uploads
+backend/public

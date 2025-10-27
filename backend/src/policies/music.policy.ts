@@ -1,10 +1,10 @@
 /**
- * 
+ *
  * Music Policy Middlware
- * 
+ *
  * Defines the schema for "music" items in the database,
  * and validates requests containing them as payloads
- * 
+ *
  */
 
 // NPM IMPORTS
@@ -12,7 +12,7 @@ import { Request, Response, NextFunction } from "express";
 import Joi from "joi";
 import debug from "debug";
 // LOCAL IMPORTS
-import ApiError from "../utilities/ApiError.js";
+import ApiError from "../utilities/ApiError.util.js";
 
 // Debug logger for Joi-related actions
 const debugJoi = debug("app:joi");

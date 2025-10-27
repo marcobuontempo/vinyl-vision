@@ -10,7 +10,7 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 // LOCAL IMPORTS
 import config from "../config/index.js";
-import ApiError from "../utilities/ApiError.js";
+import ApiError from "../utilities/ApiError.util.js";
 
 const authMiddleware = {
   /**

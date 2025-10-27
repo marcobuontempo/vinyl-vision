@@ -32,23 +32,26 @@ import * as styles from "./styles.css";
  */
 const AdminCreate = () => {
   // Form values
-  const [values, setValues] = useState<Omit<MusicItemType, "id">>({
+  const [values, setValues] = useState<Omit<MusicItemType, "id" | "artwork">>({
     title: "",
     artist: "",
     description: "",
     genre: "",
     release_date: new Date().toISOString().split("T")[0],
-    artwork: "",
     length: 1,
     price_aud: 0,
     featured: false,
   });
+  const [imageFile, setImageFile] = useState<File | null>(null); // Handle the image upload
 
-  // Validates form inputs
-  const isFormInvalid = Object.entries(values).some(([key, value]) => {
-    if (key === "price_aud" || key === "featured") return false;
-    return !value;
-  });
+  // Validates form inputs - checks if there is a missing image file, or if any entries do not have a value
+  const isFormInvalid =
+    !imageFile ||
+    Object.entries(values).some(([key, value]) => {
+      if (key === "featured") return false; // exclude check on `featured`, as it is a boolean (and true/false are both valid)
+      if (key === "price_aud" && (value as number) >= 0) return false; // check `price_aud` is greater or equal to 0
+      return !value;
+    });
 
   // TanStack mutation for API submission
   const mutation = useMutation({
@@ -68,10 +71,19 @@ const AdminCreate = () => {
     });
   };
 
+  // Image change handler
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) setImageFile(file);
+  };
+
   // Form submission handler
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    mutation.mutate(values);
+    mutation.mutate({
+      ...values,
+      artwork: imageFile!,
+    });
   };
 
   return (
@@ -125,12 +137,11 @@ const AdminCreate = () => {
         required
       />
       <Input
-        label="Artwork URL"
+        label="Artwork File"
         name="artwork"
-        type="url"
+        type="file"
         autoComplete="off"
-        value={values.artwork}
-        onChange={handleChange}
+        onChange={handleFileChange}
         required
       />
       <Input

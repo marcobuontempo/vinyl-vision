@@ -10,7 +10,7 @@ import { Request, Response, NextFunction } from "express";
 import debug from "debug";
 // LOCAL IMPORTS
 import authUtil from "../utilities/auth.util.js";
-import ApiError from "../utilities/ApiError.js";
+import ApiError from "../utilities/ApiError.util.js";
 import { createUser, findOneUser } from "../services/users.service.js";
 
 // Debug logger for authentication-related actions

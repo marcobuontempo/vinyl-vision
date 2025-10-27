@@ -13,6 +13,7 @@ import MusicController from "../controllers/music.controller.js";
 import MusicPolicy from "../policies/music.policy.js";
 import FilePolicy from "../policies/file.policy.js";
 import { fileServerUpload } from "../middlewares/fileUpload.middleware.js";
+import { parseMusicItemFormData } from "../middlewares/formData.middleware.js";
 
 const router = express.Router();
 
@@ -48,13 +49,14 @@ router.get("/:id", MusicController.getOneById);
 router.post(
   "/",
   [authMiddleware.verifyJwt, authMiddleware.isAdmin],
+  parseMusicItemFormData,
   [
-    MusicPolicy.validateItem,
     FilePolicy.filesPayloadExists,
     FilePolicy.fileSizeLimiter,
     FilePolicy.fileExtLimiter([".png", ".jpg", ".jpeg", ".gif"]),
+    fileServerUpload,
   ],
-  fileServerUpload,
+  MusicPolicy.validateItem,
   MusicController.createMusicItem
 );
 

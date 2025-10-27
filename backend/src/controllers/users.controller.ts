@@ -11,7 +11,7 @@ import type { UserType } from "../../../shared/types/user.js";
 import { Request, Response, NextFunction } from "express";
 import debug from "debug";
 // LOCAL IMPORTS
-import ApiError from "../utilities/ApiError.js";
+import ApiError from "../utilities/ApiError.util.js";
 import authUtil from "../utilities/auth.util.js";
 import { findOneUserById, updateUser } from "../services/users.service.js";
 

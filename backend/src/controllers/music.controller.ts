@@ -14,7 +14,7 @@ import type {
 import { Request, Response, NextFunction } from "express";
 import debug from "debug";
 // LOCAL IMPORTS
-import ApiError from "../utilities/ApiError.js";
+import ApiError from "../utilities/ApiError.util.js";
 import {
   createOne,
   deleteOneMusicById,
@@ -22,6 +22,7 @@ import {
   findMusicFeatured,
   findOneMusicById,
 } from "../services/music.service.js";
+import { imageUpload } from "../utilities/image.util.js";
 
 // Debug logger for music-related actions
 const debugMusic = debug("app:music");
@@ -129,9 +130,7 @@ const MusicController = {
    */
   async createMusicItem(req: Request, res: Response, next: NextFunction) {
     try {
-      let downloadUrl;
-      const filename = res.locals.filename;
-
+      // Create the item, using the uploaded image URL + rest of the details
       const result = await createOne(req.body);
       res.status(201).send(result);
     } catch (error) {

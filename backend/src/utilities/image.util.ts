@@ -145,4 +145,4 @@ const deleteImage = async (publicId: string) => {
   }
 };
 
-export { initialiseCloudinary, getFileIdFromUrl, deleteImage, cloudinary };
+export { initialiseCloudinary, imageUpload, getFileIdFromUrl, deleteImage, cloudinary };

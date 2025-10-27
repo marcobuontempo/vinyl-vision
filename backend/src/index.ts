@@ -8,7 +8,7 @@ import morgan from "morgan";
 import debug from "debug";
 
 import routes from "./routes/index.js";
-import ApiError from "./utilities/ApiError.js";
+import ApiError from "./utilities/ApiError.util.js";
 import apiErrorHandler from "./middlewares/apiErrorHandler.middleware.js";
 import { connectDatabase } from "./utilities/database.util.js";
 import { initialiseCloudinary } from "./utilities/image.util.js";

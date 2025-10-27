@@ -3,12 +3,19 @@ import { Request, Response, NextFunction } from "express";
 import debug from "debug";
 import path from "path";
 // LOCAL IMPORTS
-import ApiError from "../utilities/ApiError.js";
+import ApiError from "../utilities/ApiError.util.js";
+import fileUpload from "express-fileupload";
+import { fileURLToPath } from "url";
+import { imageUpload } from "../utilities/image.util.js";
 
-const debugWRITE = debug("app:write");
+const debugWrite = debug("app:write");
+
+// Define the current directory and path
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
- * Uploads files (images) to server.
+ * Uploads file (image) to server.
  *
  * @param {Request} req
  * @param {Response} res
@@ -16,43 +23,49 @@ const debugWRITE = debug("app:write");
  */
 const fileServerUpload = (req: Request, res: Response, next: NextFunction) => {
   if (req.files) {
-    // Handle both single and multiple file uploads
-    const fileData = req.files.image;
-    const files = Array.isArray(fileData) ? fileData : [fileData];
+    const file = req.files.artwork as fileUpload.UploadedFile;
 
-    for (const file of files) {
-      debugWRITE(`Image for Server Processing: ${file.name}`);
+    debugWrite(`Image for Server Processing: ${file.name}`);
 
-      // Append unique filename extension
-      const filename = Date.now() + "_" + file.name;
-      debugWRITE(`Unique Filename: ${filename}`);
+    // Append unique filename extension
+    const filename = Date.now() + "_" + file.name;
+    debugWrite(`Unique Filename: ${filename}`);
 
-      // Declare server storage directory path
-      const uploadPath = path.join(
-        __dirname,
-        "../../public/uploads/",
-        filename
-      );
+    // Declare server storage directory path
+    const uploadPath = path.join(__dirname, "../../public/uploads/", filename);
 
-      // Move file to server storage
-      file
-        .mv(uploadPath)
-        .then(() => {
-          // Set filanme variable on `res` object and pass to next middleware
-          console.log(`Server Upload Successful: ${uploadPath}`);
-          res.locals.filename = filename;
+    // Move file to server storage
+    file
+      .mv(uploadPath)
+      .then(() => {
+        // Set filename variable on `res` object and pass to next middleware
+        console.log(`Server Upload Successful: ${uploadPath}`);
+        return filename;
+      })
+      .then((filename) => {
+        // Upload to Cloudinary
+        console.log("Uploading image externally...");
+        return imageUpload(filename);
+      })
+      .then((uploadResult) => {
+        if (uploadResult?.data) {
+          // Update the new Cloudinary URL to the req.body
+          req.body.artwork = uploadResult.data.secure_url;
           next();
-        })
-        .catch((error) => {
-          if (error)
-            return next(
-              ApiError.internal(
-                "Your file request could not be processed at this time",
-                error
-              )
-            );
-        });
-    }
+        } else {
+          // Something went wrong if no image was stored
+          throw new Error("Image could not be processed.");
+        }
+      })
+      .catch((error) => {
+        if (error)
+          return next(
+            ApiError.internal(
+              "Your file request could not be processed at this time",
+              error
+            )
+          );
+      });
   } else {
     next();
   }

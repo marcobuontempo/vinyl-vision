@@ -8,7 +8,7 @@
 // NPM IMPORTS
 import { NextFunction, Request, Response } from "express";
 // LOCAL IMPORTS
-import ApiError from "../utilities/ApiError.js";
+import ApiError from "../utilities/ApiError.util.js";
 
 /**
  * Handles errors across the application by sending consistent API responses.

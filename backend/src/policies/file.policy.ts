@@ -6,11 +6,12 @@
  */
 
 // NPM IMPORTS
+import { Request, Response, NextFunction } from "express";
 import debug from "debug";
 import path from "path";
 // LOCAL IMPORTS
-import ApiError from "../utilities/ApiError.js";
-import { Request, Response, NextFunction } from "express";
+import ApiError from "../utilities/ApiError.util.js";
+import fileUpload from "express-fileupload";
 
 const debugFileUpload = debug("app:fileupload");
 
@@ -25,7 +26,8 @@ export const FilePolicy = {
    *
    */
   filesPayloadExists: (req: Request, res: Response, next: NextFunction) => {
-    if (!req.files && !req.body.uploadedFile) {
+    debugFileUpload(req.files);
+    if (!req.files?.artwork) {
       return next(ApiError.badRequest("No file uploaded"));
     }
     debugFileUpload("File Payload exists.");
@@ -46,16 +48,11 @@ export const FilePolicy = {
     const FILE_SIZE_LIMIT = MB * 1024 * 1024;
 
     if (req.files) {
-      const fileData = req.files.image;
+      const file = req.files.artwork as fileUpload.UploadedFile;
 
-      // Handle both single and multiple file uploads
-      const files = Array.isArray(fileData) ? fileData : [fileData];
-
-      for (const file of files) {
-        if (file.size > FILE_SIZE_LIMIT) {
-          const message = `${file.name} is over the file size limit of ${MB} MB.`;
-          return next(ApiError.tooLarge(message));
-        }
+      if (file.size > FILE_SIZE_LIMIT) {
+        const message = `${file.name} is over the file size limit of ${MB} MB.`;
+        return next(ApiError.tooLarge(message));
       }
     }
 
@@ -73,23 +70,18 @@ export const FilePolicy = {
   fileExtLimiter: (allowedExtArray: Array<string>) => {
     return (req: Request, res: Response, next: NextFunction) => {
       if (req.files) {
-        const fileData = req.files.image;
+        const file = req.files.artwork as fileUpload.UploadedFile;
 
-        // Handle both single and multiple file uploads
-        const files = Array.isArray(fileData) ? fileData : [fileData];
+        const fileExtension = path.extname(file.name);
+        const allowed = allowedExtArray.includes(fileExtension);
+        if (!allowed) {
+          const message =
+            `Only ${allowedExtArray.toString()} files allowed.`.replaceAll(
+              ",",
+              ", "
+            );
 
-        for (const file of files) {
-          const fileExtension = path.extname(file.name);
-          const allowed = allowedExtArray.includes(fileExtension);
-          if (!allowed) {
-            const message =
-              `Only ${allowedExtArray.toString()} files allowed.`.replaceAll(
-                ",",
-                ", "
-              );
-
-            return next(ApiError.cannotProcess(message));
-          }
+          return next(ApiError.cannotProcess(message));
         }
       }
 

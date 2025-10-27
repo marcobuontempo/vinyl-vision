@@ -163,7 +163,7 @@ const Dashboard = () => {
           onChange={handleChange}
         />
         <Input
-          label="Current Password"
+          label="Current Password *"
           name="password"
           type="password"
           value={details.password}
