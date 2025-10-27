@@ -3,14 +3,19 @@
  *
  */
 interface Config {
-  port: string; // port the application server listens on
+  port: string; // Port the application server listens on
   db: {
-    serviceAccountKey: string; // path to Firebase service account key
+    serviceAccountKey: string; // Path to Firebase service account key
     storageBucket: string; // Firebase storage bucket URL
   };
   authentication: {
     jwtSecret: string; // Secret key used for signing JWT
   };
+  cloudinary: {
+    cloud_name: string; // Name of Cloudinary Product Environment
+    api_key: string; // API Key Value (e.g. 123456789101112)
+    api_secret: string; // API Key Secret (e.g. xxxxxxxxxxxxxxxxxxxxxxxxxxx)
+  }
 }
 
 /**
@@ -26,6 +31,11 @@ export const config: Config = {
   },
   authentication: {
     jwtSecret: process.env.JWT_SECRET ?? "",
+  },
+  cloudinary: {
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME ?? "",
+    api_key: process.env.CLOUDINARY_API_KEY ?? "",
+    api_secret: process.env.CLOUDINARY_API_SECRET ?? "",
   },
 };
 

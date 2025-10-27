@@ -1,8 +1,8 @@
 /**
  * Auth Routes
- * 
+ *
  * Defines API endpoints for authentication/authorisation management operations
- * 
+ *
  */
 
 // NPM IMPORTS
@@ -19,7 +19,7 @@ const router = express.Router();
  * @access  Public
  * @middleware AuthPolicy.validateRegister - validates registration request body
  */
-router.post("/register", AuthPolicy.validateAuth, AuthController.register);
+router.post("/register", [AuthPolicy.validateAuth], AuthController.register);
 
 /**
  * @route   POST /login
@@ -27,6 +27,6 @@ router.post("/register", AuthPolicy.validateAuth, AuthController.register);
  * @access  Public
  * @middleware AuthPolicy.validateLogin - validates login request body
  */
-router.post("/login", AuthPolicy.validateAuth, AuthController.login);
+router.post("/login", [AuthPolicy.validateAuth], AuthController.login);
 
 export default router;

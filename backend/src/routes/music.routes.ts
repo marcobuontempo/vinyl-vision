@@ -1,8 +1,8 @@
 /**
  * Music Routes
- * 
+ *
  * Defines API endpoints for music management operations
- * 
+ *
  */
 
 // NPM IMPORTS
@@ -11,6 +11,8 @@ import express from "express";
 import authMiddleware from "../middlewares/auth.middleware.js";
 import MusicController from "../controllers/music.controller.js";
 import MusicPolicy from "../policies/music.policy.js";
+import FilePolicy from "../policies/file.policy.js";
+import { fileServerUpload } from "../middlewares/fileUpload.middleware.js";
 
 const router = express.Router();
 
@@ -43,7 +45,18 @@ router.get("/:id", MusicController.getOneById);
  * @middleware authMiddleware.isAdmin - checks if user is admin
  * @middleware MusicPolicy.validateItem - validates request body
  */
-router.post("/", authMiddleware.verifyJwt, authMiddleware.isAdmin, MusicPolicy.validateItem, MusicController.createMusicItem);
+router.post(
+  "/",
+  [authMiddleware.verifyJwt, authMiddleware.isAdmin],
+  [
+    MusicPolicy.validateItem,
+    FilePolicy.filesPayloadExists,
+    FilePolicy.fileSizeLimiter,
+    FilePolicy.fileExtLimiter([".png", ".jpg", ".jpeg", ".gif"]),
+  ],
+  fileServerUpload,
+  MusicController.createMusicItem
+);
 
 /**
  * @route   DELETE /music/:id
@@ -52,6 +65,10 @@ router.post("/", authMiddleware.verifyJwt, authMiddleware.isAdmin, MusicPolicy.v
  * @middleware authMiddleware.verifyJwt - validates JWT token
  * @middleware authMiddleware.isAdmin - checks if user is admin
  */
-router.delete("/:id", authMiddleware.verifyJwt, authMiddleware.isAdmin, MusicController.deleteOneById);
+router.delete(
+  "/:id",
+  [authMiddleware.verifyJwt, authMiddleware.isAdmin],
+  MusicController.deleteOneById
+);
 
 export default router;

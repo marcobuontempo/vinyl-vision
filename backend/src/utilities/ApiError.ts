@@ -1,6 +1,6 @@
 /**
  * ApiError: Custom error class for HTTP API responses.
- * 
+ *
  */
 export class ApiError {
   code: number;
@@ -46,6 +46,22 @@ export class ApiError {
    */
   static notFound() {
     return new ApiError(404, "Resource Not Found");
+  }
+
+  /**
+   * Returns a 413 Content Too Large error.
+   * @param {string} message - Error message
+   */
+  static tooLarge(message: string) {
+    return new ApiError(413, `Upload Failed: ${message}`);
+  }
+
+  /**
+   * Returns a 422 Unprocessable Content error.
+   * @param {string} message - Error message
+   */
+  static cannotProcess(message: string) {
+    return new ApiError(422, `Upload Failed: ${message}`);
   }
 
   /**

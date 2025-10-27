@@ -30,15 +30,15 @@ const MusicController = {
   /**
    * Fetches all music items, optionally filtered and sorted.
    *
-   * @param req - Express request object.
+   * @param {Request} req - Express request object.
    *   - req.query.sortBy: Field to sort by (e.g., title, artist).
    *   - req.query.order: Sort order ("asc" or "desc").
    *   - req.query.title: Filter by title.
    *   - req.query.artist: Filter by artist name.
    *   - req.query.genre: Filter by genre.
    *   - req.query.featured: Filter whether the item is "featured" or not.
-   * @param res - Express response object.
-   * @param next - Express next function for error handling.
+   * @param {Response} res - Express response object.
+   * @param {NextFunction} next - Express next function for error handling.
    *
    * @returns JSON list of music items.
    */
@@ -69,10 +69,10 @@ const MusicController = {
   /**
    * Fetches a single music item by its unique ID.
    *
-   * @param req - Express request object.
+   * @param {Request} req - Express request object.
    *   - req.params.id: The music item's unique identifier.
-   * @param res - Express response object.
-   * @param next - Express next function for error handling.
+   * @param {Response} res - Express response object.
+   * @param {NextFunction} next - Express next function for error handling.
    *
    * @returns JSON object representing a music item, or 404 if not found.
    */
@@ -97,9 +97,9 @@ const MusicController = {
   /**
    * Fetches a list of featured music items.
    *
-   * @param req - Express request object.
-   * @param res - Express response object.
-   * @param next - Express next function for error handling.
+   * @param {Request} req - Express request object.
+   * @param {Response} res - Express response object.
+   * @param {NextFunction} next - Express next function for error handling.
    *
    * @returns JSON list of featured music items.
    */
@@ -120,15 +120,18 @@ const MusicController = {
   /**
    * Creates a new music item in the database.
    *
-   * @param req - Express request object.
+   * @param {Request} req - Express request object.
    *   - req.body: The music item data (title, artist, genre, etc).
-   * @param res - Express response object.
-   * @param next - Express next function for error handling.
+   * @param {Response} res - Express response object.
+   * @param {NextFunction} next - Express next function for error handling.
    *
    * @returns JSON object of the newly created music item.
    */
   async createMusicItem(req: Request, res: Response, next: NextFunction) {
     try {
+      let downloadUrl;
+      const filename = res.locals.filename;
+
       const result = await createOne(req.body);
       res.status(201).send(result);
     } catch (error) {
@@ -144,12 +147,12 @@ const MusicController = {
   /**
    * Deletes a music item from the database using its unique ID.
    *
-   * @param req - Express request object.
+   * @param {Request} req - Express request object.
    *   - req.params.id: The music item's unique identifier.
-   * @param res - Express response object.
-   * @param next - Express next function for error handling.
+   * @param {Response} res - Express response object.
+   * @param {NextFunction} next - Express next function for error handling.
    *
-   * @returns void (204 No Content)
+   * @returns {void} - [HTTP 204] No Content
    */
   async deleteOneById(req: Request, res: Response, next: NextFunction) {
     const { id } = req.params;

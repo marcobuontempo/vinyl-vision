@@ -3,6 +3,7 @@ import express from "express";
 import "dotenv/config";
 import { config } from "./config/index.js";
 
+import fileUpload from "express-fileupload";
 import morgan from "morgan";
 import debug from "debug";
 
@@ -10,6 +11,7 @@ import routes from "./routes/index.js";
 import ApiError from "./utilities/ApiError.js";
 import apiErrorHandler from "./middlewares/apiErrorHandler.middleware.js";
 import { connectDatabase } from "./utilities/database.util.js";
+import { initialiseCloudinary } from "./utilities/image.util.js";
 
 // Debug logger for app startup-related actions
 const debugStartup = debug("app:startup");
@@ -23,6 +25,9 @@ debugStartup("Parsing middleware enabled on all routes...");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// File Parsing Middleware
+app.use(fileUpload({ createParentPath: true }));
+
 // HTTP Request Logger
 app.use(morgan("dev"));
 
@@ -35,10 +40,23 @@ app.use((req, res, next) => next(ApiError.notFound()));
 // Error Handler
 app.use(apiErrorHandler);
 
-// Connect Database
-connectDatabase().then(() => {
-  // Start Server
-  app.listen(config.port, () => {
-    debugStartup(`App listening on port ${config.port}`);
-  });
-});
+// Define the startup process and order
+const startServer = async () => {
+  try {
+    // Connect to the database
+    await connectDatabase();
+
+    // Initialise Cloudinary
+    await initialiseCloudinary();
+
+    // Start the server
+    app.listen(config.port, () => {
+      debugStartup(`App listening on port ${config.port}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server:", error);
+    process.exit(1);
+  }
+};
+
+startServer();

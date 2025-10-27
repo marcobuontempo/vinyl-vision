@@ -1,3 +1,12 @@
+/**
+ * 
+ * Music Policy Middlware
+ * 
+ * Defines the schema for "music" items in the database,
+ * and validates requests containing them as payloads
+ * 
+ */
+
 // NPM IMPORTS
 import { Request, Response, NextFunction } from "express";
 import Joi from "joi";

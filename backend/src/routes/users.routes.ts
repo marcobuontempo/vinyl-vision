@@ -1,8 +1,8 @@
 /**
  * Users Routes
- * 
+ *
  * Defines API endpoints for user management operations
- * 
+ *
  */
 
 // NPM IMPORTS
@@ -21,6 +21,10 @@ const router = express.Router();
  * @middleware authMiddleware.verifyJwt - validates JWT token
  * @middleware AuthPolicy.validateAuth - validates request body
  */
-router.put("/:id", authMiddleware.verifyJwt, AuthPolicy.validateAuth, UsersController.updateUserDetails);
+router.put(
+  "/:id",
+  [authMiddleware.verifyJwt, AuthPolicy.validateAuth],
+  UsersController.updateUserDetails
+);
 
 export default router;
