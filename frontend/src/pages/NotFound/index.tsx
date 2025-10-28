@@ -15,6 +15,7 @@ import ErrorDisplay from "../../components/features/ErrorDisplay";
  * @returns Element displaying a standardised error message.
  */
 const NotFound = () => {
+  console.log("Invalid page route.");
   return (
     <ErrorDisplay
       number={404}
