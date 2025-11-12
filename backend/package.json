@@ -2,7 +2,11 @@
   "name": "backend",
   "private": true,
   "version": "0.0.0",
-  "description": "",
+  "description": "Vinyl Vision Backend",
+    "type": "module",
+  "rootDir": "src",
+  "outDir": "dist",
+  "main": "index.js",
   "scripts": {
     "dev": "DEBUG=app* tsx src/index.ts",
     "dev:watch": "DEBUG=app* tsx --watch src/index.ts",
@@ -12,7 +16,6 @@
   },
   "keywords": [],
   "author": "Marco Buontempo",
-  "type": "module",
   "dependencies": {
     "axios": "^1.12.2",
     "bcrypt": "^6.0.0",

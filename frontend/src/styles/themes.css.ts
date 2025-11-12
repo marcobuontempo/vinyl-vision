@@ -3,11 +3,12 @@
  */
 
 import { createGlobalTheme } from "@vanilla-extract/css";
+import { montserrat } from "./fonts.css";
 
 export const root = createGlobalTheme(":root", {
   fonts: {
-    heading: "Arial, sans-serif",
-    body: "Verdana, sans-serif",
+    heading: `${montserrat}, sans-serif`,
+    body: `${montserrat}, sans-serif`,
   },
   colors: {
     // Main

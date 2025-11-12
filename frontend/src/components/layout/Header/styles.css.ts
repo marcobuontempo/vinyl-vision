@@ -4,17 +4,21 @@ import { vars } from "../../../styles/themes.css";
 export const header = style({});
 
 export const nav = style({
+  position: "relative",
   height: vars.sizes.navbar,
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   borderBottom: `2px solid ${vars.colors.complementary}`,
-  background: vars.colors.primary,
   color: vars.colors.complementary,
+
+  // Bottom shadow only
+  boxShadow: `0 5px 20px color-mix(in srgb, ${vars.colors.accent} 10%, transparent)`,
 
   "@media": {
     "screen and (max-width: 768px)": {
       padding: `${vars.space.none} ${vars.space.lg}`,
+      justifyContent: "space-between",
     },
   },
 });
@@ -113,15 +117,18 @@ export const list = style([
 const logoBase = style([
   box,
   {
-    fontWeight: "bold",
-    textDecoration: "underline",
-    textDecorationColor: vars.colors.accent,
     selectors: {
       "&:hover": {
         transform: "scale(1.02)",
+        // Converts black to indigo
+        filter:
+          "brightness(0) saturate(100%) invert(15%) sepia(69%) saturate(5487%) hue-rotate(274deg) brightness(54%) contrast(116%)",
       },
       "&:active": {
         transform: "scale(1.05)",
+        // Converts black to purple
+        filter:
+          "brightness(0) saturate(100%) invert(13%) sepia(65%) saturate(6446%) hue-rotate(294deg) brightness(69%) contrast(111%)",
       },
     },
   },
@@ -130,8 +137,7 @@ const logoBase = style([
 export const logo = style([
   logoBase,
   {
-    textAlign: "center",
-
+    height: `calc(${vars.sizes.navbar} * 0.5)`,
     "@media": {
       "screen and (max-width: 768px)": {
         display: "none",
@@ -144,6 +150,7 @@ export const logoMobile = style([
   logoBase,
   {
     display: "none",
+    height: `calc(${vars.sizes.navbar} * 0.5)`,
     "@media": {
       "screen and (max-width: 768px)": {
         display: "block",

@@ -1,5 +1,13 @@
-import { style } from "@vanilla-extract/css";
+import { keyframes, style } from "@vanilla-extract/css";
 import { vars } from "../../../styles/themes.css";
+
+const animationTime = 30;
+
+const flowingGradient = keyframes({
+  "0%": { backgroundPosition: "0% 50%" },
+  "50%": { backgroundPosition: "100% 50%" },
+  "100%": { backgroundPosition: "0% 50%" },
+});
 
 export const hero = style({
   height: `calc(0.67 * ${vars.sizes.maxContent})`,
@@ -8,10 +16,27 @@ export const hero = style({
   justifyContent: "center",
   alignItems: "center",
   gap: vars.space.lg,
+
+  background: `linear-gradient(
+    270deg,
+    ${vars.colors.primary},
+    ${vars.colors.accent}
+  )`,
+  backgroundSize: "300% 500%",
+  animation: `${flowingGradient} ${animationTime}s ease infinite alternate`,
+});
+
+const colourShift = keyframes({
+  "0%": { color: vars.colors.light },
+  "25%": { color: vars.colors.light },
+  "75%": { color: vars.colors.dark },
+  "100%": { color: vars.colors.dark },
 });
 
 export const text = style({
   textAlign: "center",
+  color: vars.colors.light,
+  animation: `${colourShift} ${animationTime / 2}s ease-in-out infinite alternate`,
 });
 
 export const subtext = style({

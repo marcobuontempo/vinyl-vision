@@ -9,6 +9,7 @@ export const title = style({
   borderTop: `1px solid ${vars.colors.complementary}`,
   borderBottom: `1px solid ${vars.colors.complementary}`,
   padding: vars.space.sm,
+  fontFamily: vars.fonts.heading,
 });
 
 export const list = style({

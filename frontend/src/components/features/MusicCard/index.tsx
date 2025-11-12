@@ -59,7 +59,7 @@ const MusicCard = ({ data, className }: Props) => {
         <h2 id={`title-${data.id}`} className={styles.text}>
           {data.title}
         </h2>
-        <h3 className={styles.text}>{data.artist}</h3>
+        <h3 className={styles.artist}>{data.artist}</h3>
 
         {data.featured && (
           <FaStar className={styles.featured} title="featured item" />

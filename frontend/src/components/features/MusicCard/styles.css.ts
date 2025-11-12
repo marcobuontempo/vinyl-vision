@@ -52,9 +52,9 @@ export const placeholder = style([
   artwork,
   {
     opacity: 0.1,
-    padding: vars.space.xxl
-  }
-])
+    padding: vars.space.xxl,
+  },
+]);
 
 export const header = style({
   width: "100%",
@@ -68,6 +68,13 @@ export const text = style({
   whiteSpace: "nowrap",
   textOverflow: "ellipsis",
 });
+
+export const artist = style([
+  text,
+  {
+    fontWeight: "lighter",
+  },
+]);
 
 export const details = style({
   flex: "1",

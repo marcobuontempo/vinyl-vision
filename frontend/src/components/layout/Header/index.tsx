@@ -15,6 +15,7 @@ import { FaTimes } from "react-icons/fa";
 // LOCAL IMPORTS
 import { useAuth } from "../../../contexts/AuthContext";
 import { useCart } from "../../../contexts/CartContext";
+import logoImg from "../../../assets/logo.png";
 // STYLES IMPORTS
 import * as styles from "./styles.css";
 
@@ -35,9 +36,9 @@ const Header = () => {
     <header className={styles.header} role="banner">
       <nav className={styles.nav} aria-label="Main navigation">
         {/* LOGO MOBILE */}
-        <div className={styles.logoMobile}>
+        <div>
           <NavLink to="/" aria-label="Vinyl Vision home">
-            Vinyl Vision
+            <img className={styles.logoMobile} src={logoImg} alt="Vinyl Vision logo" />
           </NavLink>
         </div>
 
@@ -101,9 +102,13 @@ const Header = () => {
           </ul>
 
           {/* LOGO DESKTOP */}
-          <div className={styles.logo}>
+          <div>
             <NavLink to="/" aria-label="Vinyl Vision home">
-              Vinyl Vision
+              <img
+                className={styles.logo}
+                src={logoImg}
+                alt="Vinyl Vision logo"
+              />
             </NavLink>
           </div>
 

@@ -77,7 +77,6 @@ const AuthController = {
    *
    * @returns Sends a JSON response with a signed JWT token upon success.
    */
-
   async login(req: Request, res: Response, next: NextFunction) {
     try {
       // Destructure body

@@ -69,6 +69,7 @@ const AdminDelete = () => {
         disabled={isPending || isError}
         onChange={handleChange}
         value={musicId}
+        aria-label="Delete music items list"
       >
         {isPending && <option>Loading...</option>}
         {isError && <option>Error fetching data</option>}
