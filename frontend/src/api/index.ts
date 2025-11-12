@@ -14,7 +14,7 @@ import axios, { AxiosError } from "axios";
  * Use this instance for all API requests in the application.
  */
 export const api = axios.create({
-  baseURL: "/api",
+  baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`,
   headers: { "Content-Type": "application/json" },
 });
 
