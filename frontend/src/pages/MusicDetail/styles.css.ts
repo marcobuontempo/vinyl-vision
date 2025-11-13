@@ -35,6 +35,15 @@ export const imagewrapper = style({
   width: "50%",
   height: "100%",
   aspectRatio: "1/1",
+  "@media": {
+    "screen and (max-width: 1024px)": {
+      width: "60%",
+    },
+    "screen and (max-width: 768px)": {
+      width: "100%",
+      height: `calc(0.6 * ${vars.sizes.maxContent})`,
+    },
+  },
 });
 
 export const artwork = style({
@@ -45,13 +54,6 @@ export const artwork = style({
   width: "100%",
   objectFit: "cover",
   objectPosition: "center",
-
-  "@media": {
-    "screen and (max-width: 768px)": {
-      width: "100%",
-      height: `calc(0.75 * ${vars.sizes.maxContent})`,
-    },
-  },
 });
 
 export const placeholder = style([

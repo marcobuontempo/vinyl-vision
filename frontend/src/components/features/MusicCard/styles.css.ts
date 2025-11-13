@@ -59,7 +59,7 @@ export const placeholder = style([
 export const header = style({
   width: "100%",
   padding: `${vars.space.none} ${vars.space.md}`,
-  background: vars.colors.primary,
+  background: vars.colors.light,
   zIndex: "1",
 });
 
