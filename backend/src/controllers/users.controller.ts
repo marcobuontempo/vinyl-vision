@@ -6,7 +6,7 @@
  */
 
 // TYPES IMPORTS
-import type { UserType } from "@my/shared/types/user.js";
+import type { UserType } from "@my/shared";
 // NPM IMPORTS
 import { Request, Response, NextFunction } from "express";
 import debug from "debug";

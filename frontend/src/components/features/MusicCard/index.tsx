@@ -8,7 +8,7 @@
  */
 
 // TYPES IMPORTS
-import type { MusicItemType } from "../../../../../shared/types";
+import type { MusicItemType } from "@my/shared";
 // NPM IMPORTS
 import { Link } from "react-router-dom";
 // LOCAL IMPORTS

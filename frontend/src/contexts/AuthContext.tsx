@@ -10,7 +10,7 @@
 
 // TYPES IMPORTS
 import type { ReactNode } from "react";
-import type { UserType } from "../../../shared/types";
+import type { UserType } from "@my/shared";
 // NPM IMPORTS
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";

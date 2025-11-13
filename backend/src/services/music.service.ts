@@ -6,11 +6,7 @@
  */
 
 // TYPES IMPORTS
-import type {
-  FilterOptions,
-  MusicItemType,
-  SortOptions,
-} from "@my/shared/types/music.js";
+import type { FilterOptions, MusicItemType, SortOptions } from "@my/shared";
 // LOCAL IMPORTS
 import { db, mapDocument } from "../utilities/database.util.js";
 

@@ -8,7 +8,7 @@
  */
 
 // TYPES IMPORTS
-import type { MusicItemType } from "../../../shared/types";
+import type { MusicItemType } from "@my/shared";
 import type { ReactNode } from "react";
 // NPM IMPORTS
 import { createContext, useContext, useEffect, useState } from "react";

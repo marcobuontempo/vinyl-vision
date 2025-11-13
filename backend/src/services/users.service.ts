@@ -6,7 +6,7 @@
  */
 
 // TYPES IMPORTS
-import type { UserType } from "@my/shared/types/user.js";
+import type { UserType } from "@my/shared";
 // LOCAL IMPORTS
 import { db, mapDocument } from "../utilities/database.util.js";
 import authUtil from "../utilities/auth.util.js";

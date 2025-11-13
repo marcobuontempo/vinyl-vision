@@ -14,7 +14,7 @@ import type {
   FilterOptions,
   MusicItemType,
   SortOptions,
-} from "../../../shared/types";
+} from "@my/shared";
 // LOCAL IMPORTS
 import { api, handleApiError } from "./index";
 

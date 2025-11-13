@@ -7,7 +7,7 @@
  */
 
 // TYPES IMPORTS
-import type { MusicItemType } from "../../../../../shared/types";
+import type { MusicItemType } from "@my/shared";
 // LOCAL IMPORTS
 import { useCart } from "../../../contexts/CartContext";
 import { formatCentsToCurrency } from "../../../utils/helpers";

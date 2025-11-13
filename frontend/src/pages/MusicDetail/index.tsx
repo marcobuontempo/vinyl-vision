@@ -10,7 +10,7 @@
  */
 
 // TYPES IMPORTS
-import type { MusicItemType } from "../../../../shared/types";
+import type { MusicItemType } from "@my/shared";
 // NPM IMPORTS
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";

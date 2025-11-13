@@ -32,6 +32,7 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "@my/shared": "file:../shared",
     "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/debug": "^4.1.12",

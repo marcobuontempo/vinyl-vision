@@ -9,7 +9,7 @@
  */
 
 // TYPES IMPORTS
-import type { FilterOptions, SortOptions } from "../../../../../shared/types";
+import type { FilterOptions, SortOptions } from "@my/shared";
 // NPM IMPORTS
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";

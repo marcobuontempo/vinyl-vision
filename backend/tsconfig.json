@@ -19,7 +19,10 @@
     "skipLibCheck": true,
     "moduleResolution": "node16",
 
-    "types": ["node", "express"]
+    "types": ["node", "express"],
+    "paths": {
+      "@my/shared/*": ["../shared/*"]
+    }
   },
   "include": ["**/*.ts"],
   "exclude": ["dist"]

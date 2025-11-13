@@ -1,5 +1,5 @@
 // TYPES IMPORTS
-import type { UserType } from "@my/shared/types/user.ts";
+import type { UserType } from "@my/shared";
 // NPM IMPORTS
 import { JwtPayload } from "jsonwebtoken";
 

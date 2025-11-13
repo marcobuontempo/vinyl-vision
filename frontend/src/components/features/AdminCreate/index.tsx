@@ -10,7 +10,7 @@
  */
 
 // TYPES IMPORTS
-import type { MusicItemType } from "../../../../../shared/types";
+import type { MusicItemType } from "@my/shared";
 import type { ChangeEvent, FormEvent } from "react";
 // NPM IMPORTS
 import { useState } from "react";
