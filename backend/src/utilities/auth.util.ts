@@ -6,7 +6,7 @@
  */
 
 // TYPE IMPORTS
-import type { UserType } from "../../../shared/types/user.js";
+import type { UserType } from "@my/shared/types/user.js";
 // NPM IMPORTS
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";

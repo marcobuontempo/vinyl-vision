@@ -4,7 +4,7 @@
  */
 
 // TYPE IMPORTS
-import type { UserType } from "../../../shared/types/user.js";
+import type { UserType } from "@my/shared/types/user.js";
 // NPM IMPORTS
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";

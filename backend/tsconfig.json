@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
+    "baseUrl": ".",
+    "rootDir": "src",
+    "outDir": "dist",
 
     "lib": [
       "es2024",
@@ -17,8 +19,7 @@
     "skipLibCheck": true,
     "moduleResolution": "node16",
 
-    "types": ["node", "express"],
-    "typeRoots": ["./src/types", "./node_modules/@types"]
+    "types": ["node", "express"]
   },
   "include": ["**/*.ts"],
   "exclude": ["dist"]

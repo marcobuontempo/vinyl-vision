@@ -10,7 +10,7 @@ import type {
   FilterOptions,
   MusicItemType,
   SortOptions,
-} from "../../../shared/types/music.js";
+} from "@my/shared/types/music.js";
 // LOCAL IMPORTS
 import { db, mapDocument } from "../utilities/database.util.js";
 

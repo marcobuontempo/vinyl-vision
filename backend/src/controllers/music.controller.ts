@@ -9,7 +9,7 @@
 import type {
   FilterOptions,
   SortOptions,
-} from "../../../shared/types/music.js";
+} from "@my/shared/types/music.js";
 // NPM IMPORTS
 import { Request, Response, NextFunction } from "express";
 import debug from "debug";
