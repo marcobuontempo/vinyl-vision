@@ -38,7 +38,11 @@ const Header = () => {
         {/* LOGO MOBILE */}
         <div>
           <NavLink to="/" aria-label="Vinyl Vision home">
-            <img className={styles.logoMobile} src={logoImg} alt="Vinyl Vision logo" />
+            <img
+              className={styles.logoMobile}
+              src={logoImg}
+              alt="Vinyl Vision logo"
+            />
           </NavLink>
         </div>
 
@@ -69,6 +73,7 @@ const Header = () => {
             <li role="none">
               <NavLink
                 to="/"
+                onClick={() => setMenuOpen(false)}
                 className={({ isActive }) =>
                   isActive ? styles.active : styles.inactive
                 }
@@ -80,6 +85,7 @@ const Header = () => {
             <li role="none">
               <NavLink
                 to="/music"
+                onClick={() => setMenuOpen(false)}
                 className={({ isActive }) =>
                   isActive ? styles.active : styles.inactive
                 }
@@ -91,6 +97,7 @@ const Header = () => {
             <li role="none">
               <NavLink
                 to="/about"
+                onClick={() => setMenuOpen(false)}
                 className={({ isActive }) =>
                   isActive ? styles.active : styles.inactive
                 }
@@ -118,6 +125,7 @@ const Header = () => {
               <li role="none">
                 <NavLink
                   to="/admin"
+                  onClick={() => setMenuOpen(false)}
                   className={({ isActive }) =>
                     isActive ? styles.activeAdmin : styles.inactiveAdmin
                   }
@@ -131,6 +139,7 @@ const Header = () => {
               <li role="none">
                 <NavLink
                   to="/dashboard"
+                  onClick={() => setMenuOpen(false)}
                   className={({ isActive }) =>
                     isActive ? styles.active : styles.inactive
                   }
@@ -144,6 +153,7 @@ const Header = () => {
                 <li role="none">
                   <NavLink
                     to="/login"
+                    onClick={() => setMenuOpen(false)}
                     className={({ isActive }) =>
                       isActive ? styles.active : styles.inactive
                     }
@@ -155,6 +165,7 @@ const Header = () => {
                 <li role="none">
                   <NavLink
                     to="/register"
+                    onClick={() => setMenuOpen(false)}
                     className={({ isActive }) =>
                       isActive ? styles.active : styles.inactive
                     }
@@ -168,6 +179,7 @@ const Header = () => {
             <li role="none">
               <NavLink
                 to="/cart"
+                onClick={() => setMenuOpen(false)}
                 className={({ isActive }) =>
                   isActive ? styles.activeCart : styles.inactiveCart
                 }

@@ -139,15 +139,32 @@ Built with React.js (Vite) and styled using entirely custom Vanilla Extract, the
 > “Authenticated User” refers to a user accessing **only their own account data**.<br>
 > It does not grant access to other users’ information.
 
-| Method  | Endpoint | Access Level |
-| ------- | -------- | ------------ |
-| **GET** | `/api/`  | Public       |
+| Method     | Endpoint              | Access Level       |
+| ---------- | --------------------- | ------------------ |
+| **GET**    | `/api/`               | Public             |
+| **POST**   | `/api/auth/login`     | Public             |
+| **POST**   | `/api/auth/register`  | Public             |
+| **PUT**    | `/api/users/:id`      | Authenticated User |
+| **GET**    | `/api/music`          | Public             |
+| **GET**    | `/api/music/featured` | Public             |
+| **GET**    | `/api/music/:id`      | Public             |
+| **POST**   | `/api/music`          | Admin Only         |
+| **DELETE** | `/api/music/:id`      | Admin Only         |
 
 ### 🧭 Routes (Frontend)
 
-| Name | Endpoint | Access Level |
-| ---- | -------- | ------------ |
-| Home | `/`      | Public       |
+| Name            | Endpoint             | Access Level       |
+| --------------- | -------------------- | ------------------ |
+| Home            | `/`                  | Public             |
+| Register        | `/register`          | Public             |
+| Login           | `/login`             | Public             |
+| User Dashboard  | `/dashboard`         | Authenticated User |
+| Admin Dashboard | `/admin`             | Admin              |
+| Music           | `/music`             | Public             |
+| Music Details   | `/music/:id`         | Public             |
+| Cart            | `/cart`              | Public             |
+| About           | `/about`             | Public             |
+| Not Found       | `/<non-valid-route>` | Public             |
 
 ## 📄 License
 
